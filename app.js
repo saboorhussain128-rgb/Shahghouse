@@ -122,23 +122,36 @@ const RESTAURANT_DATA = {
       portion: "Mandi Platter (Serves 2-4)",
       special: true,
       desc: "Fragrant spiced rice topped with slow-roasted melt-in-mouth mutton shank, accompanied by spicy Yemeni tomato salsa.",
-      image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80",
+      image: "images/mutton-mandi.jpg",
       heritage: "A traditional Yemeni dish that became a culinary staple among the Chaush community of Barkas in Hyderabad.",
       ingredients: "Mutton Shanks, Mandi Masala (Hawaij), Basmati Rice, Dried Black Lime (Loomi), Roasted Almonds, Golden Raisins.",
       pairings: "Arabian Tomato Chutney, Cucumber Yogurt Salsa, and Clear Soup."
     },
     {
       id: "dish-5",
-      name: "Faham Chicken Mandi Platter",
+      name: "Shah Ghouse Chicken Mandi",
       category: "mandi",
       type: "nonveg",
       portion: "Full Platter",
       special: false,
       desc: "Charcoal-grilled whole spiced chicken served over fragrant dry-fruit rice with authentic Arabic dip.",
-      image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=700&q=80",
+      image: "images/chicken-mandi.jpg",
       heritage: "Combines Arabian pit-roasting with smoky barbecue char, celebrated across Hyderabad's evening dining spots.",
       ingredients: "Charcoal-Grilled Chicken, Cardamom Basmati, Crushed Garlic, Lemon Zest, Golden Fried Cashews.",
       pairings: "Touwm (Garlic Mayonnaise Dip), Spicy Tomato Chutney, and Fresh Salad."
+    },
+    {
+      id: "dish-5b",
+      name: "Shah Ghouse Special Mix Mandi",
+      category: "mandi",
+      type: "nonveg",
+      portion: "Grand Platter (Serves 3-5)",
+      special: true,
+      desc: "The ultimate Mandi feast combining succulent slow-roasted mutton and juicy grilled chicken over fragrant mandi rice, dry fruits, and Arab spices.",
+      image: "images/mix-mandi.jpg",
+      heritage: "A royal party platter uniting tender mutton and golden grilled chicken on aromatic Yemeni basmati.",
+      ingredients: "Tender Mutton Chunks, Grilled Chicken, Mandi Rice, Hawaij Spices, Fried Cashews, Almonds, Saffron, Crispy Onions.",
+      pairings: "Tomato Salsa, Garlic Touwm Dip, Cucumber Raita, and Clear Mutton Marag Soup."
     },
 
     // 3. HALEEM & SOUPS
@@ -388,7 +401,7 @@ let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Initialize Data
 function initData() {
-  const saved = localStorage.getItem('shahghouse_luxury_menu_v4');
+  const saved = localStorage.getItem('shahghouse_luxury_menu_v5');
   if (saved) {
     try {
       appData = JSON.parse(saved);
@@ -413,7 +426,7 @@ function initData() {
 }
 
 function saveData() {
-  localStorage.setItem('shahghouse_luxury_menu_v4', JSON.stringify(appData));
+  localStorage.setItem('shahghouse_luxury_menu_v5', JSON.stringify(appData));
 }
 
 // Show Toast
