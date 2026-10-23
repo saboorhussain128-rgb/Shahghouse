@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shahghouse Yarns &amp; Textiles | Hyderabad • Royal Quality Since 1984</title>
+  
+  <!-- Favicon & Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =================================================================
+       TOP ANNOUNCEMENT & INSTAGRAM TICKER
+       ================================================================= -->
+  <div class="top-ticker">
+    <div class="top-ticker-content">
+      <div class="ticker-left">
+        <span class="badge-heritage">ESTD 1984</span>
+        <span id="topAnnouncement">✨ Accepting Global Wholesale &amp; Export Orders for 2026-2027 Season | Connect with our Mills</span>
+      </div>
+      <div class="ticker-right">
+        <a href="https://www.instagram.com/shahghouseofficial" target="_blank" rel="noopener noreferrer" class="ticker-link">
+          <span>📸</span>
+          <span>@shahghouseofficial</span>
+        </a>
+        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="ticker-link">
+          <span>💬</span>
+          <span>WhatsApp Inquiry</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       HEADER & NAVIGATION BAR WITH STAFF ICON
+       ================================================================= -->
+  <header class="main-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="brand-wrapper">
+        <img src="logo.svg" alt="Shahghouse Yarn Logo" class="brand-logo-img" id="mainBrandLogo" onerror="this.onerror=null; this.src='image.png';">
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#features" class="nav-link">Mill Features</a></li>
+          <li><a href="#catalog" class="nav-link">Yarn Catalog</a></li>
+          <li><a href="#specs" class="nav-link">Count Specs</a></li>
+          <li><a href="#instagram" class="nav-link">Instagram Reel</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions: Staff Portal Icon & Login -->
+      <div class="header-actions">
+        
+        <!-- STAFF ICON (Appears when logged in as Owner/Manager) -->
+        <button id="staffNavBtn" class="staff-icon-btn" style="display: none;" title="Open Staff / Admin Portal">
+          <span class="staff-badge-pulse"></span>
+          <span style="font-size: 1.15rem;">👔</span>
+          <span id="staffNavText">Staff Portal</span>
+          <span class="role-badge" id="headerRoleBadge">Owner</span>
+        </button>
+
+        <!-- Login Button (Visible when logged out) -->
+        <button id="loginNavBtn" class="btn-outline">
+          <span>🔐</span> Staff Login
+        </button>
+
+        <!-- Logout Button -->
+        <button id="logoutBtn" class="btn-logout" style="display: none;">
+          Logout
+        </button>
+
+        <!-- Request Wholesale Quote CTA -->
+        <button class="btn-primary" onclick="openQuoteModal()">
+          <span>⚡</span> Get Wholesale Quote
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =================================================================
+       HERO SHOWCASE SECTION
+       ================================================================= -->
+  <section class="hero-section" id="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-container">
+      
+      <div class="hero-content">
+        <div class="hero-tag" id="heroTag">HYDERABAD HERITAGE • SINCE 1984</div>
+        <h1 class="hero-title" id="heroTitle">Crown of Quality in Premium Yarns &amp; Textiles</h1>
+        <p class="hero-subtitle" id="heroSubtitle">
+          From the historic legacy of Hyderabad comes unmatched spinning excellence. Supplying high-CSP combed cotton, ring spun, compact, and luxury blended yarns to global garment makers.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#catalog" class="btn-primary" style="padding: 12px 26px; font-size: 1rem;">
+            <span>🧶</span> Browse Yarn Collections
+          </a>
+          <button class="btn-outline" style="border-color: var(--royal-gold); color: var(--light-gold); padding: 11px 22px;" onclick="openModal('loginModal')">
+            <span>👑</span> Owner &amp; Manager Gateway
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3>40+</h3>
+            <p>Years Heritage</p>
+          </div>
+          <div class="stat-item">
+            <h3>100%</h3>
+            <p>Export Standard</p>
+          </div>
+          <div class="stat-item">
+            <h3>50,000+</h3>
+            <p>Spindles Active</p>
+          </div>
+          <div class="stat-item">
+            <h3>ISO 9001</h3>
+            <p>Certified Quality</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80" alt="Premium Shahghouse Yarn Cones" class="hero-image-reel">
+          <div class="hero-badge-overlay">
+            <span class="badge-icon">👑</span>
+            <div class="badge-text">
+              <h4>Shahghouse Signature Cones</h4>
+              <p>Even Spun • Zero Knot • Uniform CSP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================================================================
+       DYNAMIC MILL FEATURES SECTION (MANAGED BY OWNER)
+       ================================================================= -->
+  <section class="section" id="features">
+    <div class="section-header">
+      <span class="section-pretitle">Craftsmanship &amp; Engineering</span>
+      <h2 class="section-title">The Shahghouse Advantage</h2>
+      <p class="section-desc">
+        Equipped with state-of-the-art ring frames and automated winding to deliver zero-defect yarn for high-speed weaving and circular knitting.
+      </p>
+    </div>
+
+    <!-- Features Container (Dynamically updated via app.js) -->
+    <div class="features-grid" id="featuresGrid">
+      <!-- Populated by app.js -->
+    </div>
+  </section>
+
+  <!-- =================================================================
+       YARN CATALOG & PRODUCTS SECTION
+       ================================================================= -->
+  <section class="section" id="catalog" style="background: #ffffff; max-width: 100%; padding: 80px 20px;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="section-header">
+        <span class="section-pretitle">Spun for Perfection</span>
+        <h2 class="section-title">Our Premium Yarn Range</h2>
+        <p class="section-desc">
+          Available on paper cones, perforated dye tubes, and ready-to-ship export-packed pallets.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="catalog-filters">
+        <button class="filter-btn active" data-filter="all">All Products</button>
+        <button class="filter-btn" data-filter="combed">Combed &amp; Compact Cotton</button>
+        <button class="filter-btn" data-filter="carded">Carded &amp; Open End</button>
+        <button class="filter-btn" data-filter="melange">Melange &amp; Heather</button>
+        <button class="filter-btn" data-filter="luxury">Micro-Modal Blends</button>
+        <button class="filter-btn" data-filter="synthetic">Polyester &amp; Synthetic</button>
+      </div>
+
+      <!-- Products Grid (Dynamically updated via app.js) -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       TECHNICAL SPECIFICATIONS TABLE
+       ================================================================= -->
+  <section class="section" id="specs">
+    <div class="section-header">
+      <span class="section-pretitle">Mill Laboratory Data</span>
+      <h2 class="section-title">Standard Count Specifications</h2>
+      <p class="section-desc">
+        Parameters tested on Premier &amp; Uster testers under standard 65% RH at 20°C.
+      </p>
+    </div>
+
+    <div class="specs-table-wrap">
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>Yarn Count (Ne)</th>
+            <th>Spinning Type</th>
+            <th>Raw Fiber Material</th>
+            <th>Average CSP</th>
+            <th>Recommended Use</th>
+            <th>Standard MOQ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>20s Ne Carded</strong></td>
+            <td>Open End (OE)</td>
+            <td>100% Shankar-6 Cotton</td>
+            <td>2,350+</td>
+            <td>Denim Weft, Heavy Canvas, Twill</td>
+            <td>1,000 Kg</td>
+          </tr>
+          <tr>
+            <td><strong>30s Ne Combed</strong></td>
+            <td>Ring Spun</td>
+            <td>100% Long Staple Cotton</td>
+            <td>2,800+</td>
+            <td>Single Jersey Knits, T-shirts</td>
+            <td>500 Kg</td>
+          </tr>
+          <tr>
+            <td><strong>40s Ne Compact</strong></td>
+            <td>Compact Spun</td>
+            <td>100% Giza / Supima Grade</td>
+            <td>3,100+</td>
+            <td>High-end Shirting, Poplin Weaving</td>
+            <td>1,000 Kg</td>
+          </tr>
+          <tr>
+            <td><strong>30/1 Melange</strong></td>
+            <td>Dyed Fiber Spun</td>
+            <td>60% Cotton / 40% Polyester</td>
+            <td>2,650+</td>
+            <td>Heather Grey Polos, Sportswear</td>
+            <td>800 Kg</td>
+          </tr>
+          <tr>
+            <td><strong>50s Micro-Modal</strong></td>
+            <td>Ring Spun Blend</td>
+            <td>50% Modal / 50% Combed Cotton</td>
+            <td>3,200+</td>
+            <td>Luxury Lingerie, Baby Garments</td>
+            <td>300 Kg</td>
+          </tr>
+          <tr>
+            <td><strong>150D / 48F</strong></td>
+            <td>Draw Textured (DTY)</td>
+            <td>100% Virgin Polyester</td>
+            <td>4.2 g/den</td>
+            <td>Computerized Embroidery, Seaming</td>
+            <td>500 Kg</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       INSTAGRAM PROFILE & SHOWCASE (@shahghouseofficial)
+       ================================================================= -->
+  <section class="section insta-section" id="instagram" style="max-width: 100%; padding: 80px 20px;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      
+      <!-- Instagram Header Card -->
+      <div class="insta-banner">
+        <div class="insta-profile-info">
+          <div class="insta-avatar">
+            <img src="logo.svg" alt="Shahghouse Instagram Avatar" onerror="this.src='image.png'">
+          </div>
+          <div class="insta-handle-text">
+            <h4>@shahghouseofficial</h4>
+            <p>Authentic Hyderabadi Heritage • Textiles, Yarns &amp; Royal Legacy Since 1984</p>
+          </div>
+        </div>
+
+        <a href="https://www.instagram.com/shahghouseofficial" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <span>📸</span> Follow on Instagram
+        </a>
+      </div>
+
+      <!-- Instagram Media Grid -->
+      <div class="insta-grid">
+        <div class="insta-card">
+          <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=600&q=80" alt="Yarn Spindles">
+          <div class="insta-overlay">
+            <span style="font-size: 1.8rem;">🧵</span>
+            <strong>Precision Ring Spun Cones</strong>
+            <p style="font-size: 0.8rem;">Ready for bulk container dispatch</p>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=600&q=80" alt="Yarn Texture">
+          <div class="insta-overlay">
+            <span style="font-size: 1.8rem;">✨</span>
+            <strong>40s Compact Sheen</strong>
+            <p style="font-size: 0.8rem;">Silky smooth touch for shirting</p>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" alt="Fabric Weaving">
+          <div class="insta-overlay">
+            <span style="font-size: 1.8rem;">🏭</span>
+            <strong>High-Speed Airjet Looms</strong>
+            <p style="font-size: 0.8rem;">Zero yarn breakage performance</p>
+          </div>
+        </div>
+
+        <div class="insta-card">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80" alt="Melange Shades">
+          <div class="insta-overlay">
+            <span style="font-size: 1.8rem;">🎨</span>
+            <strong>Custom Shade Matching</strong>
+            <p style="font-size: 0.8rem;">Consistent lab dips &amp; dye lots</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================================================================
+       LOGIN GATE MODAL (OWNER & MANAGER)
+       ================================================================= -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeLoginModal" title="Close">&times;</button>
+      
+      <div class="modal-header">
+        <img src="logo.svg" alt="Shahghouse Seal" style="height: 60px; margin-bottom: 12px;" onerror="this.src='image.png'">
+        <h2 class="modal-title">Staff Portal Login</h2>
+        <p class="modal-subtitle">Authorized access for Shahghouse Mill Owner &amp; Managers</p>
+      </div>
+
+      <!-- Quick 1-Click Credential Chips for Easy Testing -->
+      <div class="quick-creds">
+        <strong>⚡ 1-Click Demo Credentials:</strong>
+        <div class="creds-chips">
+          <button type="button" class="chip-btn" onclick="fillDemoCreds('owner')">
+            👑 Click to Fill Owner Login
+          </button>
+          <button type="button" class="chip-btn" onclick="fillDemoCreds('manager')">
+            📋 Click to Fill Manager Login
+          </button>
+        </div>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginUsername">Staff Username / Email</label>
+          <input type="text" id="loginUsername" class="form-input" placeholder="e.g. owner@shahghouse or manager@shahghouse" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="Enter password (e.g. owner@shahghouse)" required>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 1rem; margin-top: 10px;">
+          <span>🔓</span> Enter Staff Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       STAFF / OWNER MANAGEMENT DASHBOARD MODAL
+       ================================================================= -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-card admin-modal">
+      <button class="modal-close-btn" id="closeAdminModal" title="Close">&times;</button>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-gold); padding-bottom: 16px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <img src="logo.svg" style="height: 44px;" alt="Logo" onerror="this.src='image.png'">
+          <div>
+            <h2 id="adminGreeting" style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--dark-maroon);">Staff Management Hub</h2>
+            <p id="adminRoleDisplay" style="font-size: 0.82rem; color: var(--text-muted);"></p>
+          </div>
+        </div>
+        <button class="btn-primary" style="padding: 7px 14px; font-size: 0.82rem;" onclick="downloadLogoPng()">
+          <span>🖼️</span> Download Logo (PNG)
+        </button>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-target="tabFeatures" id="tabFeaturesBtn">👑 Add New Features</button>
+        <button class="admin-tab-btn" data-target="tabCatalog" id="tabCatalogBtn">📦 Manage Yarn Catalog</button>
+        <button class="admin-tab-btn" data-target="tabHero" id="tabHeroBtn">⚙️ Hero &amp; Site Settings</button>
+        <button class="admin-tab-btn" data-target="tabInquiries" id="tabInquiriesBtn">📩 Wholesale Inquiries</button>
+        <button class="admin-tab-btn" data-target="tabGithub" id="tabGithubBtn">🐙 GitHub Sync &amp; JSON</button>
+      </div>
+
+      <!-- TAB 1: ADD NEW FEATURES (OWNER ONLY) -->
+      <div class="admin-tab-panel active" id="tabFeatures">
+        <div class="admin-card-section">
+          <h3 style="color: var(--dark-maroon); margin-bottom: 12px;">Add New Feature / Advantage to Website</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+            As the <strong>Owner</strong>, you can add new highlights, technologies, certifications, or guarantees. When saved, it immediately appears on the live website!
+          </p>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Feature Title</label>
+              <input type="text" id="newFeatureTitle" class="form-input" placeholder="e.g. 100% Zero-Slub Combed Quality">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category Badge</label>
+              <input type="text" id="newFeatureBadge" class="form-input" placeholder="e.g. EXPORT SPEC">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Emoji / Icon</label>
+              <input type="text" id="newFeatureIcon" class="form-input" placeholder="e.g. 🧵, 👑, 💎, 🚀" value="🧵">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Feature Description</label>
+            <textarea id="newFeatureDesc" class="form-textarea" rows="2" placeholder="Describe the technology, warranty, or benefit for textile clients..."></textarea>
+          </div>
+
+          <button class="btn-primary" onclick="addNewFeature()">
+            <span>➕</span> Add Feature &amp; Update Live Website
+          </button>
+        </div>
+
+        <h4 style="color: var(--dark-maroon); margin: 20px 0 10px;">Current Live Features on Website:</h4>
+        <div id="adminFeaturesList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 2: MANAGE YARN PRODUCTS (OWNER & MANAGER) -->
+      <div class="admin-tab-panel" id="tabCatalog">
+        <div class="admin-card-section">
+          <h3 style="color: var(--dark-maroon); margin-bottom: 12px;">Add New Yarn Cone to Catalog</h3>
+          
+          <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Product Name</label>
+              <input type="text" id="newProdName" class="form-input" placeholder="e.g. 60s Super-Combed Giza Cotton">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Yarn Count (Ne / Denier)</label>
+              <input type="text" id="newProdCount" class="form-input" placeholder="e.g. 60s Ne Super-Combed">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="newProdCategory" class="form-select">
+                <option value="combed">Combed &amp; Compact</option>
+                <option value="carded">Carded &amp; Open End</option>
+                <option value="melange">Melange &amp; Heather</option>
+                <option value="luxury">Luxury &amp; Modal Blends</option>
+                <option value="synthetic">Synthetic / Polyester</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">MOQ (Minimum Order)</label>
+              <input type="text" id="newProdMoq" class="form-input" placeholder="e.g. 500 Kg">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Stock Status</label>
+              <select id="newProdStock" class="form-select">
+                <option value="in">In Stock (Ready)</option>
+                <option value="order">Made to Order</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Image URL</label>
+              <input type="text" id="newProdImage" class="form-input" placeholder="Paste image link or leave default" value="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=600&q=80">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Yarn Description &amp; Technical Application</label>
+            <textarea id="newProdDesc" class="form-textarea" rows="2" placeholder="e.g. Zero-hairiness ring spun cone for ultra-fine shirting..."></textarea>
+          </div>
+
+          <button class="btn-primary" onclick="addNewProduct()">
+            <span>➕</span> Add Product to Live Catalog
+          </button>
+        </div>
+
+        <h4 style="color: var(--dark-maroon); margin: 20px 0 10px;">Current Products in Catalog:</h4>
+        <div id="adminProductsList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 3: HERO BANNER & SITE SETTINGS -->
+      <div class="admin-tab-panel" id="tabHero">
+        <div class="admin-card-section">
+          <h3 style="color: var(--dark-maroon); margin-bottom: 12px;">Edit Website Banners &amp; Contacts</h3>
+
+          <div class="form-group">
+            <label class="form-label">Hero Title Headline</label>
+            <input type="text" id="inputHeroTitle" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hero Subtitle</label>
+            <textarea id="inputHeroSubtitle" class="form-textarea" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Top Announcement Ticker Message</label>
+            <input type="text" id="inputAnnouncement" class="form-input">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">WhatsApp Contact Number</label>
+              <input type="text" id="inputWhatsapp" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Client Instagram URL</label>
+              <input type="text" id="inputInstagram" class="form-input">
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button class="btn-primary" onclick="saveSiteSettings()">
+              <span>💾</span> Save Changes &amp; Update Live Site
+            </button>
+            <button class="btn-outline" onclick="resetToDefault()">
+              <span>🔄</span> Reset to Defaults
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: WHOLESALE INQUIRIES -->
+      <div class="admin-tab-panel" id="tabInquiries">
+        <h3 style="color: var(--dark-maroon); margin-bottom: 12px;">Incoming Wholesale Quotations</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Direct leads submitted by textile mills, garment exporters, and fabric manufacturers.
+        </p>
+        <div id="adminInquiriesList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 5: GITHUB SYNC & DATA EXPORT -->
+      <div class="admin-tab-panel" id="tabGithub">
+        <div class="admin-card-section">
+          <h3 style="color: var(--dark-maroon); margin-bottom: 8px;">GitHub Repository Integration</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+            Connected Repository: <code>https://github.com/saboorhussain128-rgb/Shahghouse.git</code>
+          </p>
+
+          <p style="font-size: 0.85rem; margin-bottom: 10px;">
+            Below is the full JSON state containing all your custom features, products, and banner settings. You can copy this data anytime:
+          </p>
+
+          <textarea id="jsonExportArea" class="form-textarea" rows="8" readonly style="font-family: monospace; font-size: 0.82rem; background: #fff;"></textarea>
+          
+          <button class="btn-primary" style="margin-top: 10px;" onclick="copyJsonData()">
+            <span>📋</span> Copy Data to Clipboard
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =================================================================
+       WHOLESALE QUOTATION MODAL
+       ================================================================= -->
+  <div class="modal-overlay" id="quoteModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeQuoteModal" title="Close">&times;</button>
+      <div class="modal-header">
+        <span style="font-size: 2.2rem;">🧶</span>
+        <h2 class="modal-title">Request Wholesale Rate</h2>
+        <p class="modal-subtitle">Direct mill quotation for container or domestic dispatch</p>
+      </div>
+
+      <form id="quoteForm">
+        <div class="form-group">
+          <label class="form-label">Your Company / Contact Name</label>
+          <input type="text" id="quoteName" class="form-input" placeholder="e.g. Deccan Weaving Corp" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp Number</label>
+          <input type="tel" id="quotePhone" class="form-input" placeholder="e.g. +91 98765 43210" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Selected Yarn Product / Count</label>
+          <input type="text" id="quoteProduct" class="form-input" placeholder="e.g. 30s Combed Cotton" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Required Quantity (Kg / Bales)</label>
+          <input type="text" id="quoteQty" class="form-input" placeholder="e.g. 2,000 Kg or 1 Container" required>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+          <span>📩</span> Submit Quotation Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       TOAST NOTIFICATION COMPONENT
+       ================================================================= -->
+  <div class="toast-notice" id="toastNotice">
+    <span id="toastIcon" style="font-size: 1.3rem;">✅</span>
+    <span id="toastMsg" style="font-weight: 600; font-size: 0.92rem;">Notification text</span>
+  </div>
+
+  <!-- =================================================================
+       FOOTER
+       ================================================================= -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      
+      <div class="footer-col">
+        <img src="logo.svg" alt="Shahghouse" style="height: 54px; margin-bottom: 16px;" onerror="this.src='image.png'">
+        <p>
+          Carrying forward four decades of authentic Hyderabadi legacy into the realm of modern textile craftsmanship and high-tenacity yarn spinning.
+        </p>
+        <p style="margin-top: 12px; color: var(--royal-gold); font-weight: 700;">
+          Export Quality • ISO 9001:2015 Accredited
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Yarn Categories</h4>
+        <ul class="footer-links">
+          <li><a href="#catalog">Combed Ring Spun</a></li>
+          <li><a href="#catalog">Compact Cotton Yarns</a></li>
+          <li><a href="#catalog">Open End &amp; Carded</a></li>
+          <li><a href="#catalog">Melange &amp; Heather Dyed</a></li>
+          <li><a href="#catalog">Modal &amp; Luxury Blends</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#features">Mill Features</a></li>
+          <li><a href="#specs">Laboratory Specs</a></li>
+          <li><a href="#instagram">Instagram Showcase</a></li>
+          <li><a href="javascript:void(0)" onclick="openModal('loginModal')">Staff / Owner Portal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Mill Contact</h4>
+        <p><strong>Head Office:</strong> Hyderabad, Telangana, India</p>
+        <p style="margin-top: 6px;"><strong>Instagram:</strong> <a href="https://www.instagram.com/shahghouseofficial" target="_blank" style="color: var(--light-gold);">@shahghouseofficial</a></p>
+        <p style="margin-top: 6px;"><strong>Inquiries:</strong> contact@shahghouseyarn.com</p>
+        <p style="margin-top: 6px;"><strong>WhatsApp:</strong> +91 98765 43210</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        &copy; 2026 Shahghouse Yarns &amp; Textiles. All Rights Reserved.
+      </div>
+      <div>
+        Hosted with GitHub Pages &bull; Repo: <a href="https://github.com/saboorhussain128-rgb/Shahghouse" target="_blank" style="color: var(--royal-gold); text-decoration: none;">saboorhussain128-rgb/Shahghouse</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
