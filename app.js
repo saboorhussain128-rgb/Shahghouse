@@ -1003,12 +1003,41 @@ window.copyJsonData = function() {
   }
 };
 
+// Light / Dark Mode Theme Engine
+function setupThemeToggle() {
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  const toggleIcon = document.getElementById('themeToggleIcon');
+  
+  // Check persisted theme preference
+  const savedTheme = localStorage.getItem('shahghouse_theme') || 'dark';
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    if (toggleIcon) toggleIcon.textContent = '🌙';
+  } else {
+    document.body.classList.remove('light-mode');
+    if (toggleIcon) toggleIcon.textContent = '☀️';
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-mode');
+      const newTheme = isLight ? 'light' : 'dark';
+      localStorage.setItem('shahghouse_theme', newTheme);
+      if (toggleIcon) {
+        toggleIcon.textContent = isLight ? '🌙' : '☀️';
+      }
+      showToast(isLight ? "Switched to Royal Light Mode ☀️" : "Switched to Luxury Dark Mode 🌙", isLight ? "☀️" : "🌙");
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initData();
   renderPublicSite();
   setupAuth();
   setupStaffDashboard();
   setupNavLinks();
+  setupThemeToggle();
 
   // Close modals on clicking backdrop
   document.querySelectorAll('.modal-overlay').forEach(modal => {
