@@ -68,27 +68,51 @@ body.light-mode {
 
 body.light-mode .main-header {
   background: linear-gradient(
-    125deg,
-    rgba(255, 255, 255, 0.97) 0%,
-    rgba(254, 246, 233, 0.96) 25%,
+    115deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 240, 220, 0.96) 25%,
     rgba(255, 255, 255, 0.98) 50%,
-    rgba(253, 240, 242, 0.95) 75%,
-    rgba(255, 255, 255, 0.97) 100%
+    rgba(255, 230, 235, 0.95) 75%,
+    rgba(255, 255, 255, 0.98) 100%
   ) !important;
-  background-size: 300% 300% !important;
-  animation: headerRoyalGradient 14s ease infinite !important;
-  box-shadow: 0 6px 24px rgba(138, 10, 23, 0.08) !important;
-  border-bottom: 1px solid rgba(184, 134, 11, 0.35) !important;
+  background-size: 250% 250% !important;
+  animation: headerRoyalGradient 8s ease infinite !important;
+  box-shadow: 0 6px 25px rgba(138, 10, 23, 0.12) !important;
+  border-bottom: 1.5px solid rgba(184, 134, 11, 0.5) !important;
 }
 
 body.light-mode .main-header::before {
-  background: radial-gradient(circle at 35% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 45%),
-              radial-gradient(circle at 75% 50%, rgba(138, 10, 23, 0.08) 0%, transparent 45%) !important;
+  background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 75% 50%, rgba(180, 20, 35, 0.12) 0%, transparent 50%) !important;
 }
 
 body.light-mode .hero-section {
-  background: linear-gradient(180deg, #f7f1e4 0%, #efe5d3 50%, #faf6ee 100%);
+  background: linear-gradient(
+    135deg,
+    #faf6ee 0%,
+    #f8ece0 25%,
+    #f5e5d3 50%,
+    #f9e8ea 75%,
+    #faf6ee 100%
+  ) !important;
+  background-size: 300% 300% !important;
+  animation: heroRoyalBackground 14s ease infinite !important;
   color: #1a1617;
+}
+
+body.light-mode .hero-section::before {
+  background: radial-gradient(circle, rgba(180, 20, 35, 0.14) 0%, rgba(138, 10, 23, 0.05) 45%, transparent 70%) !important;
+}
+
+body.light-mode .hero-section::after {
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, rgba(180, 130, 20, 0.05) 45%, transparent 70%) !important;
+}
+
+body.light-mode .hero-pattern {
+  background-image: 
+    radial-gradient(rgba(184, 134, 11, 0.14) 1.5px, transparent 0),
+    radial-gradient(rgba(138, 10, 23, 0.08) 1.5px, transparent 0) !important;
+  opacity: 0.75 !important;
 }
 
 body.light-mode .hero-title {
@@ -294,19 +318,19 @@ body.light-mode .admin-tab-btn.active::after {
   top: 0;
   z-index: 1000;
   background: linear-gradient(
-    125deg,
-    rgba(14, 11, 12, 0.96) 0%,
-    rgba(46, 8, 15, 0.94) 25%,
-    rgba(18, 13, 14, 0.97) 50%,
-    rgba(42, 27, 9, 0.93) 75%,
-    rgba(14, 11, 12, 0.96) 100%
+    115deg,
+    rgba(15, 11, 13, 0.96) 0%,
+    rgba(65, 10, 20, 0.94) 25%,
+    rgba(22, 14, 16, 0.96) 50%,
+    rgba(70, 45, 12, 0.93) 75%,
+    rgba(15, 11, 13, 0.96) 100%
   );
-  background-size: 300% 300%;
-  animation: headerRoyalGradient 14s ease infinite;
+  background-size: 250% 250%;
+  animation: headerRoyalGradient 8s ease infinite;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   transition: var(--transition);
   overflow: hidden;
 }
@@ -315,13 +339,13 @@ body.light-mode .admin-tab-btn.active::after {
 .main-header::before {
   content: '';
   position: absolute;
-  top: -60%;
-  left: -30%;
-  width: 160%;
-  height: 220%;
-  background: radial-gradient(circle at 35% 50%, rgba(212, 175, 55, 0.13) 0%, transparent 45%),
-              radial-gradient(circle at 75% 50%, rgba(173, 19, 35, 0.11) 0%, transparent 45%);
-  animation: headerAmbientDrift 10s ease-in-out infinite alternate;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.22) 0%, transparent 50%),
+              radial-gradient(circle at 75% 50%, rgba(210, 25, 45, 0.18) 0%, transparent 50%);
+  animation: headerAmbientDrift 7s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 1;
 }
@@ -333,19 +357,19 @@ body.light-mode .admin-tab-btn.active::after {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 2.5px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.25) 20%,
+    rgba(212, 175, 55, 0.3) 15%,
     #ffd700 50%,
-    #fff4b8 53%,
-    #ffd700 56%,
-    rgba(212, 175, 55, 0.25) 80%,
+    #ffffff 52%,
+    #ffd700 54%,
+    rgba(212, 175, 55, 0.3) 85%,
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: headerBorderShimmer 6s linear infinite;
+  animation: headerBorderShimmer 4s linear infinite;
   pointer-events: none;
   z-index: 3;
 }
@@ -440,6 +464,68 @@ body.light-mode .admin-tab-btn.active::after {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes heroRoyalBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes heroOrbFloatRight {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(-50px, 35px) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-20px, 70px) scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+@keyframes heroOrbFloatLeft {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(60px, -40px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(25px, -15px) scale(1.05);
+    opacity: 0.85;
+  }
+}
+
+@keyframes heroPatternDrift {
+  0% {
+    background-position: 0 0, 18px 18px;
+  }
+  100% {
+    background-position: 144px 144px, 162px 162px;
+  }
+}
+
+@keyframes heroCardFloat {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+  100% {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.3);
   }
 }
 
@@ -694,19 +780,65 @@ body.light-mode .theme-toggle-btn:hover {
    =================================================================== */
 .hero-section {
   position: relative;
-  background: linear-gradient(180deg, #0c0a0b 0%, #161214 50%, #0c0a0b 100%);
+  background: linear-gradient(
+    135deg,
+    #0c090a 0%,
+    #23060c 25%,
+    #130e10 50%,
+    #2a1a06 75%,
+    #0c090a 100%
+  );
+  background-size: 300% 300%;
+  animation: heroRoyalBackground 14s ease infinite;
   color: #ffffff;
   padding: 85px 20px 95px;
   overflow: hidden;
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Floating Glowing Light Orbs in Hero Background */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 20, 35, 0.28) 0%, rgba(138, 10, 23, 0.1) 45%, transparent 70%);
+  filter: blur(40px);
+  animation: heroOrbFloatRight 11s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.24) 0%, rgba(180, 130, 20, 0.08) 45%, transparent 70%);
+  filter: blur(45px);
+  animation: heroOrbFloatLeft 13s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .hero-pattern {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 0);
-  background-size: 30px 30px;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.12) 1.5px, transparent 0),
+    radial-gradient(rgba(180, 20, 35, 0.08) 1.5px, transparent 0);
+  background-size: 36px 36px, 72px 72px;
+  background-position: 0 0, 18px 18px;
+  animation: heroPatternDrift 30s linear infinite;
   pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
 }
 
 .hero-container {
@@ -862,6 +994,7 @@ body.light-mode .hero-btn-gateway:hover {
   padding: 18px;
   box-shadow: var(--shadow-elevated);
   position: relative;
+  animation: heroCardFloat 6s ease-in-out infinite alternate;
 }
 
 .hero-image-reel {
