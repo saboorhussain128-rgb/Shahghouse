@@ -200,17 +200,24 @@ body {
 
 .nav-link {
   color: var(--text-secondary);
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 0.94rem;
   font-weight: 600;
   position: relative;
   padding: 8px 4px;
-  transition: var(--transition);
+  transition: color 0.25s ease;
   letter-spacing: 0.5px;
+  cursor: pointer;
 }
 
 .nav-link:hover {
   color: var(--gold-champagne);
+  text-decoration: none !important;
+}
+
+.nav-link:focus, .nav-link:visited {
+  outline: none;
+  text-decoration: none !important;
 }
 
 .nav-link.active {
@@ -223,15 +230,16 @@ body {
   bottom: 0;
   left: 0;
   width: 0%;
-  height: 2px;
+  height: 2.5px;
   background: var(--royal-gold);
   border-radius: 2px;
   transition: width 0.25s ease;
+  pointer-events: none;
 }
 
-/* ONLY mark an underline when active/clicked - never two at once */
+/* ONLY mark the yellow/gold line when clicked (.active) */
 .nav-link.active::after {
-  width: 100%;
+  width: 100% !important;
 }
 
 .header-actions {
