@@ -1,82 +1,54 @@
-# 👑 Shahghouse Yarns & Textiles
+# 👑 Shah Ghouse Hotel & Restaurant - Official Digital Menu
 
-Official web platform for **Shahghouse Yarns & Textiles**, inspired by the royal heritage aesthetic of the official brand ([@shahghouseofficial](https://www.instagram.com/shahghouseofficial)).
+The official web platform and digital menu for **Shah Ghouse Hotel & Restaurant**, inspired directly by their official Instagram handle ([@shahghouseofficial](https://www.instagram.com/shahghouseofficial)).
 
 ---
 
 ## 🚀 Live Demo & Hosting
-* **Target Repository:** [https://github.com/saboorhussain128-rgb/Shahghouse](https://github.com/saboorhussain128-rgb/Shahghouse)
-* **GitHub Pages URL:** `https://saboorhussain128-rgb.github.io/Shahghouse/`
+* **Live Website URL:** [https://saboorhussain128-rgb.github.io/Shahghouse/](https://saboorhussain128-rgb.github.io/Shahghouse/)
+* **GitHub Repository:** [https://github.com/saboorhussain128-rgb/Shahghouse](https://github.com/saboorhussain128-rgb/Shahghouse)
 
 ---
 
-## 📂 Project Structure
-```text
-Shahghouse/
-│
-├── index.html        # Complete website structure, Hero, Catalog, Staff Gate & Admin Modals
-├── style.css         # Royal Maroon & Burnished Gold responsive styling system
-├── app.js            # Client-side engine, Auth (Owner/Manager), dynamic state & LocalStorage
-├── logo.svg          # High-definition scalable vector logo with royal crown & spindle
-├── image.png         # Brand image & logo asset
-└── README.md         # Documentation & deployment guide
-```
+## 🍽️ Restaurant Menu Categories Included
+
+1. **👑 Dum Biryani & Mandi** — Special Mutton Dum Biryani, Hyderabadi Chicken Dum Biryani, Zafrani Jumbo Biryani, Arabian Mutton Mandi.
+2. **🍲 Haleem & Soups** — World-Famous Shah Ghouse Special Mutton Haleem (garnished with pure ghee, cashews & fried onions), Hyderabadi Mutton Marag.
+3. **🔥 Starters & Kebabs** — Pathar Ka Gosht (Stone Kebabs), Chicken 65, Chicken Majestic, Tangdi Kebab, Paneer Tikka Shashlik.
+4. **🥘 Nizami Curries** — Mutton Rogan Josh, Royal Dum Ka Murgh, Paneer Butter Masala.
+5. **🫓 Tandoori Breads** — Rumali Roti, Butter Naan.
+6. **☕ Irani Chai & Bakery** — Special Hyderabadi Irani Chai & Osmania Biscuits platter.
+7. **🍨 Royal Desserts** — Qubani Ka Meetha with Fresh Malai, Hyderabadi Double Ka Meetha.
 
 ---
 
 ## 🔐 Staff Portal Login Credentials
 
-Click **"Staff Login"** in the top header or use the 1-click helper buttons on the login screen:
+Click **"Staff Login"** in the top navigation or use the 1-click quick-fill buttons:
 
 | Role | Username / Email | Default Password | Permissions |
 | :--- | :--- | :--- | :--- |
-| **Owner** | `owner@shahghouse` | `owner@shahghouse` | **Full Administrative Access**: Add new website features, edit hero banners, manage yarn catalog, delete/edit items, manage inquiries, export JSON |
-| **Manager** | `manager@shahghouse` | `manager@shahghouse` | **Operations Access**: Add/update yarn stock and catalog, view incoming customer quotations |
+| **Owner** | `owner@shahghouse` | `owner@shahghouse` | **Full Administration**: Add new specials/categories, add/edit/delete dishes, update banners, opening hours, WhatsApp delivery number, export JSON |
+| **Manager** | `manager@shahghouse` | `manager@shahghouse` | **Operations**: Manage menu items, mark dishes Available / Sold Out, manage table bookings & delivery orders |
 
 ---
 
 ## 👔 The Staff Icon Workflow
 
-1. **Login:** Enter the site using the Owner or Manager credentials.
-2. **Staff Icon in Header:** Once authenticated, a dedicated **Staff Icon** (`👔 Staff Portal: Owner` or `👔 Staff Portal: Manager`) with a live green indicator pulse appears in the top navigation bar.
-3. **Open Management Dashboard:** Click the Staff Icon to open the Management Dashboard.
-4. **Add New Features (Owner Exclusive):**
-   * Go to the **"👑 Add New Features"** tab.
-   * Enter a **Feature Title**, **Category Badge**, **Icon/Emoji**, and **Description**.
-   * Click **"Add Feature & Update Live Website"**.
-   * The new feature appears **immediately** in the "The Shahghouse Advantage" section on the live site!
-5. **Manage Catalog & Save:** Add new yarn counts, update stock, or modify the hero banner. All changes are saved instantly to local storage and update the live page without needing a page refresh.
+1. **Login:** Log in with Owner or Manager credentials.
+2. **Staff Icon in Header:** A dedicated **`👔 Staff Portal`** badge with an active green live pulse appears in the top navigation bar.
+3. **Open Management Dashboard:** Click the Staff Icon to open the management hub:
+   * **👑 Add Restaurant Specials (Owner only):** Add seasonal announcements (e.g. Ramzan Haleem Counters, Midnight Catering). Instantly updates on the live website.
+   * **🍽️ Manage Menu Dishes:** Add new dishes with price, category, Veg/Non-Veg tag, and image.
+   * **⚙️ Banners & Timings:** Edit restaurant headlines, WhatsApp delivery numbers, or timing.
+   * **🛎️ Table Bookings:** View incoming table reservations from customers.
 
 ---
 
-## 📤 How to Push to GitHub & Enable GitHub Pages
+## 📍 Iconic Hyderabad Outlets Included
 
-Open your terminal or command prompt inside this folder (`c:\Users\Lenovo\Desktop\Shahghouse`) and run:
-
-```bash
-# 1. Initialize git repository
-git init
-
-# 2. Add all files
-git add .
-
-# 3. Commit your files
-git commit -m "feat: Initial commit for Shahghouse Yarns website with Owner/Manager portal"
-
-# 4. Set branch to main
-git branch -M main
-
-# 5. Add your GitHub remote repository
-git remote add origin https://github.com/saboorhussain128-rgb/Shahghouse.git
-
-# 6. Push to GitHub
-git push -u origin main
-```
-
-### 🌐 Enable GitHub Pages in 2 Clicks:
-1. Go to your repository on GitHub: `https://github.com/saboorhussain128-rgb/Shahghouse`
-2. Navigate to **Settings** &rarr; **Pages** (on the left sidebar).
-3. Under **Branch**, select `main` and folder `/(root)`.
-4. Click **Save**.
-5. Your website will be live in ~60 seconds at:
-   **`https://saboorhussain128-rgb.github.io/Shahghouse/`**
+* **Tolichowki (Flagship):** Beside RTA Office, Tolichowki
+* **Gachibowli:** Opp. Bio-Diversity Park
+* **Lakdikapul:** Main Road, Opp. Telephone Bhavan
+* **Shahalibanda:** Old City, Hyderabad
+* **Charminar:** Near Historic Charminar

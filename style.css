@@ -1,25 +1,26 @@
 /* ===================================================================
-   SHAHGHOUSE YARNS & TEXTILES - OFFICIAL STYLESHEET
-   Brand Theme: Royal Hyderabadi Maroon & Radiant Burnished Gold
+   SHAH GHOUSE HOTEL & RESTAURANT - OFFICIAL STYLESHEET
+   Authentic Hyderabadi Cuisine Since 1984
+   Color Scheme: Royal Hyderabadi Crimson (#8a0a17), Nizami Green (#195428) & Gold (#d4af37)
    =================================================================== */
 
 :root {
-  --primary-maroon: #38080f;
-  --dark-maroon: #200408;
-  --deep-crimson: #4a0e17;
+  --primary-maroon: #8a0a17;
+  --dark-maroon: #4a050d;
+  --deep-black: #140103;
+  --nizami-green: #195428;
   --royal-gold: #d4af37;
-  --light-gold: #f9e29b;
-  --gold-glow: rgba(212, 175, 55, 0.35);
-  --maroon-glow: rgba(56, 8, 15, 0.45);
+  --light-gold: #fdf3cf;
+  --gold-glow: rgba(212, 175, 55, 0.4);
   --bg-cream: #faf7f2;
   --card-bg: #ffffff;
   --text-dark: #1f2421;
   --text-muted: #6b7280;
-  --border-gold: rgba(212, 175, 55, 0.3);
+  --border-gold: rgba(212, 175, 55, 0.35);
   --border-light: #e5e7eb;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 16px 40px rgba(56, 8, 15, 0.18);
+  --shadow-lg: 0 16px 40px rgba(138, 10, 23, 0.22);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -41,14 +42,14 @@ body {
 }
 
 /* ===================================================================
-   ANNOUNCEMENT TICKER / TOP BAR
+   TOP ANNOUNCEMENT BAR
    =================================================================== */
 .top-ticker {
-  background: linear-gradient(90deg, #1c0307, #3d0810, #1c0307);
+  background: linear-gradient(90deg, #1c0205, #5e060f, #1c0205);
   color: var(--light-gold);
-  padding: 8px 16px;
+  padding: 9px 16px;
   font-size: 0.85rem;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 1.5px solid var(--royal-gold);
 }
 
 .top-ticker-content {
@@ -68,14 +69,14 @@ body {
 }
 
 .badge-heritage {
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.25);
   border: 1px solid var(--royal-gold);
   color: #fff;
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
 }
 
 .ticker-right {
@@ -90,7 +91,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-weight: 500;
+  font-weight: 600;
   transition: var(--transition);
 }
 
@@ -106,9 +107,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-gold);
+  border-bottom: 2px solid var(--royal-gold);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
@@ -126,33 +127,50 @@ body {
 .brand-wrapper {
   display: flex;
   align-items: center;
+  gap: 12px;
   text-decoration: none;
 }
 
-.brand-logo-img {
-  height: 52px;
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-  transition: transform 0.3s ease;
+/* Official DP Circle Icon */
+.brand-dp-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--royal-gold), #b8860b, #fff2a3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-.brand-logo-img:hover {
-  transform: scale(1.02);
+.brand-dp-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.brand-wordmark-img {
+  height: 46px;
+  width: auto;
+  display: block;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 24px;
+  gap: 22px;
 }
 
 .nav-link {
   color: var(--dark-maroon);
   text-decoration: none;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   padding: 6px 0;
   transition: var(--transition);
@@ -180,10 +198,10 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* Staff Top Icon Badge */
+/* Staff Top Icon Button */
 .staff-icon-btn {
   display: flex;
   align-items: center;
@@ -191,18 +209,18 @@ body {
   background: linear-gradient(135deg, var(--primary-maroon), var(--dark-maroon));
   color: #fff;
   border: 1.5px solid var(--royal-gold);
-  padding: 7px 16px;
+  padding: 7px 15px;
   border-radius: 30px;
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 4px 12px rgba(56, 8, 15, 0.25);
+  box-shadow: 0 4px 12px rgba(138, 10, 23, 0.25);
   transition: var(--transition);
 }
 
 .staff-icon-btn:hover {
-  background: linear-gradient(135deg, #5c121d, var(--primary-maroon));
+  background: linear-gradient(135deg, #a81020, var(--primary-maroon));
   box-shadow: 0 6px 18px var(--gold-glow);
   transform: translateY(-2px);
 }
@@ -262,7 +280,7 @@ body {
   padding: 7px 16px;
   border-radius: 30px;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -279,7 +297,7 @@ body {
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -294,20 +312,20 @@ body {
    =================================================================== */
 .hero-section {
   position: relative;
-  background: linear-gradient(135deg, #24050a 0%, #450b14 60%, #1f0307 100%);
+  background: linear-gradient(135deg, #1c0205 0%, #4a060d 60%, #170104 100%);
   color: #ffffff;
-  padding: 80px 20px 90px;
+  padding: 85px 20px 95px;
   overflow: hidden;
 }
 
 .hero-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+  top: -50px;
+  right: -50px;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -357,7 +375,7 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   color: #e5e7eb;
   margin-bottom: 32px;
   max-width: 580px;
@@ -390,17 +408,14 @@ body {
   letter-spacing: 1px;
 }
 
-.hero-visual {
-  position: relative;
-}
-
 .hero-card {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 22px;
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-lg);
+  position: relative;
 }
 
 .hero-image-reel {
@@ -408,7 +423,7 @@ body {
   height: 380px;
   object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .hero-badge-overlay {
@@ -422,7 +437,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 .badge-icon {
@@ -451,13 +466,13 @@ body {
 
 .section-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 }
 
 .section-pretitle {
   color: var(--royal-gold);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 8px;
@@ -494,7 +509,7 @@ body {
 }
 
 /* ===================================================================
-   DYNAMIC FEATURES GRID (EDITABLE BY OWNER)
+   DYNAMIC RESTAURANT HIGHLIGHTS / SPECIALS
    =================================================================== */
 .features-grid {
   display: grid;
@@ -511,7 +526,6 @@ body {
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   position: relative;
-  overflow: hidden;
 }
 
 .feature-card:hover {
@@ -523,7 +537,7 @@ body {
 .feature-icon-box {
   width: 54px;
   height: 54px;
-  background: rgba(56, 8, 15, 0.06);
+  background: rgba(138, 10, 23, 0.08);
   border: 1px solid var(--border-gold);
   border-radius: 12px;
   display: flex;
@@ -531,7 +545,6 @@ body {
   justify-content: center;
   font-size: 1.6rem;
   margin-bottom: 20px;
-  color: var(--primary-maroon);
 }
 
 .feature-title {
@@ -552,7 +565,7 @@ body {
   top: 14px;
   right: 14px;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
   padding: 3px 8px;
   border-radius: 12px;
   background: #fef3c7;
@@ -560,7 +573,7 @@ body {
 }
 
 /* ===================================================================
-   YARN CATALOG & PRODUCTS SECTION
+   AUTHENTIC RESTAURANT MENU SECTION
    =================================================================== */
 .catalog-filters {
   display: flex;
@@ -572,11 +585,11 @@ body {
 
 .filter-btn {
   background: #fff;
-  border: 1px solid var(--border-light);
+  border: 1.5px solid var(--border-light);
   padding: 8px 18px;
   border-radius: 25px;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-dark);
   cursor: pointer;
   transition: var(--transition);
@@ -613,7 +626,7 @@ body {
 
 .product-img-wrap {
   position: relative;
-  height: 210px;
+  height: 220px;
   background: #f3f4f6;
   overflow: hidden;
 }
@@ -626,42 +639,70 @@ body {
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-.product-stock-tag {
+.chef-special-badge {
   position: absolute;
   top: 12px;
   left: 12px;
+  background: linear-gradient(135deg, var(--royal-gold), #b8860b);
+  color: #1a0307;
   font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 8px;
+  font-weight: 800;
+  padding: 4px 10px;
   border-radius: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.stock-in {
-  background: #dcfce7;
-  color: #15803d;
-}
-
-.stock-order {
-  background: #fef9c3;
-  color: #854d0e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .product-count-badge {
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(32, 4, 8, 0.85);
+  background: rgba(30, 2, 5, 0.9);
   color: var(--light-gold);
   border: 1px solid var(--royal-gold);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 8px;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+/* FSSAI Standard Veg / Non-Veg Badges */
+.diet-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.veg-tag {
+  color: #15803d;
+}
+
+.nonveg-tag {
+  color: #b91c1c;
+}
+
+.diet-dot {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diet-dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .product-body {
@@ -671,17 +712,8 @@ body {
   flex-grow: 1;
 }
 
-.product-category {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--royal-gold);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
 .product-name {
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   font-weight: 700;
   color: var(--dark-maroon);
   margin-bottom: 8px;
@@ -692,19 +724,11 @@ body {
   color: var(--text-muted);
   margin-bottom: 16px;
   flex-grow: 1;
-}
-
-.product-spec-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-top: 1px dashed var(--border-light);
-  font-size: 0.82rem;
-  color: var(--text-dark);
+  line-height: 1.5;
 }
 
 .product-actions {
-  margin-top: 16px;
+  margin-top: 14px;
   display: flex;
   gap: 10px;
 }
@@ -716,7 +740,7 @@ body {
   border: none;
   padding: 9px;
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.88rem;
   cursor: pointer;
   display: flex;
@@ -732,19 +756,19 @@ body {
 }
 
 /* ===================================================================
-   INSTAGRAM FEED / CLIENT BASE SHOWCASE
+   INSTAGRAM SECTION (@shahghouseofficial)
    =================================================================== */
 .insta-section {
   background: linear-gradient(180deg, #faf7f2 0%, #f3ede2 100%);
-  border-top: 1px solid var(--border-gold);
-  border-bottom: 1px solid var(--border-gold);
+  border-top: 1.5px solid var(--border-gold);
+  border-bottom: 1.5px solid var(--border-gold);
 }
 
 .insta-banner {
   background: #fff;
-  border: 1px solid var(--border-gold);
+  border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md);
-  padding: 18px 24px;
+  padding: 20px 24px;
   margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
@@ -760,30 +784,35 @@ body {
   gap: 16px;
 }
 
+/* Instagram DP Circle */
 .insta-avatar {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
   padding: 2.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .insta-avatar img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   background: #fff;
+  padding: 5px;
 }
 
 .insta-handle-text h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: var(--dark-maroon);
 }
 
 .insta-handle-text p {
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
 }
 
@@ -799,7 +828,6 @@ body {
   overflow: hidden;
   height: 280px;
   box-shadow: var(--shadow-sm);
-  group: hover;
 }
 
 .insta-card img {
@@ -812,7 +840,7 @@ body {
 .insta-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(32, 4, 8, 0.75);
+  background: rgba(30, 2, 5, 0.78);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -834,47 +862,42 @@ body {
 }
 
 /* ===================================================================
-   YARN SPECIFICATIONS TABLE
+   OUTLETS & LOCATIONS GRID
    =================================================================== */
-.specs-table-wrap {
-  overflow-x: auto;
+.outlets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.outlet-card {
   background: #fff;
-  border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
+  border-left: 4px solid var(--primary-maroon);
+  border-radius: var(--radius-md);
+  padding: 20px;
   box-shadow: var(--shadow-sm);
 }
 
-.specs-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
+.outlet-card h4 {
+  color: var(--dark-maroon);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
 }
 
-.specs-table th {
-  background: var(--primary-maroon);
-  color: var(--light-gold);
-  padding: 14px 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-.specs-table td {
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.specs-table tr:hover td {
-  background: #faf5eb;
+.outlet-card p {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
 /* ===================================================================
-   MODAL / POPUP (STAFF PORTAL & LOGIN GATE)
+   MODALS (LOGIN & STAFF MANAGEMENT)
    =================================================================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(16, 2, 4, 0.78);
+  background: rgba(16, 2, 4, 0.8);
   backdrop-filter: blur(6px);
   z-index: 2000;
   display: flex;
@@ -949,7 +972,6 @@ body {
   margin-top: 6px;
 }
 
-/* Quick Credential Chips */
 .quick-creds {
   background: #faf5eb;
   border: 1px solid var(--border-gold);
@@ -983,7 +1005,6 @@ body {
   color: #fff;
 }
 
-/* Form Controls */
 .form-group {
   margin-bottom: 18px;
   text-align: left;
@@ -992,7 +1013,7 @@ body {
 .form-label {
   display: block;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--dark-maroon);
   margin-bottom: 6px;
 }
@@ -1013,7 +1034,7 @@ body {
 }
 
 /* ===================================================================
-   STAFF MANAGEMENT DASHBOARD (TABS & CONTROLS)
+   ADMIN TABS & CONTROLS
    =================================================================== */
 .admin-tabs {
   display: flex;
@@ -1098,17 +1119,7 @@ body {
   cursor: pointer;
 }
 
-.btn-edit {
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-/* Toast Notification */
+/* Toast */
 .toast-notice {
   position: fixed;
   bottom: 24px;
@@ -1137,7 +1148,7 @@ body {
    FOOTER
    =================================================================== */
 .main-footer {
-  background: #140205;
+  background: var(--deep-black);
   color: #e5e7eb;
   border-top: 2px solid var(--royal-gold);
   padding: 60px 20px 24px;
@@ -1211,7 +1222,6 @@ body {
   color: #9ca3af;
 }
 
-/* Mobile Responsive */
 @media (max-width: 968px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -1237,8 +1247,5 @@ body {
   }
   .hero-title {
     font-size: 2.2rem;
-  }
-  .header-actions {
-    gap: 8px;
   }
 }
