@@ -124,12 +124,87 @@ body.light-mode .dish-info-title {
   color: #2b060b;
 }
 
+body.light-mode .modal-card-title {
+  color: #3d070e !important;
+}
+
+body.light-mode .modal-card-subtitle {
+  color: #57524e !important;
+}
+
+body.light-mode .quick-creds {
+  background: #fdf6e9 !important;
+  border: 1.5px solid rgba(184, 134, 11, 0.35) !important;
+}
+
+body.light-mode .quick-creds-title {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .chip-btn {
+  background: #ffffff !important;
+  color: #3d070e !important;
+  border: 1.5px solid var(--royal-gold) !important;
+}
+
+body.light-mode .chip-btn:hover {
+  background: var(--royal-gold) !important;
+  color: #000000 !important;
+}
+
+body.light-mode .btn-outline {
+  color: #3d070e !important;
+  border: 1.5px solid rgba(184, 134, 11, 0.5) !important;
+  background: #fdfbf7 !important;
+}
+
+body.light-mode .btn-outline:hover {
+  background: var(--royal-gold) !important;
+  color: #000000 !important;
+}
+
 body.light-mode .form-input, 
 body.light-mode .form-select, 
 body.light-mode .form-textarea {
   background: #faf6ee;
   color: #1a1617;
   border: 1px solid #dcd3c3;
+}
+
+body.light-mode .form-label {
+  color: #3d070e !important;
+}
+
+body.light-mode .admin-card-section {
+  background: #fdfaf4 !important;
+  border-color: #e5ded2 !important;
+}
+
+body.light-mode .admin-card-section h3,
+body.light-mode .admin-card-section h4 {
+  color: #3d070e !important;
+}
+
+body.light-mode .admin-item-row {
+  background: #ffffff !important;
+  border-color: #e8e0d5 !important;
+}
+
+body.light-mode .admin-item-row strong {
+  color: #3d070e !important;
+}
+
+body.light-mode .admin-tab-btn {
+  color: #6b645c !important;
+}
+
+body.light-mode .admin-tab-btn.active {
+  color: #8a0a17 !important;
+}
+
+body.light-mode .admin-tab-btn.active::after {
+  background: #8a0a17 !important;
 }
 
 /* ===================================================================
@@ -549,8 +624,72 @@ body.light-mode .theme-toggle-btn:hover {
 .hero-cta-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
+  align-items: center;
   margin-bottom: 40px;
+}
+
+/* Explore Menu Categories Button - Rich Royal Gold */
+.hero-btn-explore {
+  background: linear-gradient(135deg, #d4af37, #b8860b) !important;
+  color: #120e0e !important;
+  border: 2px solid #e5c058 !important;
+  padding: 13px 28px !important;
+  border-radius: 35px !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+.hero-btn-explore:hover {
+  background: linear-gradient(135deg, #f5e6b8, #d4af37) !important;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.65) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Owner & Manager Gateway Button - Deep Royal Crimson with Gold Border */
+.hero-btn-gateway {
+  background: linear-gradient(135deg, #8a0a17, #54050e) !important;
+  color: #ffffff !important;
+  border: 2px solid #d4af37 !important;
+  padding: 13px 28px !important;
+  border-radius: 35px !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 18px rgba(138, 10, 23, 0.5) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+.hero-btn-gateway:hover {
+  background: linear-gradient(135deg, #a81020, #730713) !important;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5), 0 0 15px rgba(212, 175, 55, 0.4) !important;
+  transform: translateY(-3px) !important;
+  color: #ffffff !important;
+}
+
+.hero-cta-icon {
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .hero-stats {
@@ -1189,6 +1328,28 @@ body.light-mode .theme-toggle-btn:hover {
   color: var(--text-secondary);
   font-size: 0.92rem;
   line-height: 1.6;
+}
+
+/* Modal Card Titles */
+.modal-card-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.modal-card-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.quick-creds-title {
+  color: var(--gold-champagne);
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
 }
 
 /* Quick Creds for Staff Login */

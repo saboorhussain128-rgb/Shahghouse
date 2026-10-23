@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=2.3">
+  <link rel="stylesheet" href="style.css?v=2.4">
 </head>
 <body>
 
@@ -107,11 +107,11 @@
         </p>
 
         <div class="hero-cta-group">
-          <a href="#menu" class="btn-primary" style="padding: 12px 28px; font-size: 1rem;">
-            <span>📖</span> Explore Menu Categories
+          <a href="#menu" class="hero-btn-explore">
+            <span class="hero-cta-icon">📖</span> Explore Menu Categories
           </a>
-          <button class="btn-outline" style="padding: 11px 22px;" onclick="openModal('loginModal')">
-            <span>👑</span> Owner &amp; Manager Gateway
+          <button type="button" class="hero-btn-gateway" onclick="openModal('loginModal')">
+            <span class="hero-cta-icon">👑</span> Owner &amp; Manager Gateway
           </button>
         </div>
 
@@ -357,13 +357,13 @@
         <div class="brand-dp-circle" style="margin: 0 auto 12px; width: 62px; height: 62px;">
           <img src="logo.svg" alt="Shah Ghouse Seal" class="brand-dp-img" onerror="this.src='image.png'">
         </div>
-        <h2 style="font-family: 'Cinzel', serif; font-size: 1.8rem; color: #fff;">Staff Portal Login</h2>
-        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px;">Authorized access for Shah Ghouse Owner &amp; Managers</p>
+        <h2 class="modal-card-title">Staff Portal Login</h2>
+        <p class="modal-card-subtitle">Authorized access for Shah Ghouse Owner &amp; Managers</p>
       </div>
 
       <!-- Quick 1-Click Credential Chips -->
       <div class="quick-creds">
-        <strong style="color: var(--gold-champagne);">⚡ 1-Click Demo Credentials:</strong>
+        <strong class="quick-creds-title">⚡ 1-Click Demo Credentials:</strong>
         <div class="creds-chips">
           <button type="button" class="chip-btn" onclick="fillDemoCreds('owner')">
             👑 Click to Fill Owner Login
@@ -405,7 +405,7 @@
             <img src="logo.svg" class="brand-dp-img" alt="Logo" onerror="this.src='image.png'">
           </div>
           <div>
-            <h2 id="adminGreeting" style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff;">Staff Management Hub</h2>
+            <h2 id="adminGreeting" class="modal-card-title" style="font-size: 1.4rem;">Staff Management Hub</h2>
             <p id="adminRoleDisplay" style="font-size: 0.82rem; color: var(--text-secondary);"></p>
           </div>
         </div>
@@ -667,6 +667,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=2.3"></script>
+  <script src="app.js?v=2.4"></script>
 </body>
 </html>
