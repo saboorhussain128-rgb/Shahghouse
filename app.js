@@ -958,6 +958,17 @@ function setupFilters() {
   });
 }
 
+// Setup Header Navigation Links (Only mark line when clicked, never two at once)
+function setupNavLinks() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      navLinks.forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+}
+
 // Modal Helpers
 function openModal(id) {
   const modal = document.getElementById(id);
@@ -993,6 +1004,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPublicSite();
   setupAuth();
   setupStaffDashboard();
+  setupNavLinks();
 
   // Close modals on clicking backdrop
   document.querySelectorAll('.modal-overlay').forEach(modal => {
