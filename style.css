@@ -630,7 +630,8 @@ body.light-mode .theme-toggle-btn:hover {
 }
 
 /* Explore Menu Categories Button - Rich Royal Gold */
-.hero-btn-explore {
+.hero-btn-explore,
+body.light-mode .hero-btn-explore {
   background: linear-gradient(135deg, #d4af37, #b8860b) !important;
   color: #120e0e !important;
   border: 2px solid #e5c058 !important;
@@ -645,19 +646,24 @@ body.light-mode .theme-toggle-btn:hover {
   gap: 10px !important;
   text-decoration: none !important;
   box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45) !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
   cursor: pointer !important;
   user-select: none !important;
 }
 
-.hero-btn-explore:hover {
-  background: linear-gradient(135deg, #f5e6b8, #d4af37) !important;
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.65) !important;
-  transform: translateY(-3px) !important;
+/* Explore Menu Categories Button - Identical Hover in Light & Dark Mode */
+.hero-btn-explore:hover,
+body.light-mode .hero-btn-explore:hover {
+  background: linear-gradient(135deg, #fff0b8, #e2b947) !important;
+  color: #000000 !important;
+  border-color: #ffe680 !important;
+  box-shadow: 0 8px 26px rgba(212, 175, 55, 0.7), 0 0 16px rgba(212, 175, 55, 0.5) !important;
+  transform: translateY(-3px) scale(1.02) !important;
 }
 
 /* Owner & Manager Gateway Button - Deep Royal Crimson with Gold Border */
-.hero-btn-gateway {
+.hero-btn-gateway,
+body.light-mode .hero-btn-gateway {
   background: linear-gradient(135deg, #8a0a17, #54050e) !important;
   color: #ffffff !important;
   border: 2px solid #d4af37 !important;
@@ -672,16 +678,19 @@ body.light-mode .theme-toggle-btn:hover {
   gap: 10px !important;
   text-decoration: none !important;
   box-shadow: 0 4px 18px rgba(138, 10, 23, 0.5) !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
   cursor: pointer !important;
   user-select: none !important;
 }
 
-.hero-btn-gateway:hover {
-  background: linear-gradient(135deg, #a81020, #730713) !important;
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5), 0 0 15px rgba(212, 175, 55, 0.4) !important;
-  transform: translateY(-3px) !important;
+/* Owner & Manager Gateway Button - Identical Hover in Light & Dark Mode */
+.hero-btn-gateway:hover,
+body.light-mode .hero-btn-gateway:hover {
+  background: linear-gradient(135deg, #ad1323, #780814) !important;
   color: #ffffff !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 8px 26px rgba(138, 10, 23, 0.65), 0 0 18px rgba(212, 175, 55, 0.45) !important;
+  transform: translateY(-3px) scale(1.02) !important;
 }
 
 .hero-cta-icon {
@@ -825,31 +834,54 @@ body.light-mode .theme-toggle-btn:hover {
 
 .filter-btn {
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  border: 1.5px solid var(--border-subtle);
   padding: 9px 18px;
   border-radius: 30px;
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: center;
   gap: 6px;
+  user-select: none;
 }
 
-.filter-btn:hover {
-  color: #fff;
-  border-color: var(--royal-gold);
-  background: var(--bg-card-hover);
+/* Category Filter Button - Identical Hover in Light & Dark Mode */
+.filter-btn:hover,
+body.light-mode .filter-btn:hover {
+  background: linear-gradient(135deg, #8a0a17, #5c050e) !important;
+  color: #ffffff !important;
+  border-color: var(--royal-gold) !important;
+  box-shadow: 0 5px 16px rgba(138, 10, 23, 0.45), 0 0 10px rgba(212, 175, 55, 0.3) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Category Filter Button - Light Mode Base */
+body.light-mode .filter-btn {
+  background: #ffffff;
+  border-color: #dcd3c3;
+  color: #4a4543;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Category Filter Button - Active State (Identical in both modes) */
+.filter-btn.active,
+body.light-mode .filter-btn.active {
+  background: linear-gradient(135deg, var(--royal-gold), #8f681a) !important;
+  color: #0d0a0a !important;
+  border-color: var(--royal-gold) !important;
+  box-shadow: 0 4px 16px var(--gold-glow) !important;
+}
+
+.filter-btn.active:hover,
+body.light-mode .filter-btn.active:hover {
+  background: linear-gradient(135deg, #fff0b8, var(--royal-gold)) !important;
+  color: #000000 !important;
+  border-color: #ffe680 !important;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5) !important;
   transform: translateY(-2px);
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--royal-gold), #8f681a);
-  color: #0d0a0a;
-  border-color: var(--royal-gold);
-  box-shadow: 0 4px 16px var(--gold-glow);
 }
 
 /* ===================================================================
@@ -1003,12 +1035,19 @@ body.light-mode .theme-toggle-btn:hover {
   transition: var(--transition);
 }
 
-.btn-more-info:hover {
-  background: linear-gradient(135deg, var(--royal-gold), #aa8022);
-  color: #0c090a;
-  border-color: var(--royal-gold);
-  box-shadow: 0 4px 14px var(--gold-glow);
+.btn-more-info:hover,
+body.light-mode .btn-more-info:hover {
+  background: linear-gradient(135deg, var(--royal-gold), #b8860b) !important;
+  color: #0c090a !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45) !important;
   transform: translateY(-2px);
+}
+
+body.light-mode .btn-more-info {
+  background: #faf6ee;
+  color: #3d070e;
+  border-color: rgba(184, 134, 11, 0.4);
 }
 
 /* ===================================================================
