@@ -81,7 +81,7 @@ const RESTAURANT_DATA = {
       portion: "Single & Full Handi",
       special: true,
       desc: "The undisputed jewel of Hyderabadi cuisine. Succulent pieces of tender mutton marinated in curd, fried onions, and royal spices, layered with saffron basmati rice.",
-      image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=80",
+      image: "images/mutton-dum-biryani.jpg",
       heritage: "Originated in the royal kitchens of the Asaf Jahi Nizams of Hyderabad, combining Persian slow-cooking techniques with spicy Deccan flavors.",
       ingredients: "Aged Basmati Rice, Prime Tender Mutton, Kashmiri Saffron, Desi Ghee, Mint, Coriander, Brown Fried Onions, Green Cardamom, Shahi Jeera.",
       pairings: "Mirchi Ka Salan (tangy peanut-sesame curry), Dahi Ki Chutney, and Onion Salad."
@@ -94,7 +94,7 @@ const RESTAURANT_DATA = {
       portion: "Single & Full Handi",
       special: false,
       desc: "Classic chicken dum biryani prepared with aromatic spices, fresh mint, coriander, and slow-steamed under a dough-sealed lid.",
-      image: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=700&q=80",
+      image: "images/chicken-dum-biryani.jpg",
       heritage: "Cooked in the traditional 'Kachhi' style where raw marinated chicken is slow-steamed simultaneously with par-boiled basmati rice.",
       ingredients: "Farm-Fresh Chicken, Long-Grain Rice, Ghee, Yogurt, Green Chillies, Mace, Nutmeg, Cloves, Fresh Mint.",
       pairings: "Chilled Raita, Spicy Deccan Salan, and fresh lemon wedges."
@@ -107,7 +107,7 @@ const RESTAURANT_DATA = {
       portion: "Serves 4 - 5 Guests",
       special: true,
       desc: "Grand celebratory portion prepared with double portions of succulent mutton, infused with royal Zafran (saffron) extract and garnished with boiled eggs.",
-      image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=700&q=80",
+      image: "images/zafrani-mutton-biryani.jpg",
       heritage: "A festive Nizami preparation traditionally served during royal banquets, weddings, and Eid celebrations.",
       ingredients: "Select Tender Mutton, Pure Kashmiri Saffron Infusion, Roasted Cashews, Hard-Boiled Eggs, Clarified Butter, Star Anise.",
       pairings: "Large Handi Salan, Dahi Ki Chutney, and Qubani Ka Meetha."
@@ -388,7 +388,7 @@ let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Initialize Data
 function initData() {
-  const saved = localStorage.getItem('shahghouse_luxury_menu_v3');
+  const saved = localStorage.getItem('shahghouse_luxury_menu_v4');
   if (saved) {
     try {
       appData = JSON.parse(saved);
@@ -413,7 +413,7 @@ function initData() {
 }
 
 function saveData() {
-  localStorage.setItem('shahghouse_luxury_menu_v3', JSON.stringify(appData));
+  localStorage.setItem('shahghouse_luxury_menu_v4', JSON.stringify(appData));
 }
 
 // Show Toast
