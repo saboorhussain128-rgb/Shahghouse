@@ -1,6 +1,6 @@
-# 👑 Shah Ghouse Hotel & Restaurant - Official Digital Menu
+# 👑 Shah Ghouse Hotel & Restaurant - Luxury Menu Showcase
 
-The official web platform and digital menu for **Shah Ghouse Hotel & Restaurant**, inspired directly by their official Instagram handle ([@shahghouseofficial](https://www.instagram.com/shahghouseofficial)).
+The official web platform and luxury digital menu showcase for **Shah Ghouse Hotel & Restaurant**, inspired directly by their official Instagram handle ([@shahghouseofficial](https://www.instagram.com/shahghouseofficial)).
 
 ---
 
@@ -10,15 +10,26 @@ The official web platform and digital menu for **Shah Ghouse Hotel & Restaurant*
 
 ---
 
-## 🍽️ Restaurant Menu Categories Included
+## 🎨 Theme & Experience
+* **Luxury Midnight & Champagne Gold Aesthetic:** Deep obsidian charcoal background with warm golden glows and clean typography.
+* **Authentic Instagram Profile Icon:** Exact DP monogram logo from [@shahghouseofficial](https://www.instagram.com/shahghouseofficial) with royal crown, crescent, and crimson/forest green details.
+* **"More Information" Feature:** Clicking **ℹ️ More Information** on any dish opens a detailed culinary modal displaying its heritage story, preparation technique, key Shahi spices, and traditional pairings.
 
-1. **👑 Dum Biryani & Mandi** — Special Mutton Dum Biryani, Hyderabadi Chicken Dum Biryani, Zafrani Jumbo Biryani, Arabian Mutton Mandi.
-2. **🍲 Haleem & Soups** — World-Famous Shah Ghouse Special Mutton Haleem (garnished with pure ghee, cashews & fried onions), Hyderabadi Mutton Marag.
-3. **🔥 Starters & Kebabs** — Pathar Ka Gosht (Stone Kebabs), Chicken 65, Chicken Majestic, Tangdi Kebab, Paneer Tikka Shashlik.
-4. **🥘 Nizami Curries** — Mutton Rogan Josh, Royal Dum Ka Murgh, Paneer Butter Masala.
-5. **🫓 Tandoori Breads** — Rumali Roti, Butter Naan.
-6. **☕ Irani Chai & Bakery** — Special Hyderabadi Irani Chai & Osmania Biscuits platter.
-7. **🍨 Royal Desserts** — Qubani Ka Meetha with Fresh Malai, Hyderabadi Double Ka Meetha.
+---
+
+## 🍽️ 12 Expanded Menu Categories (From Instagram Showcase)
+
+1. **👑 Royal Dum Biryani** — Special Mutton Dum Biryani, Hyderabadi Chicken Dum Biryani, Zafrani Jumbo Biryani.
+2. **🌴 Arabian Mandi** — Juicy Mutton Mandi, Faham Chicken Mandi Platter.
+3. **🍲 Haleem & Soups** — 12-Hour Pounded Mutton Haleem with Desi Ghee & Cashews, Hyderabadi Mutton Marag.
+4. **🔥 Stone Kebabs & Tandoor** — Pathar Ka Gosht (Natural Granite Stone Kebab), Mutton Seekh Kebab, Tandoori Chicken.
+5. **🌶️ Hyderabadi Starters** — Authentic Chicken 65, Chicken Majestic, Apollo Fish.
+6. **🥘 Shahi Nizami Curries** — Mutton Rogan Josh, Royal Dum Ka Murgh.
+7. **🌱 Vegetarian Delights** — Paneer Butter Masala, Paneer Tikka Shashlik.
+8. **🫓 Tandoori Breads** — Rumali Roti, Tandoori Butter Naan.
+9. **🌯 Shawarma & Rolls** — Shah Ghouse Special Chicken Shawarma in Rumali Roti.
+10. **☕ Irani Chai & Bakery** — Dum Irani Chai & Crisp Osmania Biscuits Platter.
+11. **🍨 Royal Desserts** — Qubani Ka Meetha (with Fresh Clotted Malai), Hyderabadi Double Ka Meetha.
 
 ---
 
@@ -28,27 +39,15 @@ Click **"Staff Login"** in the top navigation or use the 1-click quick-fill butt
 
 | Role | Username / Email | Default Password | Permissions |
 | :--- | :--- | :--- | :--- |
-| **Owner** | `owner@shahghouse` | `owner@shahghouse` | **Full Administration**: Add new specials/categories, add/edit/delete dishes, update banners, opening hours, WhatsApp delivery number, export JSON |
-| **Manager** | `manager@shahghouse` | `manager@shahghouse` | **Operations**: Manage menu items, mark dishes Available / Sold Out, manage table bookings & delivery orders |
+| **Owner** | `owner@shahghouse` | `owner@shahghouse` | **Full Administration**: Add new specialties/highlights, add/delete dishes, update banners, export JSON |
+| **Manager** | `manager@shahghouse` | `manager@shahghouse` | **Operations**: Add and manage dishes in the showcase |
 
 ---
 
-## 👔 The Staff Icon Workflow
-
-1. **Login:** Log in with Owner or Manager credentials.
-2. **Staff Icon in Header:** A dedicated **`👔 Staff Portal`** badge with an active green live pulse appears in the top navigation bar.
-3. **Open Management Dashboard:** Click the Staff Icon to open the management hub:
-   * **👑 Add Restaurant Specials (Owner only):** Add seasonal announcements (e.g. Ramzan Haleem Counters, Midnight Catering). Instantly updates on the live website.
-   * **🍽️ Manage Menu Dishes:** Add new dishes with price, category, Veg/Non-Veg tag, and image.
-   * **⚙️ Banners & Timings:** Edit restaurant headlines, WhatsApp delivery numbers, or timing.
-   * **🛎️ Table Bookings:** View incoming table reservations from customers.
-
----
-
-## 📍 Iconic Hyderabad Outlets Included
+## 📍 Iconic Hyderabad Outlets
 
 * **Tolichowki (Flagship):** Beside RTA Office, Tolichowki
 * **Gachibowli:** Opp. Bio-Diversity Park
 * **Lakdikapul:** Main Road, Opp. Telephone Bhavan
 * **Shahalibanda:** Old City, Hyderabad
-* **Charminar:** Near Historic Charminar
+* **Charminar:** Near Historic Charminar Monument
