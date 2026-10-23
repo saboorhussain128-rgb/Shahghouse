@@ -67,9 +67,23 @@ body.light-mode {
 }
 
 body.light-mode .main-header {
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  border-bottom: 1.5px solid var(--border-gold);
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.97) 0%,
+    rgba(254, 246, 233, 0.96) 25%,
+    rgba(255, 255, 255, 0.98) 50%,
+    rgba(253, 240, 242, 0.95) 75%,
+    rgba(255, 255, 255, 0.97) 100%
+  ) !important;
+  background-size: 300% 300% !important;
+  animation: headerRoyalGradient 14s ease infinite !important;
+  box-shadow: 0 6px 24px rgba(138, 10, 23, 0.08) !important;
+  border-bottom: 1px solid rgba(184, 134, 11, 0.35) !important;
+}
+
+body.light-mode .main-header::before {
+  background: radial-gradient(circle at 35% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 45%),
+              radial-gradient(circle at 75% 50%, rgba(138, 10, 23, 0.08) 0%, transparent 45%) !important;
 }
 
 body.light-mode .hero-section {
@@ -102,7 +116,9 @@ body.light-mode .brand-main-title {
 }
 
 body.light-mode .top-ticker {
-  background: #2b0408;
+  background: linear-gradient(90deg, #2b0408 0%, #4a0812 50%, #2b0408 100%) !important;
+  background-size: 200% 100% !important;
+  animation: tickerFlow 9s ease infinite !important;
   color: #fdf3cf;
 }
 
@@ -208,14 +224,18 @@ body.light-mode .admin-tab-btn.active::after {
 }
 
 /* ===================================================================
-   TOP ANNOUNCEMENT BAR
+   TOP ANNOUNCEMENT BAR (ANIMATED ROYAL SHIMMER)
    =================================================================== */
 .top-ticker {
-  background: #070606;
+  background: linear-gradient(90deg, #100406 0%, #29060d 50%, #100406 100%);
+  background-size: 200% 100%;
+  animation: tickerFlow 9s ease infinite;
   color: var(--gold-champagne);
   padding: 8px 16px;
   font-size: 0.85rem;
-  border-bottom: 1px solid var(--border-gold);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+  z-index: 1001;
 }
 
 .top-ticker-content {
@@ -267,17 +287,67 @@ body.light-mode .admin-tab-btn.active::after {
 }
 
 /* ===================================================================
-   HEADER & NAVIGATION
+   HEADER & NAVIGATION (ANIMATED ROYAL AMBIENT BACKGROUND)
    =================================================================== */
 .main-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(14, 12, 13, 0.94);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-gold);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    125deg,
+    rgba(14, 11, 12, 0.96) 0%,
+    rgba(46, 8, 15, 0.94) 25%,
+    rgba(18, 13, 14, 0.97) 50%,
+    rgba(42, 27, 9, 0.93) 75%,
+    rgba(14, 11, 12, 0.96) 100%
+  );
+  background-size: 300% 300%;
+  animation: headerRoyalGradient 14s ease infinite;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
   transition: var(--transition);
+  overflow: hidden;
+}
+
+/* Floating Ambient Aura Glow in Header Background */
+.main-header::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 160%;
+  height: 220%;
+  background: radial-gradient(circle at 35% 50%, rgba(212, 175, 55, 0.13) 0%, transparent 45%),
+              radial-gradient(circle at 75% 50%, rgba(173, 19, 35, 0.11) 0%, transparent 45%);
+  animation: headerAmbientDrift 10s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Traveling Golden Shimmer Light Beam on Bottom Border */
+.main-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.25) 20%,
+    #ffd700 50%,
+    #fff4b8 53%,
+    #ffd700 56%,
+    rgba(212, 175, 55, 0.25) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: headerBorderShimmer 6s linear infinite;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .header-container {
@@ -288,6 +358,8 @@ body.light-mode .admin-tab-btn.active::after {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .brand-wrapper {
@@ -308,6 +380,67 @@ body.light-mode .admin-tab-btn.active::after {
   justify-content: center;
   box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
   flex-shrink: 0;
+  animation: brandHaloPulse 4s ease-in-out infinite alternate;
+}
+
+/* ===================================================================
+   HEADER ANIMATIONS (EXCLUSIVE TO HEADER SITE BACKGROUND)
+   =================================================================== */
+@keyframes headerRoyalGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes headerAmbientDrift {
+  0% {
+    transform: translateX(-4%) translateY(-3%) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(4%) translateY(3%) rotate(0.8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-4%) translateY(-3%) rotate(0deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes headerBorderShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes brandHaloPulse {
+  0% {
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), 0 0 2px rgba(212, 175, 55, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.75), 0 0 25px rgba(138, 10, 23, 0.45);
+  }
+}
+
+@keyframes tickerFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .brand-dp-img {
