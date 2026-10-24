@@ -1178,16 +1178,21 @@ body.light-mode .filter-btn.active:hover {
 
 .product-img-wrap {
   position: relative;
-  height: 225px;
-  background: #110e0f;
+  height: 290px;
+  background: #0e0b0c;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .product-card:hover .product-img {
@@ -1588,11 +1593,50 @@ body.light-mode .btn-more-info {
 /* Dish Info Modal Layout */
 .dish-info-hero-img {
   width: 100%;
-  height: 240px;
-  object-fit: cover;
+  max-height: 420px;
+  height: auto;
+  object-fit: contain;
+  background: #000000;
   border-radius: var(--radius-md);
   margin-bottom: 20px;
-  border: 1px solid var(--border-subtle);
+  border: 1.5px solid var(--border-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+/* Instagram Post Link Button */
+.btn-insta-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(225, 48, 108, 0.12);
+  color: #ff5c8d !important;
+  border: 1px solid rgba(225, 48, 108, 0.4);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+}
+
+.btn-insta-post:hover {
+  background: linear-gradient(135deg, #e1306c, #c13584) !important;
+  color: #ffffff !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 4px 14px rgba(225, 48, 108, 0.45);
+  transform: translateY(-2px);
+}
+
+body.light-mode .btn-insta-post {
+  background: #fff0f5;
+  color: #c13584 !important;
+  border-color: rgba(193, 53, 132, 0.35);
+}
+
+body.light-mode .btn-insta-post:hover {
+  background: linear-gradient(135deg, #e1306c, #c13584) !important;
+  color: #ffffff !important;
 }
 
 .dish-info-badge-row {
