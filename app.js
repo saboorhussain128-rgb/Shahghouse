@@ -163,7 +163,7 @@ const RESTAURANT_DATA = {
       portion: "Bowl / Family Pack",
       special: true,
       desc: "The iconic delicacy of Hyderabad. Tender mutton, broken wheat, lentils, and fragrant spices pounded for hours to a silky, luxurious texture.",
-      image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=700&q=80",
+      image: "images/mutton-haleem.jpg",
       heritage: "Brought to Hyderabad from the Arab world as 'Harees', elevated by the Nizams into the world-renowned GI-tagged Hyderabadi Haleem.",
       ingredients: "Fine Mutton, Cracked Wheat (Daliya), Chana Dal, Urad Dal, Pure Desi Ghee, Crispy Fried Onions, Roasted Cashews, Mint, Lime.",
       pairings: "Hard-Boiled Egg, Extra Ghee Tadka, Lemon Slices, and Fried Cashews."
@@ -176,10 +176,23 @@ const RESTAURANT_DATA = {
       portion: "Soup Bowl",
       special: false,
       desc: "A rich, velvety bone broth simmered for hours with tender mutton chops, almond-pistachio paste, and freshly ground black pepper.",
-      image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=80",
+      image: "images/mutton-marag.jpg",
       heritage: "The traditional royal wedding starter of Hyderabad, served steaming hot to warm the palate before the grand biryani course.",
       ingredients: "Mutton Ribs & Chops, Bone Marrow Broth, Blanched Almond Paste, Pistachios, Black Peppercorns, Green Cardamom, Ghee.",
       pairings: "Crisp Sheermal Roti, Naan, or enjoyed as a restorative broth."
+    },
+    {
+      id: "dish-7b",
+      name: "Traditional Nahari Paya",
+      category: "haleem",
+      type: "nonveg",
+      portion: "Rich Stew Bowl",
+      special: true,
+      desc: "Slow-cooked trotters and shanks simmered overnight in rich aromatic spices and bone marrow gravy. Hyderabad's legendary morning delicacy.",
+      image: "images/nahari-paya.jpg",
+      heritage: "A cherished Nizami breakfast tradition simmered slowly across midnight embers until the marrow melts into the velvety stew.",
+      ingredients: "Mutton Trotters (Paya), Shank Cuts, Bone Marrow, Potli Masala, Ginger, Fried Onions, Fresh Lemon, Mint.",
+      pairings: "Hot Tandoori Naan, Fresh Sheermal, and crisp green chillies."
     },
 
     // 4. STONE KEBABS & TANDOOR
@@ -401,7 +414,7 @@ let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Initialize Data
 function initData() {
-  const saved = localStorage.getItem('shahghouse_luxury_menu_v5');
+  const saved = localStorage.getItem('shahghouse_luxury_menu_v6');
   if (saved) {
     try {
       appData = JSON.parse(saved);
@@ -426,7 +439,7 @@ function initData() {
 }
 
 function saveData() {
-  localStorage.setItem('shahghouse_luxury_menu_v5', JSON.stringify(appData));
+  localStorage.setItem('shahghouse_luxury_menu_v6', JSON.stringify(appData));
 }
 
 // Show Toast
