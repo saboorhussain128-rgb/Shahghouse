@@ -650,15 +650,31 @@ const RESTAURANT_DATA = {
 let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
+// Current menu storage key - incrementing forces all client browsers to load latest dishes
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v8';
+
 // Initialize Data
 function initData() {
-  const saved = localStorage.getItem('shahghouse_luxury_menu_v7');
+  // Purge any older cached versions from localStorage
+  ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
+   'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
+   'shahghouse_luxury_menu_v7'].forEach(key => {
+    try { localStorage.removeItem(key); } catch(e) {}
+  });
+
+  const saved = localStorage.getItem(CURRENT_STORAGE_KEY);
   if (saved) {
     try {
       appData = JSON.parse(saved);
+      // Ensure authentic catalog has all dishes; if not, re-sync to RESTAURANT_DATA
+      if (!appData || !appData.menu || appData.menu.length < RESTAURANT_DATA.menu.length) {
+        appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
+        saveData();
+      }
     } catch (e) {
       console.error("Failed to parse saved data, resetting to defaults", e);
       appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
+      saveData();
     }
   } else {
     appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
@@ -677,7 +693,7 @@ function initData() {
 }
 
 function saveData() {
-  localStorage.setItem('shahghouse_luxury_menu_v7', JSON.stringify(appData));
+  localStorage.setItem(CURRENT_STORAGE_KEY, JSON.stringify(appData));
 }
 
 // Show Toast
@@ -775,7 +791,7 @@ function renderMenuList(filter = 'all') {
     return `
       <div class="product-card" id="dish-card-${dish.id}">
         <div class="product-img-wrap" onclick="openDishInfoModal('${dish.id}')" title="Click to view full image and culinary details">
-          <img src="${dish.image}" alt="${escapeHtml(dish.name)}" class="product-img" loading="lazy">
+          <img src="${dish.image}" alt="${escapeHtml(dish.name)}" class="product-img" onerror="this.onerror=null; this.src='image.png';">
           ${chefBadge}
           <span class="category-pill-tag">${escapeHtml(catName)}</span>
         </div>
@@ -787,15 +803,10 @@ function renderMenuList(filter = 'all') {
           <h3 class="product-name" onclick="openDishInfoModal('${dish.id}')" style="cursor: pointer;">${escapeHtml(dish.name)}</h3>
           <p class="product-desc">${escapeHtml(dish.desc)}</p>
           
-          <div style="display: flex; gap: 8px; align-items: center; margin-top: 14px; flex-wrap: wrap;">
+          <div style="margin-top: 14px;">
             <button class="btn-more-info" onclick="openDishInfoModal('${dish.id}')">
               <span>ℹ️</span> More Information
             </button>
-            ${dish.instagram ? `
-              <a href="${dish.instagram}" target="_blank" rel="noopener noreferrer" class="btn-insta-post" title="View official Instagram post">
-                <span>📸</span> View Post
-              </a>
-            ` : ''}
           </div>
         </div>
       </div>
@@ -836,16 +847,7 @@ window.openDishInfoModal = function(dishId) {
   if (ingredientsEl) ingredientsEl.textContent = dish.ingredients || "Aromatic Shahi Spices, Pure Desi Ghee, Farm-fresh ingredients.";
   if (pairingsEl) pairingsEl.textContent = dish.pairings || "Accompanied with authentic Nizami condiments and fresh breads.";
 
-  const instaWrap = document.getElementById('dishModalInstaWrap');
-  const instaLink = document.getElementById('dishModalInstaLink');
-  if (instaWrap && instaLink) {
-    if (dish.instagram) {
-      instaLink.href = dish.instagram;
-      instaWrap.style.display = 'block';
-    } else {
-      instaWrap.style.display = 'none';
-    }
-  }
+
 
   openModal('dishInfoModal');
 };
