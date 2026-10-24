@@ -726,80 +726,266 @@ const RESTAURANT_DATA = {
       ingredients: "Chicken Cuts, Cashew Nut Paste, Poppy Seeds (Khus Khus), Roasted Gram Flour, Garam Masala, Pure Ghee.",
       pairings: "Rumali Roti, Sheermal, or Paratha."
     },
-
-
-    // 7. VEGETARIAN DELIGHTS
+    // 7. VEGETARIAN DELIGHTS (OFFICIAL INSTAGRAM SHOWCASE & NIZAMI SHAHI VEG)
     {
-      id: "dish-16",
-      name: "Paneer Butter Masala",
+      id: "veg-1",
+      name: "Shah Ghouse Kadhai Paneer Special",
       category: "vegetarian",
       type: "veg",
-      portion: "Curry Bowl",
-      special: false,
-      desc: "Soft cottage cheese cubes simmered in a silky, mildly spiced tomato and cashew nut gravy enriched with butter and fresh cream.",
-      image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=700&q=80",
-      heritage: "The crown jewel of Indian vegetarian dining, loved for its balanced sweet, tangy, and creamy flavor profile.",
-      ingredients: "Fresh Malai Paneer, Ripe Plum Tomatoes, Cashew Paste, Amul Butter, Dairy Cream, Kasuri Methi, Honey.",
-      pairings: "Butter Tandoori Naan or Steamed Basmati Rice."
+      portion: "Handi Bowl",
+      special: true,
+      desc: "A fiery dance of royal flavors that sets your taste buds ablaze! Succulent malai paneer cubes tossed in high-heat iron kadhai with diced bell peppers, ripe tomatoes, and freshly roasted coriander & red chilli seeds.",
+      image: "images/veg-1.jpg",
+      instagram: "https://www.instagram.com/p/CurF_v3PQsr/",
+      heritage: "Classic North Indian & Hyderabadi kadhai style cooking capturing the smoky essence of freshly pounded spices.",
+      ingredients: "Fresh Malai Paneer, Crisp Bell Peppers, Whole Red Chillies, Crushed Coriander Seeds, Onion-Tomato Masala, Kasuri Methi, Pure Butter.",
+      pairings: "Tandoori Butter Naan, Garlic Naan, or Jeera Rice."
     },
     {
-      id: "dish-17",
-      name: "Paneer Tikka Shashlik",
+      id: "veg-2",
+      name: "Shah Ghouse Sizzling Paneer 65",
       category: "vegetarian",
       type: "veg",
-      portion: "Tandoor Platter",
+      portion: "Crispy Sizzling Plate",
+      special: true,
+      desc: "Sizzle, spice, and everything nice! Indulge in the tantalizing flavors of Paneer 65 — a vegetarian delight bold, crisp, and tossed with fiery green chillies, cracked garlic, and aromatic curry leaves.",
+      image: "images/veg-2.jpg",
+      instagram: "https://www.instagram.com/p/Cugg1yUPy2C/",
+      heritage: "Hyderabad's famous 65 tempering adapted for premium cottage cheese lovers.",
+      ingredients: "Diced Cottage Cheese, Curry Leaves, Slit Green Chillies, Spiced Curd, Crushed Pepper, Ginger-Garlic.",
+      pairings: "Mint Yogurt Dip, Sliced Red Onions, and Lime."
+    },
+    {
+      id: "veg-3",
+      name: "Shah Ghouse Royal Veg Handi & Biryani Feast",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Royal Family Platter",
       special: false,
-      desc: "Thick blocks of fresh cottage cheese, bell peppers, and red onions marinated in spiced mustard-curd and grilled in clay tandoor.",
-      image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=700&q=80",
-      heritage: "The ultimate smoky vegetarian barbecue favorite across North India and Hyderabad.",
-      ingredients: "Cottage Cheese, Bell Peppers, Onions, Mustard Oil, Ajwain (Carom Seeds), Roasted Gram Flour, Chaat Masala.",
-      pairings: "Spicy Mint Chutney and Lemon Slices."
+      desc: "A celebratory weekend feast for vegetarian royalty! Garden-fresh vegetables, cottage cheese, and fragrant basmati layered with royal nizami spices, slow-steamed under dough-sealed handis.",
+      image: "images/veg-3.jpg",
+      instagram: "https://www.instagram.com/p/CxBAEhAJzcE/",
+      heritage: "Nizami banquet recipes adapted for complete vegetarian royal celebrations.",
+      ingredients: "Seasonal Farm Vegetables, Paneer, Kashmiri Saffron, Ghee, Crispy Onions, Mint, Whole Spices.",
+      pairings: "Mirchi Ka Salan, Mixed Raita, and Tandoori Roti."
+    },
+    {
+      id: "veg-4",
+      name: "Shah Ghouse Shahi Paneer Curry Extravaganza",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Velvet Handi Bowl",
+      special: true,
+      desc: "Unveiling the rich symphony of flavors in every spoonful of our Shah Ghouse Paneer Curry! Tender cottage cheese cubes enveloped in a luxurious cashew-almond and fresh tomato reduction.",
+      image: "images/veg-4.jpg",
+      instagram: "https://www.instagram.com/reel/C5QRaEJJKjx/",
+      heritage: "Centuries-old Shahi gravy preparation enriched with fragrant mawa and cream.",
+      ingredients: "Malai Paneer, Cashew-Almond Paste, Mawa, Tomato Coulis, Cardamom, Saffron, Fresh Dairy Cream.",
+      pairings: "Butter Naan, Sheermal, or Peas Pulao."
+    },
+    {
+      id: "veg-5",
+      name: "Shah Ghouse Indo-Chinese Chilli Paneer",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Full Sizzler Plate",
+      special: false,
+      desc: "Indulge in the spicy, saucy, and flavorful Chilli Paneer at Shah Ghouse! Golden fried cottage cheese tossed with bell peppers, spring onions, and our signature oriental garlic chilli glaze.",
+      image: "images/veg-5.jpg",
+      instagram: "https://www.instagram.com/p/C8on6EzJBpj/",
+      heritage: "Hyderabad's favorite Indo-Chinese street-style delicacy, loved by all generations.",
+      ingredients: "Crisp Fried Paneer, Green & Red Bell Peppers, Spring Onions, Szechuan Chilli, Dark Soy, Minced Garlic.",
+      pairings: "Fried Rice, Hakka Noodles, or enjoyed as a starter."
+    },
+    {
+      id: "veg-6",
+      name: "Shah Ghouse Hong Kong Veg Starter",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Crunchy Appetizer Platter",
+      special: false,
+      desc: "Savor the crunch and flavor of our Hong Kong Veg Starter! A perfect blend of wok-tossed crispy vegetables, baby corn, water chestnuts, and zesty Asian-Hyderabadi spices to kickstart your meal.",
+      image: "images/veg-6.jpg",
+      instagram: "https://www.instagram.com/p/DADLG6MPauK/",
+      heritage: "A contemporary crunch-infused appetizer crafted to delight vegetable lovers.",
+      ingredients: "Crisp Baby Corn, Broccoli, Water Chestnuts, Bell Peppers, Garlic-Chilli Seasoning, Scallions.",
+      pairings: "Sweet Chilli Dip and Shredded Cabbage Salad."
+    },
+    {
+      id: "veg-7",
+      name: "Shah Ghouse Creamy Paneer Butter Masala",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Shahi Handi Bowl",
+      special: true,
+      desc: "Arrey baba, ye toh asli creamy buttery mazza hai! Melt-in-mouth cottage cheese simmered in a velvety tomato-butter makhani gravy, infused with roasted kasuri methi and fresh dairy cream.",
+      image: "images/veg-7.jpg",
+      instagram: "https://www.instagram.com/p/DEU1CMJyprh/",
+      heritage: "The undisputed emperor of North Indian gravies, prepared with pure dairy butter and slow-simmered perfection.",
+      ingredients: "Soft Paneer Cubes, Rich Tomato Puree, Amul Butter, Dairy Cream, Kasuri Methi, Cardamom, Honey.",
+      pairings: "Garam-Garam Butter Naan, Garlic Naan, or Jeera Rice."
+    },
+    {
+      id: "veg-8",
+      name: "Shah Ghouse Crispy Veg Manchurian",
+      category: "vegetarian",
+      type: "veg",
+      portion: "Full Plate (Dry / Gravy)",
+      special: false,
+      desc: "Crispy, spicy, aur Indo-Chinese ka perfect blend! Golden seasoned vegetable balls flash-fried and tossed in a rich, savory ginger-soy reduction with chopped coriander and chillies.",
+      image: "images/veg-8.jpg",
+      instagram: "https://www.instagram.com/p/C0_NXr2RSLW/",
+      heritage: "The quintessential fusion favorite, marrying Chinese wok techniques with bold Indian spices.",
+      ingredients: "Minced Farm Veggies, Ginger-Garlic, Dark Soya, Green Chillies, Spring Onions, White Pepper.",
+      pairings: "Fried Rice, Soft Naan, or enjoyed as a hot snack."
     },
 
-    // 8. TANDOORI BREADS
+    // 8. TANDOORI BREADS (OFFICIAL INSTAGRAM SHOWCASE & FRESH TANDOOR BAKES)
     {
-      id: "dish-18",
-      name: "Rumali Roti & Tandoori Butter Naan",
+      id: "bread-1",
+      name: "Shah Ghouse Traditional Tandoori Roti",
       category: "breads",
       type: "veg",
-      portion: "Fresh from Oven",
+      portion: "Fresh from Tandoor (Plain / Butter)",
       special: false,
-      desc: "Handcrafted paper-thin handkerchief bread (Rumali) tossed on an inverted tawa, and fluffy leavened Naan baked in live charcoal tandoor.",
-      image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80",
-      heritage: "Traditional accompaniments indispensable to Hyderabadi feasts since the Mughal era.",
-      ingredients: "Refined Flour, Milk, Butter, Nigella Seeds (Kalonji), Baked on dome tawa or clay tandoor.",
-      pairings: "Mutton Rogan Josh, Dum Ka Murgh, or Paneer Gravies."
+      desc: "Roti: Timeless comfort on a plate! Wholesome stone-ground whole wheat dough hand-stretched and slapped onto blazing clay tandoor walls, roasted to smoky blistered perfection.",
+      image: "images/bread-1.jpg",
+      instagram: "https://www.instagram.com/p/Cvu56owvXtr/",
+      heritage: "The daily staple of the Deccan, baked over live charcoal embers for an authentic rustic char.",
+      ingredients: "Stone-Ground Whole Wheat Atta, Water, Sea Salt, Roasted in authentic clay ovens.",
+      pairings: "Matka Mutton Curry, Roghan Josh, or Dal Tadka."
+    },
+    {
+      id: "bread-2",
+      name: "Shah Ghouse Fluffy Butter Naan",
+      category: "breads",
+      type: "veg",
+      portion: "Jumbo Tandoor Bake",
+      special: true,
+      desc: "The buttery pillow for your royal curries! Light, pillowy leavened bread baked in blazing tandoors and generously brushed with melted golden dairy butter.",
+      image: "images/bread-2.jpg",
+      instagram: "https://www.instagram.com/p/Cvu5n_7PoTQ/",
+      heritage: "Royal Mughlai bread making tradition with centuries of leavening artistry.",
+      ingredients: "Refined Wheat Flour, Fresh Dairy Milk, Butter Glaze, Nigella Seeds (Kalonji), Yogurt.",
+      pairings: "Butter Chicken, Murgh Musallam, or Paneer Butter Masala."
+    },
+    {
+      id: "bread-3",
+      name: "Shah Ghouse Charred Garlic Naan",
+      category: "breads",
+      type: "veg",
+      portion: "Aromatic Garlic Platter",
+      special: false,
+      desc: "City escape, culinary bliss! Leavened tandoor bread generously topped with finely minced roasted garlic, fresh cilantro, and brushed with hot butter.",
+      image: "images/bread-3.jpg",
+      instagram: "https://www.instagram.com/p/DNyMwNPwnb1/",
+      heritage: "A fragrant tandoor classic that pairs seamlessly with rich gravies and smoky kebabs.",
+      ingredients: "Flour, Freshly Minced Garlic, Coriander, Pure Butter, Kalonji Seeds.",
+      pairings: "Mutton Korma, Tangdi Kebab, or Shahi Paneer."
     },
 
-    // 9. SHAWARMA & ROLLS
+    // 9. SHAWARMA & ROLLS (OFFICIAL INSTAGRAM SHOWCASE & STREET FAVORITES)
     {
-      id: "dish-19",
-      name: "Shah Ghouse Special Chicken Shawarma",
+      id: "shawarma-1",
+      name: "Shah Ghouse Signature Rumali Shawarma",
       category: "shawarma",
       type: "nonveg",
-      portion: "Rumali / Khubus Roll",
+      portion: "Jumbo Rumali Wrap",
       special: true,
-      desc: "Spiced chicken sliced thin from our vertical rotisserie, wrapped in soft rumali bread with creamy garlic mayonnaise and pickled gherkins.",
-      image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=700&q=80",
-      heritage: "A middle-eastern classic adopted into Hyderabad's late-night food culture, crafted with extra meat and zero fillers.",
-      ingredients: "Slow-Roasted Chicken, Garlic Mayo (Touwm), Pickled Beetroot, Green Chillies, Spiced Rumali Roti.",
-      pairings: "Extra Garlic Dip and Pickled Chillies."
+      desc: "Hyderabad's beloved late-night obsession! Succulent rotisserie chicken carved hot from our vertical spit, rolled inside a delicate, thin rumali roti with velvety garlic mayo and pickled gherkins. Pure meat, zero cabbage fillers.",
+      image: "images/shawarma-1.jpg",
+      instagram: "https://www.instagram.com/p/DcbFABxTUtV/",
+      heritage: "Adopted into Hyderabad's culinary fabric from the Arabian Gulf, elevated with Shah Ghouse's proprietary meat marinade.",
+      ingredients: "Slow-Roasted Spit Chicken, Garlic Toum, Pickled Turnips & Cucumbers, Thin Rumali Roti.",
+      pairings: "Extra Garlic Dip, Spicy Peri Peri Dip, and Pickled Green Chillies."
+    },
+    {
+      id: "shawarma-2",
+      name: "Shah Ghouse Creamy Malai Chicken Shawarma Wrap",
+      category: "shawarma",
+      type: "nonveg",
+      portion: "Creamy Malai Wrap",
+      special: true,
+      desc: "Wrapped with creamy Malai Chicken and packed with pure lazeez vibes! Tender chicken marinated in fresh cream, mild spices, and cheese, wrapped tightly in toasted khubz/rumali with rich garlic cream. One bite and hunger doesn't stand a chance.",
+      image: "images/shawarma-2.jpg",
+      instagram: "https://www.instagram.com/p/DZ7YBh6TujF/",
+      heritage: "A luxurious twist on the traditional shawarma, combining Mughlai malai creaminess with Arabian street wraps.",
+      ingredients: "Malai-Marinated Tender Chicken, Fresh Cream, Garlic Mayonnaise, Toasted Wrap, Mild Spices.",
+      pairings: "French Fries, Spicy Harissa Dip, and Pickles."
     },
 
-    // 10. IRANI CHAI & BAKERY
+    // 10. IRANI CHAI & BAKERY (OFFICIAL INSTAGRAM SHOWCASE & TIMELESS CAFE CULTURE)
     {
-      id: "dish-20",
-      name: "Special Hyderabadi Irani Chai & Osmania",
+      id: "chai-1",
+      name: "Shah Ghouse Royal Dum Irani Chai",
       category: "irani-chai",
       type: "veg",
-      portion: "Chai + 4 Biscuits",
+      portion: "Traditional Cutting / Cup",
       special: true,
-      desc: "Thick, slow-brewed decoction blended with reduced creamy milk and mawa, paired with freshly baked sweet-and-salty Osmania biscuits.",
-      image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=700&q=80",
-      heritage: "Introduced by Persian immigrants in the early 20th century, becoming the very heartbeat of Hyderabad's street conversations and cafe culture.",
-      ingredients: "Assam CTC Tea Leaves, Reduced Full-Cream Milk, Mawa (Khowa), Cardamom, Osmania Butter Biscuits.",
-      pairings: "Fine Khari Puff, Tie Biscuits, and fresh discussions."
+      desc: "Where time slows down and every sip feels refined! Steaming hot, slow-brewed strong Assam tea decoction blended with reduced creamy milk and mawa. Served with quiet elegance and timeless warmth.",
+      image: "images/chai-1.jpg",
+      instagram: "https://www.instagram.com/p/DScbzStkbie/",
+      heritage: "The living soul of Hyderabad culture since the early 20th century, fueling conversations across generations.",
+      ingredients: "Aged Assam CTC Tea, Reduced Full-Cream Milk, Mawa (Khowa), Crushed Cardamom.",
+      pairings: "Osmania Biscuits, Tie Biscuits, and Fine Khari."
     },
+    {
+      id: "chai-2",
+      name: "Shah Ghouse Irani Chai with Maska Bun",
+      category: "irani-chai",
+      type: "veg",
+      portion: "Chai + Butter Slathered Bun",
+      special: true,
+      desc: "Where conversations brew and buns melt! Steaming hot cup of Irani Dum Chai served alongside a freshly baked, ultra-soft bun loaded with chilled, luscious dairy butter.",
+      image: "images/chai-2.jpg",
+      instagram: "https://www.instagram.com/reel/DQg-nhPkZXq/",
+      heritage: "The classic Hyderabadi breakfast and afternoon ritual savored at our bustling cafes daily.",
+      ingredients: "Dum Irani Chai, Fresh Bakery Buns, Rich Dairy Butter (Maska), Sugar.",
+      pairings: "Best enjoyed dipped directly into hot steaming chai."
+    },
+    {
+      id: "chai-3",
+      name: "Shah Ghouse Freshly Baked Dum Ka Roat",
+      category: "irani-chai",
+      type: "veg",
+      portion: "Freshly Baked Slice / Cake",
+      special: true,
+      desc: "Still warm. Still soft. Still unforgettable! Freshly baked every day, our Dum Ka Roat is a timeless Hyderabadi delicacy — roasted to golden amber perfection with semolina, pure desi ghee, and a generous heart of crunchy almonds and dry fruits.",
+      image: "images/chai-3.jpg",
+      instagram: "https://www.instagram.com/p/DLmE2sUJL2z/",
+      heritage: "Hyderabad's most cherished heritage baked dessert, reliving the taste and nostalgia of royal festivities.",
+      ingredients: "Fine Semolina (Sooji), Pure Desi Ghee, Saffron, Khoya, Almonds, Pistachios, Cardamom.",
+      pairings: "Hot Irani Chai or enjoyed warm as a comforting dessert."
+    },
+    {
+      id: "chai-4",
+      name: "The Iconic Irani Chai & Osmania Biscuit Pair",
+      category: "irani-chai",
+      type: "veg",
+      portion: "Hot Cup + 4 Osmania Biscuits",
+      special: true,
+      desc: "Steaming traditions, timeless taste! Dive into the legendary pairing of piping-hot Irani Dum Chai and sweet-and-salty Osmania biscuits — your comfort cup awaits at Shah Ghouse.",
+      image: "images/chai-4.jpg",
+      instagram: "https://www.instagram.com/p/DKtzNXaJVrW/",
+      heritage: "Named after the last Nizam of Hyderabad, Mir Osman Ali Khan, who made these melt-in-mouth biscuits world-famous.",
+      ingredients: "Flour, Pure Dairy Butter, Salt-Sweet Seasoning, Reduced Cardamom Milk, Tea Decoction.",
+      pairings: "The ultimate Hyderabadi pairing that defined street culture."
+    },
+    {
+      id: "chai-5",
+      name: "Shah Ghouse Teatime Bliss Chai & Bakery Cookies",
+      category: "irani-chai",
+      type: "veg",
+      portion: "Tea Cup + Assorted Cookie Plate",
+      special: false,
+      desc: "Cozying up with a warm cup of chai and a plate of traditional Hyderabadi bakery biscuits! An assortment of Tie biscuits, fine khari puffs, and cashew butter cookies.",
+      image: "images/chai-5.jpg",
+      instagram: "https://www.instagram.com/p/C0tEJsmxSmC/",
+      heritage: "Honoring the iconic bakeries of Old City Hyderabad with handcrafted teatime crunchy delights.",
+      ingredients: "Assorted Bakery Biscuits, Clarified Butter, Cardamom Tea, Khari Puff.",
+      pairings: "Steaming Irani Dum Chai."
+    },
+
 
     // 11. ROYAL DESSERTS
     {
@@ -836,14 +1022,14 @@ let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v11';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v12';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10', 'shahghouse_luxury_menu_v11'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 
