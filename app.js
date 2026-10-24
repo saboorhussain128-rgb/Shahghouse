@@ -628,35 +628,105 @@ const RESTAURANT_DATA = {
       ingredients: "Tender Mutton Cubes, Fresh Curry Leaves, Coarse Black Pepper, Green Chillies, Ginger-Garlic, Pure Desi Ghee.",
       pairings: "Steaming Khatti Dal, Fragrant Basmati Rice, and Sliced Onions."
     },
-
-
-    // 6. SHAHI NIZAMI CURRIES
+    // 6. SHAHI NIZAMI CURRIES (OFFICIAL INSTAGRAM SHOWCASE & ROYAL GRAVIES)
     {
-      id: "dish-14",
-      name: "Mutton Rogan Josh",
+      id: "curry-1",
+      name: "Shah Ghouse Signature Matka Mutton Curry",
       category: "curries",
       type: "nonveg",
-      portion: "Curry Bowl",
-      special: false,
-      desc: "Slow-simmered tender mutton pieces cooked in an aromatic gravy infused with Kashmiri chillies, dried ginger, and fennel.",
-      image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=700&q=80",
-      heritage: "Classic royal Mughlai curry slow-cooked until the oil separates and the meat tenderizes to perfection.",
-      ingredients: "Prime Mutton Chops, Ratan Jot (Alkanet), Fennel Powder, Dry Ginger (Sonth), Green Cardamom, Desi Ghee.",
-      pairings: "Tandoori Butter Naan, Sheermal, or Jeera Rice."
-    },
-    {
-      id: "dish-15",
-      name: "Royal Dum Ka Murgh",
-      category: "curries",
-      type: "nonveg",
-      portion: "Curry Bowl",
+      portion: "Clay Matka Bowl",
       special: true,
-      desc: "Whole cuts of chicken cooked on slow steam ('dum') with a rich paste of roasted almonds, cashews, poppy seeds, and saffron cream.",
-      image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=700&q=80",
-      heritage: "A signature dish of Hyderabadi high society, prepared during grand banquets and family celebrations.",
-      ingredients: "Chicken Cuts, Cashew & Almond Paste, Khus Khus (Poppy Seeds), Saffron Cream, Fried Onions, Ghee, Nutmeg.",
-      pairings: "Rumali Roti, Garlic Naan, and Bagara Rice."
+      desc: "Where taste meets royal tradition! Tender mutton cuts simmered slowly in unglazed earthen clay pots (matkas) with stone-ground spices, caramelized onions, and pure desi ghee.",
+      image: "images/curry-1.jpg",
+      instagram: "https://www.instagram.com/p/Cw2JPstRWW2/",
+      heritage: "Slow-cooked inside sealed clay matkas to impart an earthy aroma that modern cookware can never replicate.",
+      ingredients: "Prime Mutton Shanks, Earthen Pot Herbs, Brown Onions, Cinnamon, Black Cardamom, Pure Desi Ghee.",
+      pairings: "Hot Tandoori Roti, Sheermal, or Steamed Basmati Rice."
     },
+    {
+      id: "curry-2",
+      name: "Shah Ghouse Mutton Roghan Josh",
+      category: "curries",
+      type: "nonveg",
+      portion: "Royal Handi Bowl",
+      special: true,
+      desc: "Immerse in heritage's warmth! Tender mutton cooked in a deeply flavorful Kashmiri red chilli and ratan jot infusion with yogurt and whole shahi spices. Crafted with love and timeless Nizami culinary mastery.",
+      image: "images/curry-2.jpg",
+      instagram: "https://www.instagram.com/p/Cz3HrFoRngX/",
+      heritage: "A Persian-Mughlai royal curry refined by generations of Hyderabadi bawarchis into a velvety gravy.",
+      ingredients: "Tender Mutton Chops, Kashmiri Mirch, Fennel Seeds, Dried Ginger (Sonth), Cloves, Cinnamon, Desi Ghee.",
+      pairings: "Tandoori Butter Roti, Garlic Naan, or Jeera Rice."
+    },
+    {
+      id: "curry-3",
+      name: "Shah Ghouse Shahi Murgh Musallam (Royal Feast)",
+      category: "curries",
+      type: "nonveg",
+      portion: "Full Royal Platter (Serves 2-3)",
+      special: true,
+      desc: "Unwrap the luxury of Murgh Musallam – a golden indulgence where spices melt into velvet richness! Whole chicken marinated in saffron, spices, and almond-cashew paste, roasted and served in a rich velvety gravy with boiled eggs.",
+      image: "images/curry-3.jpg",
+      instagram: "https://www.instagram.com/p/DNS9CqQhTb4/",
+      heritage: "Served royal, tastes regal. A historical centerpiece of imperial banquet tables across the Deccan.",
+      ingredients: "Whole Farm Chicken, Shahi Masala, Cashew-Almond Gravy, Kashmiri Saffron, Hard-Boiled Eggs, Desi Ghee.",
+      pairings: "Butter Garlic Naan, Rumali Roti, and Sheermal."
+    },
+    {
+      id: "curry-4",
+      name: "Nawabi Murgh Musallam Deluxe",
+      category: "curries",
+      type: "nonveg",
+      portion: "Grand Feast Platter",
+      special: true,
+      desc: "Crafted for kings, devoured by foodies! Whole chicken drenched in decadent spices, rich almond-khowa gravy, golden fried onions, and garnished with spiced boiled eggs. A true nawabi masterpiece.",
+      image: "images/curry-4.jpg",
+      instagram: "https://www.instagram.com/p/DNANAUlSWMz/",
+      heritage: "A majestic meal celebrated as the epitome of luxury on a plate in Hyderabad's royal culinary heritage.",
+      ingredients: "Whole Tender Chicken, Khowa, Cashew Paste, Royal Potli Herbs, Fried Onions, Farm Eggs, Pure Ghee.",
+      pairings: "Fresh Tandoori Naan, Rumali Roti, and Laccha Onions."
+    },
+    {
+      id: "curry-5",
+      name: "Shah Ghouse Shahi Butter Chicken",
+      category: "curries",
+      type: "nonveg",
+      portion: "Full Handi Bowl",
+      special: false,
+      desc: "Indulge in the rich, creamy delight of Shah Ghouse's Butter Chicken! Succulent tandoori-roasted chicken pieces simmered in a velvety makhani gravy of ripe tomatoes, butter, fresh cream, and fragrant kasuri methi.",
+      image: "images/curry-5.jpg",
+      instagram: "https://www.instagram.com/p/Cy3Gm5lRLy6/",
+      heritage: "A taste truly fit for royalty, perfected with an irresistible balance of mild sweetness and smoky char.",
+      ingredients: "Tandoori Chicken Chunks, Ripe Tomato Puree, Fresh Dairy Butter, Rich Cream, Kasuri Methi, Honey.",
+      pairings: "Garlic Butter Naan, Laccha Paratha, or Fragrant Biryani Rice."
+    },
+    {
+      id: "curry-6",
+      name: "Shah Ghouse Velvet Handi Murgh Musallam",
+      category: "curries",
+      type: "nonveg",
+      portion: "Handi Special Serving",
+      special: false,
+      desc: "A golden indulgence where spices melt into velvet richness. Whole seasoned chicken slow-steamed in copper handis until fork tender, enveloped in a fragrant saffron and poppy-seed reduction.",
+      image: "images/curry-6.jpg",
+      instagram: "https://www.instagram.com/p/DMxQsvtyWNR/",
+      heritage: "Handi slow-steaming technique sealing in natural poultry juices with authentic royal seasonings.",
+      ingredients: "Chicken Cuts, Poppy Seed Paste, Saffron, Green Cardamom, Fried Cashews, Desi Ghee.",
+      pairings: "Rumali Roti, Tandoori Roti, and Fresh Lime Wedges."
+    },
+    {
+      id: "dish-14-dum",
+      name: "Authentic Dum Ka Chicken",
+      category: "curries",
+      type: "nonveg",
+      portion: "Handi Bowl",
+      special: true,
+      desc: "Chicken slow-cooked on 'dum' (steam sealed) in a rich marinade of roasted poppy seeds, cashews, fried onions, and royal spices.",
+      image: "images/curry-1.jpg",
+      heritage: "Traditional Hyderabadi celebratory curry cooked entirely by trapped aromatic steam.",
+      ingredients: "Chicken Cuts, Cashew Nut Paste, Poppy Seeds (Khus Khus), Roasted Gram Flour, Garam Masala, Pure Ghee.",
+      pairings: "Rumali Roti, Sheermal, or Paratha."
+    },
+
 
     // 7. VEGETARIAN DELIGHTS
     {
@@ -766,14 +836,14 @@ let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v10';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v11';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 

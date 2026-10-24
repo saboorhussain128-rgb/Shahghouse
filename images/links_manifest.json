@@ -358,5 +358,65 @@
     "downloaded": true,
     "size": 49971,
     "caption": "Smoky. Juicy. Tandoori done right. Grilled to perfection with signature spice kick."
+  },
+  {
+    "id": "curry-1",
+    "category": "curries",
+    "name": "Shah Ghouse Signature Matka Mutton Curry",
+    "file": "curry-1.jpg",
+    "url": "https://www.instagram.com/p/Cw2JPstRWW2/",
+    "downloaded": true,
+    "size": 54314,
+    "caption": "Shah Ghouse's Signature: Matka Mutton Curry and Roti - Where Taste Meets Tradition!"
+  },
+  {
+    "id": "curry-2",
+    "category": "curries",
+    "name": "Shah Ghouse Mutton Roghan Josh",
+    "file": "curry-2.jpg",
+    "url": "https://www.instagram.com/p/Cz3HrFoRngX/",
+    "downloaded": true,
+    "size": 54371,
+    "caption": "Immerse in Heritage's Warmth: Mutton Roghan Josh and Tandoori Roti - A Melange of Indian Flavors."
+  },
+  {
+    "id": "curry-3",
+    "category": "curries",
+    "name": "Shah Ghouse Shahi Murgh Musallam (Royal Feast)",
+    "file": "curry-3.jpg",
+    "url": "https://www.instagram.com/p/DNS9CqQhTb4/",
+    "downloaded": true,
+    "size": 44322,
+    "caption": "Unwrap the luxury of Murgh Musallam - a golden indulgence where spices melt into velvet richness."
+  },
+  {
+    "id": "curry-4",
+    "category": "curries",
+    "name": "Nawabi Murgh Musallam Deluxe",
+    "file": "curry-4.jpg",
+    "url": "https://www.instagram.com/p/DNANAUlSWMz/",
+    "downloaded": true,
+    "size": 64009,
+    "caption": "Crafted for kings, devoured by foodies. Murgh Musallam - the Nawabi masterpiece."
+  },
+  {
+    "id": "curry-5",
+    "category": "curries",
+    "name": "Shah Ghouse Shahi Butter Chicken",
+    "file": "curry-5.jpg",
+    "url": "https://www.instagram.com/p/Cy3Gm5lRLy6/",
+    "downloaded": true,
+    "size": 86978,
+    "caption": "Indulging in the rich, creamy delight of Shah Ghouse's Butter Chicken! Truly fit for royalty."
+  },
+  {
+    "id": "curry-6",
+    "category": "curries",
+    "name": "Shah Ghouse Velvet Handi Murgh Musallam",
+    "file": "curry-6.jpg",
+    "url": "https://www.instagram.com/p/DMxQsvtyWNR/",
+    "downloaded": true,
+    "size": 41644,
+    "caption": "Unwrap the luxury of Murgh Musallam - golden velvet richness served royal."
   }
 ]
