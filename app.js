@@ -432,47 +432,106 @@ const RESTAURANT_DATA = {
       ingredients: "Paya Trotters, Mutton Shanks, Bone Marrow Gravy, Royal Potli Herbs, Lemon.",
       pairings: "Fresh Naan and Lemon Wedges."
     },
-
-    // 4. STONE KEBABS & TANDOOR
+    // 4. STONE KEBABS & TANDOOR (OFFICIAL INSTAGRAM SHOWCASE & NIZAMI SPECIALTIES)
     {
       id: "dish-8",
       name: "Pathar Ka Gosht (Nizami Stone Kebab)",
       category: "kebabs",
       type: "nonveg",
-      portion: "Signature Platter",
+      portion: "Signature Stone Platter",
       special: true,
-      desc: "Thinly beaten mutton fillets marinated overnight in raw papaya and secret potli masala, seared over a red-hot natural granite stone slab.",
-      image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80",
+      desc: "Thinly beaten prime mutton fillets marinated overnight in raw papaya and secret nizami potli spices, grilled directly on a heated natural granite slab. Melting tenderness with unmatched royal smoky flavor.",
+      image: "images/kebab-1.jpg",
+      instagram: "https://www.instagram.com/p/DIV_STpSdM2/",
       heritage: "Legend holds that the 6th Nizam of Hyderabad discovered this delicacy during a royal hunting expedition, where meats were cooked on heated granite stones.",
-      ingredients: "Tender Mutton Fillets, Raw Green Papaya, Allspice (Kabab Chini), Shahi Jeera, Roasted Chana Powder, Ghee, Ginger-Garlic.",
-      pairings: "Mint Yogurt Chutney, Pickled Onion Rings, and Rumali Roti."
+      ingredients: "Tender Mutton Fillets, Raw Green Papaya, Allspice (Kabab Chini), Shahi Jeera, Roasted Chana Powder, Desi Ghee, Royal Potli Herbs.",
+      pairings: "Fresh Mint Yogurt Chutney, Pickled Onion Rings, and Soft Rumali Roti."
     },
     {
-      id: "dish-9",
-      name: "Mutton Seekh Kebab",
+      id: "kebab-1",
+      name: "Shah Ghouse Charcoal Seekh & Boti Kebab Platter",
       category: "kebabs",
       type: "nonveg",
-      portion: "Skewer (4 Long Pieces)",
-      special: false,
-      desc: "Finely minced mutton blended with fragrant spices, skewered and roasted to smoky perfection in our clay tandoor.",
-      image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=700&q=80",
-      heritage: "A Mughlai masterpiece refined over centuries with delicate aromatics and smoky clay-oven roasting.",
-      ingredients: "Minced Mutton, Brown Onions, Coriander Roots, Green Chillies, Garam Masala, Butter Glaze.",
-      pairings: "Fresh Mint Chutney, Sliced Lemon, and Garlic Butter Naan."
+      portion: "Sizzling Skewer Platter",
+      special: true,
+      desc: "Juiciest, most flavorful chargrilled kebabs in Hyderabad. Succulent mutton seekh and spicy boti kebabs marinated in authentic spices and grilled fresh over live charcoal embers.",
+      image: "images/kebab-1.jpg",
+      instagram: "https://www.instagram.com/p/DIV_STpSdM2/",
+      heritage: "Every skewer tells a 50-year story of royal Hyderabadi heritage, bold flavors, and charcoal grilling mastery.",
+      ingredients: "Finely Minced Mutton, Prime Meat Cubes, Brown Crispy Onions, Mint, Garam Masala, Ginger-Garlic, Pure Ghee Basting.",
+      pairings: "Spicy Mint Chutney, Charred Green Chillies, Sliced Lemon, and Rumali Roti."
     },
     {
-      id: "dish-10",
-      name: "Tandoori Chicken (Half & Full)",
+      id: "kebab-2",
+      name: "Shah Ghouse Melt-in-Mouth Chicken Kebab Bites",
+      category: "kebabs",
+      type: "nonveg",
+      portion: "Portion (6-8 Juicy Pieces)",
+      special: false,
+      desc: "Grilled to golden perfection, these tender, juicy boneless chicken chunks are seasoned with an exquisite royal blend of spices and fresh herbs. Every single bite bursts with irresistible flavor.",
+      image: "images/kebab-2.jpg",
+      instagram: "https://www.instagram.com/p/DIbbllttlF3/",
+      heritage: "Slow-roasted over coals for a signature melt-in-the-mouth texture that has made Shah Ghouse a meat-lover's paradise.",
+      ingredients: "Boneless Farm Chicken, Strained Curd, Green Chillies, Kasuri Methi, Lemon Juice, Aromatic Herbs, Butter Glaze.",
+      pairings: "Creamy Mint Dip, Pickled Red Onion Rings, and Butter Naan."
+    },
+    {
+      id: "kebab-3",
+      name: "Shah Ghouse Royal Tandoori Chicken",
       category: "kebabs",
       type: "nonveg",
       portion: "Half / Full Bird",
-      special: false,
-      desc: "Whole chicken scored and marinated twice in strained yogurt, Deggi Mirch, and mustard oil, roasted on live charcoal in traditional tandoors.",
-      image: "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=700&q=80",
-      heritage: "Clay tandoor cooking perfected to create a crispy smoky exterior with juicy, succulent meat within.",
-      ingredients: "Whole Chicken, Hung Curd, Kashmiri Chilli, Mustard Oil, Kasuri Methi, Lemon Juice, Chaat Masala.",
-      pairings: "Mint Dip, Onion Lachha, and Rumali Roti."
+      special: true,
+      desc: "A burst of authentic flavors that redefine the essence of culinary delight. Whole farm chicken scored and double-marinated in strained curd, Kashmiri deggi mirch, and mustard oil, roasted in clay tandoors.",
+      image: "images/kebab-3.jpg",
+      instagram: "https://www.instagram.com/p/C14cmK2xM7v/",
+      heritage: "Centuries-old clay tandoor technique creating an enticing smoky char outside while keeping the meat juicy and succulent within.",
+      ingredients: "Whole Farm Chicken, Hung Curd, Deggi Mirch, Mustard Oil, Kasuri Methi, Lemon, Chaat Masala, Butter Glaze.",
+      pairings: "Fresh Mint-Coriander Chutney, Onion Lachha, Lemon Wedges, and Rumali Roti."
     },
+    {
+      id: "kebab-4",
+      name: "Shah Ghouse Flame-Grilled Tangdi Kebab",
+      category: "kebabs",
+      type: "nonveg",
+      portion: "4 Plump Drumsticks",
+      special: true,
+      desc: "Juicy, plump chicken drumsticks marinated overnight in cashew paste, rich spices, and hung curd, flame-grilled over live fire to lock in tantalizing smoky tenderness.",
+      image: "images/kebab-4.jpg",
+      instagram: "https://www.instagram.com/p/DK4OEaKSKxM/",
+      heritage: "Where tradition meets taste — a celebrated Mughlai delicacy roasted to golden amber perfection on red-hot skewers.",
+      ingredients: "Tender Chicken Drumsticks, Cashew-Nut Paste, Shahi Garam Masala, Kashmiri Chilli, Lemon, Pure Desi Ghee.",
+      pairings: "Green Mint Chutney, Charred Lemon, and Fluffy Tandoori Naan."
+    },
+    {
+      id: "kebab-5",
+      name: "Shah Ghouse Grand Tandoori Feast Platter",
+      category: "kebabs",
+      type: "nonveg",
+      portion: "Grand Royal Feast Platter",
+      special: true,
+      desc: "A platter so big, even your cravings need backup! An opulent assortment of Shah Ghouse's finest kebabs, seekhs, and smoked tandoori delicacies served sizzling on one grand feast platter.",
+      image: "images/kebab-5.jpg",
+      instagram: "https://www.instagram.com/p/DRo9lwuEeKa/",
+      heritage: "Designed for grand gatherings, festive family celebrations, and true meat connoisseurs of Hyderabad.",
+      ingredients: "Assorted Mutton & Chicken Kebabs, Tangdi, Seekh, Potli Masala, Fresh Mint, Lemon, Saffron-infused Ghee.",
+      pairings: "Assorted Shahi Chutneys, Pickled Onions, and a Basket of Fresh Tandoori Breads."
+    },
+    {
+      id: "kebab-6",
+      name: "Shah Ghouse Signature Smoky Tandoori Delight",
+      category: "kebabs",
+      type: "nonveg",
+      portion: "Chef's Special Serving",
+      special: false,
+      desc: "Smoky. Juicy. Tandoori done right. Chargrilled to tender perfection with Shah Ghouse's signature Hyderabadi spice kick, sealing in natural juices over live coal embers.",
+      image: "images/kebab-6.jpg",
+      instagram: "https://www.instagram.com/p/DReuKK1ETzX/",
+      heritage: "Authentic coal-pit tandoori craftsmanship perfected over decades by our master ustaads in Hyderabad.",
+      ingredients: "Marinated Chicken Cuts, Crushed Peppercorns, Roasted Cumin, Green Cardamom, Mustard Oil, Fresh Mint.",
+      pairings: "Velvety Mint Dip, Crisp Onion Rings, and Hot Garlic Naan."
+    },
+
 
     // 5. HYDERABADI STARTERS
     {
@@ -651,14 +710,14 @@ let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v8';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v9';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 
