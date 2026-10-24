@@ -531,48 +531,104 @@ const RESTAURANT_DATA = {
       ingredients: "Marinated Chicken Cuts, Crushed Peppercorns, Roasted Cumin, Green Cardamom, Mustard Oil, Fresh Mint.",
       pairings: "Velvety Mint Dip, Crisp Onion Rings, and Hot Garlic Naan."
     },
-
-
-    // 5. HYDERABADI STARTERS
+    // 5. HYDERABADI STARTERS (OFFICIAL INSTAGRAM SHOWCASE & NIZAMI APPETIZERS)
     {
-      id: "dish-11",
-      name: "Authentic Hyderabadi Chicken 65",
+      id: "starter-1",
+      name: "Shah Ghouse Legendary Chicken 65",
       category: "starters",
       type: "nonveg",
-      portion: "Full Plate",
+      portion: "Signature Sizzling Plate",
       special: true,
-      desc: "The legendary Deccan appetizer. Crispy morsels of chicken tossed in an intoxicating mix of fiery chillies, fresh curry leaves, crushed garlic, and yogurt sauce.",
-      image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=700&q=80",
-      heritage: "Created in South India in 1965 and perfected in Hyderabad with a signature curd and curry leaf tempering.",
-      ingredients: "Boneless Chicken, Fresh Curry Leaves, Slit Green Chillies, Garlic, Red Chilli Paste, Yogurt, Black Pepper.",
-      pairings: "Enjoyed as a standalone starter or alongside Steamed Rice and Sambar."
+      desc: "The ultimate South Indian & Hyderabadi icon! Crispy on the outside, juicy on the inside, and packed with fiery flavors. Boneless chicken tossed with aromatic spices, fresh curry leaves, and green chillies.",
+      image: "images/starter-1.jpg",
+      instagram: "https://www.instagram.com/p/DA0Z_vcSCuO/",
+      heritage: "Created in 1965 and elevated by Shah Ghouse with a signature spiced curd tempering and crackling curry leaf aroma.",
+      ingredients: "Boneless Farm Chicken, Crisp Curry Leaves, Slit Green Chillies, Garlic, Red Chilli Paste, Spiced Curd, Black Pepper.",
+      pairings: "Sliced Red Onions, Fresh Lemon Wedges, or paired with Biryani."
+    },
+    {
+      id: "starter-2",
+      name: "Shah Ghouse Crispy Prawn Manchurian",
+      category: "starters",
+      type: "nonveg",
+      portion: "Full Platter",
+      special: true,
+      desc: "Experience the essence of Shah Ghouse’s Prawn Manchurian: A delectable fusion of zesty flavors featuring golden battered prawns tossed with scallions, crushed garlic, and a tangy Indo-Hyderabadi glaze.",
+      image: "images/starter-2.jpg",
+      instagram: "https://www.instagram.com/p/C3fpQFRh_CO/",
+      heritage: "A celebrated Indo-Deccan seafood specialty perfected in our kitchens with a crispy crunch and luscious glaze.",
+      ingredients: "Fresh Bay Prawns, Spring Onions, Minced Garlic, Szechuan Chilli, Soya Glaze, White Pepper, Coriander.",
+      pairings: "Fresh Lemon, Shredded Cabbage Salad, and Mint Dip."
+    },
+    {
+      id: "starter-3",
+      name: "Shah Ghouse Arabian Delights Starter Platter",
+      category: "starters",
+      type: "nonveg",
+      portion: "Grand Appetizer Platter",
+      special: true,
+      desc: "A feast of Arabian & Hyderabadi delights! Loaded with juicy spiced meats, golden fritters, and sizzling barbecue cuts served alongside traditional dips and crisp accompaniments.",
+      image: "images/starter-3.jpg",
+      instagram: "https://www.instagram.com/p/C_Lp5VrBWVG/",
+      heritage: "An iconic combination platter celebrating the cross-cultural Arabian and Hyderabadi culinary heritage of Old City.",
+      ingredients: "Assorted Tender Chicken & Mutton Cuts, Garlic Dip, Toum, Pickled Turnips, Royal Nizami Spices.",
+      pairings: "Garlic Toum, Spicy Harissa Sauce, and Warm Khubz / Naan."
+    },
+    {
+      id: "starter-4",
+      name: "Shah Ghouse Zesty Chicken Hariyali Starter",
+      category: "starters",
+      type: "nonveg",
+      portion: "Tender Herb Platter",
+      special: false,
+      desc: "Experience the zesty flavor of Chicken Hariyali! Tender chicken marinated in a vibrant blend of fresh garden mint, coriander leaves, green chillies, and shahi spices, grilled to juicy succulent perfection.",
+      image: "images/starter-4.jpg",
+      instagram: "https://www.instagram.com/p/DAvuDgvym2z/",
+      heritage: "A fresh herbal Mughlai favorite known for its bright green emerald color and soothing mint-coriander aromatic finish.",
+      ingredients: "Boneless Chicken Chunks, Fresh Coriander, Garden Mint, Hung Yogurt, Green Chillies, Lemon Juice, Chaat Masala.",
+      pairings: "Creamy Mint Chutney, Pickled Onions, and Lime Slices."
+    },
+    {
+      id: "starter-5",
+      name: "Shah Ghouse Smoky Nizami Starter Bites",
+      category: "starters",
+      type: "nonveg",
+      portion: "Chef's Special Serving",
+      special: false,
+      desc: "Smoky. Juicy. Tandoori done right. Prime boneless cuts chargrilled to tender perfection with Shah Ghouse's signature Hyderabadi spice kick, locking in intense flavor over red-hot coals.",
+      image: "images/starter-5.jpg",
+      instagram: "https://www.instagram.com/p/DReuKK1ETzX/",
+      heritage: "Slow-roasted over coal embers by master grill chefs for an unmistakable charcoal smoke flavor.",
+      ingredients: "Marinated Chicken, Black Peppercorns, Roasted Cumin, Green Cardamom, Mustard Oil, Fresh Mint.",
+      pairings: "Mint Yogurt Dip, Sliced Red Onions, and Garlic Naan."
     },
     {
       id: "dish-12",
-      name: "Chicken Majestic",
+      name: "Chicken Majestic (Nizami Royal Starter)",
       category: "starters",
       type: "nonveg",
       portion: "Full Plate",
       special: true,
-      desc: "Tender fried chicken strips coated in a creamy, velvety sauce infused with fresh mint, green chillies, garlic, and aromatic spices.",
-      image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=700&q=80",
-      heritage: "A contemporary Hyderabad favorite born in the city's royal dining rooms, praised for its smooth minty undertone.",
+      desc: "Tender fried chicken strips coated in a velvety sauce infused with fresh mint, green chillies, garlic, and aromatic spices.",
+      image: "images/starter-1.jpg",
+      heritage: "A contemporary Hyderabad favorite praised for its smooth minty undertone and crispy texture.",
       ingredients: "Chicken Strips, Fresh Mint Puree, Garlic, Curd, Crushed Cumin, Green Chillies, Coriander.",
       pairings: "Crisp Onion Salad and Fresh Lime."
     },
     {
-      id: "dish-13",
-      name: "Apollo Fish",
+      id: "dish-14",
+      name: "Tala Hua Gosht (Hyderabadi Crispy Mutton Fry)",
       category: "starters",
       type: "nonveg",
       portion: "Full Plate",
-      special: false,
-      desc: "Boneless cubes of tender fish fillets delicately spiced, fried golden, and tossed with yogurt, curry leaves, and ginger.",
-      image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=700&q=80",
-      heritage: "Named after Hyderabad's historic Apollo Bar, this has become one of the most iconic seafood starters across Telangana.",
-      ingredients: "Murrel / Basa Fish Fillets, Cornflour, Egg White, Curry Leaves, Red Chilli Flakes, Ginger, Lime Juice.",
-      pairings: "Lemon Slices and Tartar / Mint Dip."
+      special: true,
+      desc: "Succulent boneless mutton chunks slow-cooked until fork tender, then flash-fried with cracked black pepper, curry leaves, and green chillies.",
+      image: "images/starter-3.jpg",
+      heritage: "The crown jewel of Old City Hyderabad. Traditionally savored late into the evening across Charminar and Tolichowki.",
+      ingredients: "Tender Mutton Cubes, Fresh Curry Leaves, Coarse Black Pepper, Green Chillies, Ginger-Garlic, Pure Desi Ghee.",
+      pairings: "Steaming Khatti Dal, Fragrant Basmati Rice, and Sliced Onions."
     },
+
 
     // 6. SHAHI NIZAMI CURRIES
     {
@@ -710,14 +766,14 @@ let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v9';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v10';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 
