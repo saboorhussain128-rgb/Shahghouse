@@ -987,32 +987,116 @@ const RESTAURANT_DATA = {
     },
 
 
-    // 11. ROYAL DESSERTS
+    // 11. ROYAL DESSERTS (OFFICIAL INSTAGRAM SHOWCASE & NIZAMI SWEETS)
     {
-      id: "dish-21",
-      name: "Qubani Ka Meetha (with Fresh Malai)",
+      id: "dessert-1",
+      name: "Shah Ghouse Shahi Badam Ki Kheer",
       category: "desserts",
       type: "veg",
-      portion: "Dessert Bowl",
+      portion: "Clay Matka Bowl",
       special: true,
-      desc: "Slow-stewed dried apricots infused with fragrant rose water and sugar, garnished with crunchy apricot kernels and scoops of fresh clotted cream.",
-      image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80",
-      heritage: "The premier traditional royal dessert of Hyderabad, without which no Nizami wedding or Dastarkhwan is complete.",
-      ingredients: "Dry Apricots (Qubani), Apricot Seeds, Pure Sugar Syrup, Rose Water, Fresh Dairy Clotted Malai.",
-      pairings: "Fresh Cream or Vanilla Bean Ice Cream."
+      desc: "Indulge in the royal richness of Badam Ki Kheer — a creamy, nutty masterpiece that melts your heart with every single spoonful! Prepared by slow-simmering blanched California almonds with full-cream milk, saffron, and cardamom.",
+      image: "images/dessert-1.jpg",
+      instagram: "https://www.instagram.com/p/DJrGfVRJqGN/",
+      heritage: "The prized royal pudding of the Nizams, renowned for its nourishing almond essence and velvety texture.",
+      ingredients: "Blanched Almond Paste, Full Cream Dairy Milk, Saffron Strands, Green Cardamom, Crushed Pistachios, Sugar.",
+      pairings: "Enjoyed chilled after a royal Biryani feast."
+    },
+    {
+      id: "dessert-2",
+      name: "Shah Ghouse Seasonal Royal Aamras",
+      category: "desserts",
+      type: "veg",
+      portion: "Chilled Dessert Glass / Bowl",
+      special: false,
+      desc: "Sip, smile, and savor the magic of mangoes with our refreshing Aamras! Thick, sun-ripened Alphonso mango pulp infused with fragrant cardamom and saffron — the sweetest way to celebrate summer in Hyderabad.",
+      image: "images/dessert-2.jpg",
+      instagram: "https://www.instagram.com/p/DJvmNE8p0SC/",
+      heritage: "Traditional Indian seasonal mango feast, served pure without artificial preservatives.",
+      ingredients: "Pure Ripe Mango Pulp, Cardamom Powder, Saffron-infused Milk, Chopped Mango Chunks.",
+      pairings: "Warm Puris, Naan, or savored as a rich chilled dessert."
+    },
+    {
+      id: "dessert-3",
+      name: "Shah Ghouse Zafrani Badam Ki Kheer",
+      category: "desserts",
+      type: "veg",
+      portion: "Royal Dessert Bowl",
+      special: true,
+      desc: "Discover the magic of tradition with our Zafrani Badam Ki Kheer! Crafted with love, this creamy almond dessert is heavily enriched with Kashmiri saffron, slivered dry fruits, and a gentle sweetness that dissolves on the tongue.",
+      image: "images/dessert-3.jpg",
+      instagram: "https://www.instagram.com/p/C_x2EmtgOBC/",
+      heritage: "A staple at lavish Hyderabadi wedding banquets celebrating century-old sweet traditions.",
+      ingredients: "Almond Flour, Reduced Milk, Kashmiri Zafran (Saffron), Cardamom, Silver Leaf, Almond Slivers.",
+      pairings: "Fresh Irani Chai or enjoyed chilled."
+    },
+    {
+      id: "dessert-4",
+      name: "Shah Ghouse Royal Cream Fruit Salad",
+      category: "desserts",
+      type: "veg",
+      portion: "Loaded Dessert Bowl",
+      special: false,
+      desc: "Dive into delight with our Cream Fruit Salad! Refreshing, luscious, and loaded with a colorful medley of crisp apples, sweet pomegranates, grapes, and tropical fruits folded into whipped sweet cream.",
+      image: "images/dessert-4.jpg",
+      instagram: "https://www.instagram.com/p/C_r-9M0tcbS/",
+      heritage: "Hyderabad's timeless sweet finish loved by diners of all generations across Charminar and Tolichowki.",
+      ingredients: "Seasonal Fresh Fruits, Sweetened Dairy Cream, Vanilla Essence, Glazed Cherries, Honey Drizzle.",
+      pairings: "A light, refreshing contrast after rich spicy curries and biryanis."
+    },
+    {
+      id: "dessert-5",
+      name: "Shah Ghouse Shahi Eid Sheer Khurma & Kheer",
+      category: "desserts",
+      type: "veg",
+      portion: "Festival Shahi Bowl",
+      special: true,
+      desc: "Savor the sweetness of tradition with our heavenly Kheer & Sheer Khurma! Creamy, fragrant, and slow-roasted with fine vermicelli, dates (chhuara), pure desi ghee, and dry fruits to celebrate joyous festive occasions.",
+      image: "images/dessert-5.jpg",
+      instagram: "https://www.instagram.com/p/CuBiLmfJdZO/",
+      heritage: "The quintessential celebratory dessert of Hyderabad, representing unity, warmth, and royal hospitality.",
+      ingredients: "Roasted Fine Seviyan, Dry Dates, Condensed Milk, Pistachios, Almonds, Chirongi, Pure Desi Ghee.",
+      pairings: "Served warm or chilled as the crowning finale of your feast."
+    },
+    {
+      id: "dessert-6",
+      name: "Shah Ghouse Arabian Umm Ali",
+      category: "desserts",
+      type: "veg",
+      portion: "Baked Arabian Bowl",
+      special: true,
+      desc: "Discover the enchantment of Umm Ali — a heavenly Middle Eastern baked dessert that transports your taste buds to blissful realms! Golden flaky pastry layered with sweetened hot milk, toasted coconut, raisins, and roasted nuts.",
+      image: "images/dessert-6.jpg",
+      instagram: "https://www.instagram.com/p/CteZFdMBsNR/",
+      heritage: "An Egyptian & Arabian classic embraced by Hyderabad's cosmopolitan food connoisseurs.",
+      ingredients: "Crisp Puff Pastry, Sweet Whole Milk, Heavy Cream, Desiccated Coconut, Golden Sultanas, Pistachios.",
+      pairings: "Served warm straight from the oven."
+    },
+    {
+      id: "dish-21",
+      name: "Shah Ghouse Qubani Ka Meetha (with Fresh Malai)",
+      category: "desserts",
+      type: "veg",
+      portion: "Traditional Dessert Bowl",
+      special: true,
+      desc: "Slow-stewed dried apricots infused with fragrant rose water, garnished with crunchy apricot kernels and generous dollops of fresh clotted cream.",
+      image: "images/dessert-3.jpg",
+      heritage: "The premier traditional royal dessert of Hyderabad, without which no Nizami banquet is complete.",
+      ingredients: "Dry Apricots (Qubani), Apricot Kernels, Rose Water, Cane Sugar, Fresh Dairy Clotted Malai.",
+      pairings: "Fresh Malai or Vanilla Ice Cream."
     },
     {
       id: "dish-22",
       name: "Hyderabadi Double Ka Meetha",
       category: "desserts",
       type: "veg",
-      portion: "Dessert Bowl",
-      special: false,
+      portion: "Shahi Dessert Bowl",
+      special: true,
       desc: "Golden fried bread triangles soaked in thick saffron rabri, flavored with cardamom and topped with roasted cashews, pistachios, and silver leaf.",
-      image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=700&q=80",
-      heritage: "Derived from 'Double Roti' (milk bread), this decadent royal dessert has sweetened celebrations in Hyderabad for generations.",
+      image: "images/dessert-5.jpg",
+      heritage: "Decadent royal dessert derived from 'Double Roti' (milk bread), beloved for centuries.",
       ingredients: "Artisanal Bread, Saffron Milk, Rabri, Green Cardamom, Desi Ghee, Pistachios, Chandi Ka Warq.",
-      pairings: "Hot Irani Chai or enjoyed warm as a finale."
+      pairings: "Hot Irani Chai or enjoyed warm."
     }
   ]
 };
@@ -1022,14 +1106,14 @@ let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v12';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v13';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10', 'shahghouse_luxury_menu_v11'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10', 'shahghouse_luxury_menu_v11', 'shahghouse_luxury_menu_v12'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 
