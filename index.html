@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.4">
+  <link rel="stylesheet" href="style.css?v=4.5">
 </head>
 <body>
 
@@ -349,47 +349,99 @@
   </div>
 
   <!-- =================================================================
-       STAFF LOGIN GATE MODAL (OWNER & MANAGER)
+       EXECUTIVE & OPERATIONS LOGIN GATEWAY (OWNER & MANAGER)
        ================================================================= -->
   <div class="modal-overlay" id="loginModal">
-    <div class="modal-card">
-      <button class="modal-close-btn" id="closeLoginModal" title="Close">&times;</button>
+    <div class="modal-card login-modal-card">
+      <button class="modal-close-btn" id="closeLoginModal" title="Close" onclick="closeModal('loginModal')">&times;</button>
       
-      <div class="modal-header" style="text-align: center; margin-bottom: 24px;">
-        <div class="brand-dp-circle" style="margin: 0 auto 12px; width: 62px; height: 62px;">
-          <img src="logo.svg" alt="Shah Ghouse Seal" class="brand-dp-img" onerror="this.src='image.png'">
+      <div class="login-modal-header">
+        <div class="brand-dp-circle login-logo-badge">
+          <img src="logo.svg" alt="Shah Ghouse Royal Seal" class="brand-dp-img" onerror="this.src='image.png'">
         </div>
-        <h2 class="modal-card-title">Staff Portal Login</h2>
-        <p class="modal-card-subtitle">Authorized access for Shah Ghouse Owner &amp; Managers</p>
+        <span class="login-heritage-badge">SHAH GHOUSE HOTEL &amp; RESTAURANT &bull; ESTD 1984</span>
+        <h2 class="login-modal-title">Executive &amp; Operations Portal</h2>
+        <p class="login-modal-desc">Authorised personnel authentication for Shah Ghouse restaurant suite</p>
       </div>
 
-      <!-- Quick 1-Click Credential Chips -->
-      <div class="quick-creds">
-        <strong class="quick-creds-title">⚡ 1-Click Demo Credentials:</strong>
-        <div class="creds-chips">
-          <button type="button" class="chip-btn" onclick="fillDemoCreds('owner')">
-            👑 Click to Fill Owner Login
-          </button>
-          <button type="button" class="chip-btn" onclick="fillDemoCreds('manager')">
-            📋 Click to Fill Manager Login
-          </button>
+      <!-- Real-Time Role Switcher Cards -->
+      <div class="login-role-selector">
+        <div class="role-select-card active role-owner" id="roleCardOwner" onclick="selectLoginRole('owner')">
+          <div class="role-card-icon-box owner">
+            <span>👑</span>
+          </div>
+          <div class="role-card-info">
+            <span class="role-tag owner-tag">EXECUTIVE SUITE</span>
+            <h4 class="role-card-name">Owner Portal</h4>
+            <p class="role-card-sub">Al-Haj Mohammed Rabbani &bull; MD</p>
+            <div class="role-card-features">
+              <span>&bull; Master Catalog &amp; 72 Dishes</span>
+              <span>&bull; Category Architecture</span>
+              <span>&bull; Full Sovereign Ownership</span>
+            </div>
+          </div>
+          <div class="role-card-radio">
+            <span class="role-radio-dot"></span>
+          </div>
+        </div>
+
+        <div class="role-select-card role-manager" id="roleCardManager" onclick="selectLoginRole('manager')">
+          <div class="role-card-icon-box manager">
+            <span>📋</span>
+          </div>
+          <div class="role-card-info">
+            <span class="role-tag manager-tag">OPERATIONS HUB</span>
+            <h4 class="role-card-name">Manager Hub</h4>
+            <p class="role-card-sub">Floor &amp; Kitchen Operations Controller</p>
+            <div class="role-card-features">
+              <span>&bull; Daily Dish Availability &amp; Stock</span>
+              <span>&bull; Live Website Showcase Toggle</span>
+              <span>&bull; Kitchen Station Controls</span>
+            </div>
+          </div>
+          <div class="role-card-radio">
+            <span class="role-radio-dot"></span>
+          </div>
         </div>
       </div>
 
-      <form id="loginForm">
+      <form id="loginForm" class="login-form-box">
         <div class="form-group">
-          <label class="form-label" for="loginUsername">Staff Username / Email</label>
-          <input type="text" id="loginUsername" class="form-input" placeholder="e.g. owner@shahghouse or manager@shahghouse" required>
+          <label class="form-label" for="loginUsername">
+            <span id="loginUsernameLabel">Owner Username / Email</span>
+          </label>
+          <div style="position: relative;">
+            <input type="text" id="loginUsername" class="form-input login-input" placeholder="e.g. owner@shahghouse" value="owner@shahghouse" required>
+            <span class="input-icon-adornment">👤</span>
+          </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" class="form-input" placeholder="Enter password (e.g. owner@shahghouse)" required>
+          <label class="form-label" for="loginPassword">
+            <span>Password</span>
+          </label>
+          <div style="position: relative;">
+            <input type="password" id="loginPassword" class="form-input login-input" placeholder="Enter password" value="owner@shahghouse" required>
+            <span class="input-icon-adornment">🔑</span>
+          </div>
         </div>
 
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 1rem; margin-top: 10px;">
-          <span>🔓</span> Enter Staff Portal
-        </button>
+        <div class="login-action-group">
+          <button type="submit" id="loginSubmitBtn" class="btn-primary btn-login-submit">
+            <span>🔓</span> Enter Executive Suite
+          </button>
+          <button type="button" class="btn-quick-autofill" onclick="quickLoginCurrentRole()">
+            <span>⚡</span> Instant 1-Click Login
+          </button>
+        </div>
+
+        <div class="login-security-footer">
+          <span>🔒 256-Bit TLS Encrypted Connection</span>
+          <span>&bull;</span>
+          <span id="loginLiveIST">Hyderabad IST</span>
+          <span>&bull;</span>
+          <span>Tolichowki Central Node</span>
+        </div>
       </form>
     </div>
   </div>
@@ -401,14 +453,35 @@
     <div class="modal-card admin-modal">
       <button class="modal-close-btn" id="closeAdminModal" title="Close">&times;</button>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-gold); padding-bottom: 16px; margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="brand-dp-circle" style="width: 44px; height: 44px;">
+      <!-- Real-Time Luxury Dashboard Header (Role Themed) -->
+      <div class="admin-portal-header" id="adminPortalHeader">
+        <div class="header-brand-block">
+          <div class="brand-dp-circle portal-dp" id="portalHeaderDp">
             <img src="logo.svg" class="brand-dp-img" alt="Logo" onerror="this.src='image.png'">
+            <span class="portal-dp-badge" id="portalDpBadge">👑</span>
           </div>
           <div>
-            <h2 id="adminGreeting" class="modal-card-title" style="font-size: 1.4rem;">Staff Management Hub</h2>
-            <p id="adminRoleDisplay" style="font-size: 0.82rem; color: var(--text-secondary);"></p>
+            <div class="portal-identity-row">
+              <h2 id="adminGreeting" class="portal-greeting-title">Owner Management Portal</h2>
+              <span class="portal-security-badge" id="portalSecurityBadge">👑 Verified Owner Access</span>
+            </div>
+            <p id="adminRoleDisplay" class="portal-role-subtitle">Al-Haj Mohammed Rabbani &bull; Managing Director &bull; Estd 1984</p>
+          </div>
+        </div>
+
+        <!-- Real-Time Live Status Bar -->
+        <div class="portal-live-meta">
+          <div class="live-meta-item">
+            <span class="meta-label">SERVER NODE</span>
+            <span class="meta-value live"><span class="live-pulse-dot"></span> Tolichowki Central</span>
+          </div>
+          <div class="live-meta-item">
+            <span class="meta-label">HYDERABAD IST</span>
+            <span class="meta-value" id="livePortalClock">12:00:00 PM IST</span>
+          </div>
+          <div class="live-meta-item">
+            <span class="meta-label">OUTLETS</span>
+            <span class="meta-value">5 Active</span>
           </div>
         </div>
       </div>
@@ -480,6 +553,11 @@
                 <span>⭕</span> Hidden: <strong id="adminStatHiddenCount">0</strong>
               </span>
             </div>
+          </div>
+
+          <!-- Kitchen Station Quick-Jump Selector (Manager Hub) -->
+          <div class="station-quick-jump" id="managerStationJumpBar">
+            <!-- Dynamically populated by JS with Biryani, Mandi, Haleem, Kebabs, etc. -->
           </div>
 
           <!-- Quick Action Buttons -->
@@ -961,6 +1039,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.4"></script>
+  <script src="app.js?v=4.5"></script>
 </body>
 </html>

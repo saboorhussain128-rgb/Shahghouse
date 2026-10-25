@@ -1363,6 +1363,55 @@ function updateHeaderAuthUI() {
 // ===================================================================
 // AUTHENTICATION LOGIC (Owner & Manager)
 // ===================================================================
+// ===================================================================
+// AUTHENTICATION LOGIC (Owner Executive & Manager Operations)
+// ===================================================================
+let selectedLoginRole = 'owner';
+
+window.selectLoginRole = function(role) {
+  selectedLoginRole = role;
+  const cardOwner = document.getElementById('roleCardOwner');
+  const cardManager = document.getElementById('roleCardManager');
+  const userInp = document.getElementById('loginUsername');
+  const passInp = document.getElementById('loginPassword');
+  const submitBtn = document.getElementById('loginSubmitBtn');
+  const userLabel = document.getElementById('loginUsernameLabel');
+
+  if (role === 'owner') {
+    if (cardOwner) cardOwner.classList.add('active');
+    if (cardManager) cardManager.classList.remove('active');
+    if (userInp) userInp.value = 'owner@shahghouse';
+    if (passInp) passInp.value = 'owner@shahghouse';
+    if (userLabel) userLabel.textContent = "Owner Username / Email";
+    if (submitBtn) submitBtn.innerHTML = '<span>🔓</span> Enter Executive Suite';
+  } else {
+    if (cardOwner) cardOwner.classList.remove('active');
+    if (cardManager) cardManager.classList.add('active');
+    if (userInp) userInp.value = 'manager@shahghouse';
+    if (passInp) passInp.value = 'manager@shahghouse';
+    if (userLabel) userLabel.textContent = "Manager Username / Email";
+    if (submitBtn) submitBtn.innerHTML = '<span>🔓</span> Enter Manager Operations Hub';
+  }
+};
+
+window.quickLoginCurrentRole = function() {
+  const userInp = document.getElementById('loginUsername');
+  const passInp = document.getElementById('loginPassword');
+  if (selectedLoginRole === 'owner') {
+    if (userInp) userInp.value = 'owner@shahghouse';
+    if (passInp) passInp.value = 'owner@shahghouse';
+  } else {
+    if (userInp) userInp.value = 'manager@shahghouse';
+    if (passInp) passInp.value = 'manager@shahghouse';
+  }
+  const form = document.getElementById('loginForm');
+  if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
+};
+
+window.fillDemoCreds = function(role) {
+  selectLoginRole(role);
+};
+
 function setupAuth() {
   const loginForm = document.getElementById('loginForm');
   const loginNavBtn = document.getElementById('loginNavBtn');
@@ -1370,7 +1419,10 @@ function setupAuth() {
   const logoutBtn = document.getElementById('logoutBtn');
 
   if (loginNavBtn) {
-    loginNavBtn.addEventListener('click', () => openModal('loginModal'));
+    loginNavBtn.addEventListener('click', () => {
+      openModal('loginModal');
+      selectLoginRole(selectedLoginRole);
+    });
   }
 
   if (closeLoginBtn) {
@@ -1383,7 +1435,7 @@ function setupAuth() {
       localStorage.removeItem('shahghouse_session_user');
       updateHeaderAuthUI();
       closeModal('adminModal');
-      showToast("Logged out successfully.", "👋");
+      showToast("Logged out from Shah Ghouse Portal.", "👋");
     });
   }
 
@@ -1396,12 +1448,13 @@ function setupAuth() {
         currentUser = {
           role: 'owner',
           username: 'owner@shahghouse',
-          title: 'Owner & Managing Director'
+          title: 'Owner & Managing Director',
+          name: 'Al-Haj Mohammed Rabbani'
         };
         localStorage.setItem('shahghouse_session_user', JSON.stringify(currentUser));
         closeModal('loginModal');
         updateHeaderAuthUI();
-        showToast("Welcome Owner! Full management hub unlocked.", "👑");
+        showToast("Welcome Al-Haj Mohammed Rabbani! Executive Suite unlocked.", "👑");
         openStaffDashboard();
         return;
       }
@@ -1410,12 +1463,13 @@ function setupAuth() {
         currentUser = {
           role: 'manager',
           username: 'manager@shahghouse',
-          title: 'Restaurant Operations Manager'
+          title: 'Restaurant Operations Manager',
+          name: 'Floor & Kitchen Operations Manager'
         };
         localStorage.setItem('shahghouse_session_user', JSON.stringify(currentUser));
         closeModal('loginModal');
         updateHeaderAuthUI();
-        showToast("Welcome Manager! Menu catalog access granted.", "📋");
+        showToast("Welcome Manager! Operations Hub & Daily Availability connected.", "📋");
         openStaffDashboard();
         return;
       }
@@ -1423,25 +1477,57 @@ function setupAuth() {
       alert("Invalid credentials. Please use:\n- owner@shahghouse\n- manager@shahghouse");
     });
   }
-
-  window.fillDemoCreds = function(role) {
-    const userInp = document.getElementById('loginUsername');
-    const passInp = document.getElementById('loginPassword');
-    if (role === 'owner') {
-      userInp.value = 'owner@shahghouse';
-      passInp.value = 'owner@shahghouse';
-    } else {
-      userInp.value = 'manager@shahghouse';
-      passInp.value = 'manager@shahghouse';
-    }
-  };
 }
 
-// ===================================================================
-// STAFF MANAGEMENT / OWNER DASHBOARD ENGINE
-// ===================================================================
+// Real-Time Live Clock Engine (Hyderabad IST)
+let clockInterval = null;
+function startPortalClock() {
+  if (clockInterval) clearInterval(clockInterval);
 
-// Setup Staff & Owner Dashboard
+  function updateClock() {
+    const clockEl = document.getElementById('livePortalClock');
+    const loginClockEl = document.getElementById('loginLiveIST');
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
+
+    if (clockEl) clockEl.textContent = `${timeStr} IST`;
+    if (loginClockEl) loginClockEl.textContent = `${timeStr} IST`;
+  }
+
+  updateClock();
+  clockInterval = setInterval(updateClock, 1000);
+}
+
+// Kitchen Station Jump Pills for Manager
+window.populateStationPills = function() {
+  const container = document.getElementById('managerStationJumpBar');
+  if (!container) return;
+
+  const cats = appData.categories;
+  container.innerHTML = `
+    <span style="font-size: 0.78rem; color: var(--text-muted); align-self: center; margin-right: 4px; font-weight: 700;">Station Quick-Jump:</span>
+    ${cats.map((c, i) => {
+      const count = c.id === 'all' 
+        ? appData.menu.length 
+        : appData.menu.filter(d => d.category === c.id).length;
+      return `
+        <button type="button" class="station-pill-btn ${i === 0 ? 'active' : ''}" data-station="${c.id}" onclick="jumpToStation('${c.id}', this)">
+          ${escapeHtml(c.name)} (${count})
+        </button>
+      `;
+    }).join('')}
+  `;
+};
+
+window.jumpToStation = function(catId, btnEl) {
+  document.querySelectorAll('.station-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  const catFilter = document.getElementById('adminCategoryFilter');
+  if (catFilter) catFilter.value = catId;
+  renderAdminMenuList();
+};
+
 function setupStaffDashboard() {
   const staffBtn = document.getElementById('staffNavBtn');
   const closeAdminBtn = document.getElementById('closeAdminModal');
@@ -1480,39 +1566,56 @@ function openStaffDashboard() {
   const ownerOnlyTab = document.getElementById('tabFeaturesBtn');
   const ownerCatsTab = document.getElementById('tabCategoriesBtn');
   const ownerShortcuts = document.getElementById('ownerOnlyShortcuts');
+  const adminModal = document.getElementById('adminModal');
+  const portalDpBadge = document.getElementById('portalDpBadge');
+  const portalSecurityBadge = document.getElementById('portalSecurityBadge');
 
-  if (adminGreeting) {
-    adminGreeting.textContent = currentUser.role === 'owner' 
-      ? "👑 Owner Management Portal" 
-      : "📋 Manager Operations Hub — Daily Availability";
-  }
-  if (adminRoleDisplay) {
-    adminRoleDisplay.textContent = currentUser.role === 'owner'
-      ? `Logged in as: ${currentUser.username} (OWNER) • Full Catalog & Operations Access`
-      : `Logged in as: ${currentUser.username} (MANAGER) • Daily Dish Availability & Live Website Showcase Controller`;
-  }
-
-  if (currentUser.role !== 'owner') {
-    if (ownerOnlyTab) ownerOnlyTab.style.display = 'none';
-    if (ownerCatsTab) ownerCatsTab.style.display = 'none';
-    if (ownerShortcuts) ownerShortcuts.style.display = 'none';
-  } else {
+  if (currentUser.role === 'owner') {
+    if (adminModal) {
+      adminModal.classList.add('theme-owner-portal');
+      adminModal.classList.remove('theme-manager-hub');
+    }
+    if (adminGreeting) adminGreeting.textContent = "Owner Executive Suite";
+    if (adminRoleDisplay) adminRoleDisplay.innerHTML = "Al-Haj Mohammed Rabbani &bull; Managing Director &bull; Estd 1984";
+    if (portalDpBadge) portalDpBadge.textContent = "👑";
+    if (portalSecurityBadge) {
+      portalSecurityBadge.innerHTML = "👑 Sovereign Owner Access";
+      portalSecurityBadge.className = "portal-security-badge";
+    }
     if (ownerOnlyTab) ownerOnlyTab.style.display = 'inline-block';
     if (ownerCatsTab) ownerCatsTab.style.display = 'inline-block';
     if (ownerShortcuts) ownerShortcuts.style.display = 'flex';
+  } else {
+    if (adminModal) {
+      adminModal.classList.add('theme-manager-hub');
+      adminModal.classList.remove('theme-owner-portal');
+    }
+    if (adminGreeting) adminGreeting.textContent = "Manager Operations Hub";
+    if (adminRoleDisplay) adminRoleDisplay.innerHTML = "Restaurant Operations Manager &bull; Floor &amp; Kitchen Dispatch";
+    if (portalDpBadge) portalDpBadge.textContent = "📋";
+    if (portalSecurityBadge) {
+      portalSecurityBadge.innerHTML = "📋 Floor Operations Active";
+      portalSecurityBadge.className = "portal-security-badge";
+    }
+    if (ownerOnlyTab) ownerOnlyTab.style.display = 'none';
+    if (ownerCatsTab) ownerCatsTab.style.display = 'none';
+    if (ownerShortcuts) ownerShortcuts.style.display = 'none';
   }
 
-  // Populate dynamic category dropdowns and lists
+  // Start Real-Time Live Clock
+  startPortalClock();
+
+  // Populate dynamic category dropdowns, station pills, and lists
   populateCategorySelects();
+  populateStationPills();
   populateAdminForms();
   
-  // Default to Products tab so owner immediately sees all dishes
+  // Default to Products tab so owner or manager immediately sees the dishes
   switchAdminTab('tabCatalog');
 
   openModal('adminModal');
 }
 
-// Switch Tabs inside Admin Modal
 window.switchAdminTab = function(targetId) {
   const tabs = document.querySelectorAll('.admin-tab-btn');
   const panels = document.querySelectorAll('.admin-tab-panel');
