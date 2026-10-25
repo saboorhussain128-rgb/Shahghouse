@@ -1375,6 +1375,7 @@ window.selectLoginRole = function(role) {
   const userInp = document.getElementById('loginUsername');
   const passInp = document.getElementById('loginPassword');
   const submitBtn = document.getElementById('loginSubmitBtn');
+  const quickBtn = document.getElementById('quickLoginBtn');
   const userLabel = document.getElementById('loginUsernameLabel');
 
   if (role === 'owner') {
@@ -1383,14 +1384,16 @@ window.selectLoginRole = function(role) {
     if (userInp) userInp.value = 'owner@shahghouse';
     if (passInp) passInp.value = 'owner@shahghouse';
     if (userLabel) userLabel.textContent = "Owner Username / Email";
-    if (submitBtn) submitBtn.innerHTML = '<span>🔓</span> Enter Executive Suite';
+    if (submitBtn) submitBtn.innerHTML = '<span class="btn-action-icon">🔓</span> <span>Enter Executive Suite</span>';
+    if (quickBtn) quickBtn.innerHTML = '<span class="btn-action-icon">🔓</span> <span>Instant 1-Click Login</span>';
   } else {
     if (cardOwner) cardOwner.classList.remove('active');
     if (cardManager) cardManager.classList.add('active');
     if (userInp) userInp.value = 'manager@shahghouse';
     if (passInp) passInp.value = 'manager@shahghouse';
     if (userLabel) userLabel.textContent = "Manager Username / Email";
-    if (submitBtn) submitBtn.innerHTML = '<span>🔓</span> Enter Manager Operations Hub';
+    if (submitBtn) submitBtn.innerHTML = '<span class="btn-action-icon">🔓</span> <span>Enter Operations Hub</span>';
+    if (quickBtn) quickBtn.innerHTML = '<span class="btn-action-icon">🔓</span> <span>Instant 1-Click Login</span>';
   }
 };
 

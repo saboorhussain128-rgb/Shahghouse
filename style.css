@@ -3389,10 +3389,9 @@ body.light-mode .portal-sync-chip {
   }
 }
 
-
 /* ===================================================================
    FULL-PAGE STAFF LOGIN ARCHITECTURE (ZERO MODAL / ZERO POPUP)
-   Replaces the floating login modal popup with a 100% full-screen app
+   Expansive Widescreen 2-Column Executive Gateway & Operations Terminal
    =================================================================== */
 
 .login-full-page {
@@ -3504,35 +3503,206 @@ body.light-mode .portal-sync-chip {
   transform: translateY(-1px);
 }
 
-/* Centered Full-Page Login Workspace */
+/* Expansive Full-Page Workspace Container */
 .login-page-container {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 40px 20px 60px;
+  padding: 36px 24px 60px;
   width: 100%;
+  min-height: calc(100vh - 72px);
 }
 
 .login-full-card {
-  max-width: 720px;
+  max-width: 1120px;
   width: 100%;
   background: radial-gradient(circle at 50% 0%, #20090d 0%, #120508 60%, #0a0305 100%);
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  padding: 40px 36px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.15);
+  padding: 42px 46px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.18);
   animation: portalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.login-card-header {
-  text-align: center;
+/* Grand 2-Column Split Grid */
+.login-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Left Column: Heritage & Protocol Showcase */
+.login-brand-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.login-brand-showcase .login-logo-badge {
+  width: 68px;
+  height: 68px;
+  border: 2px solid var(--royal-gold);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+  margin-bottom: 14px;
+}
+
+.login-brand-showcase .login-heritage-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--gold-champagne);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--border-gold);
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.login-brand-showcase .login-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.login-brand-showcase .login-modal-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
   margin-bottom: 24px;
 }
 
-/* Light mode overrides for full-page staff login */
+.login-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.login-feat-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.login-feat-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.login-feat-title {
+  font-size: 0.88rem;
+  color: #fff;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.login-feat-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Right Column: Terminal Panel */
+.login-terminal-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-panel-header {
+  margin-bottom: 14px;
+}
+
+.terminal-header-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  letter-spacing: 0.5px;
+}
+
+.terminal-header-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* Action Buttons: Matched Luxury Royal Gold Pair with Exact Same Icon */
+.login-action-group {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+
+.btn-login-submit,
+.btn-quick-autofill {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 13px 18px !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: 0.92rem !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Button 1: Submit - Royal Gold */
+.btn-login-submit {
+  background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%) !important;
+  color: #120e0f !important;
+}
+
+.btn-login-submit:hover {
+  background: linear-gradient(135deg, #f3cf65 0%, #c59b27 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45) !important;
+}
+
+/* Button 2: Instant 1-Click Login - Styled Like Same Enter Executive Suite */
+.btn-quick-autofill {
+  background: linear-gradient(135deg, #e5c158 0%, #b8860b 100%) !important;
+  color: #120e0f !important;
+}
+
+.btn-quick-autofill:hover {
+  background: linear-gradient(135deg, #ffd978 0%, #d4af37 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45) !important;
+}
+
+.btn-action-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* ===================================================================
+   LIGHT MODE OVERRIDES FOR FULL-PAGE STAFF LOGIN & HIGH-CONTRAST TEXT
+   =================================================================== */
+
 body.light-mode .login-full-page {
-  background: radial-gradient(circle at 50% 12%, #fdfaf4 0%, #f7f1e6 50%, #ede3cf 100%) !important;
+  background: radial-gradient(circle at 50% 10%, #fefcf7 0%, #f6ede0 50%, #ebdcc2 100%) !important;
 }
 
 body.light-mode .login-app-navbar {
@@ -3545,14 +3715,108 @@ body.light-mode .login-nav-brand {
   color: #3d070e !important;
 }
 
+body.light-mode .login-nav-edition {
+  color: #8c6d1f !important;
+}
+
 body.light-mode .login-full-card {
   background: #ffffff !important;
-  border-color: #e5d7ba !important;
-  box-shadow: 0 20px 60px rgba(61, 7, 14, 0.12) !important;
+  border-color: #d1b87a !important;
+  box-shadow: 0 20px 60px rgba(61, 7, 14, 0.12), 0 0 35px rgba(212, 175, 55, 0.15) !important;
 }
 
 body.light-mode .login-modal-title {
   color: #3d070e !important;
+}
+
+body.light-mode .login-modal-desc {
+  color: #524238 !important;
+}
+
+body.light-mode .login-feat-item {
+  background: #fdfaf4 !important;
+  border-color: #e2d2b5 !important;
+}
+
+body.light-mode .login-feat-title {
+  color: #3d070e !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .login-feat-desc {
+  color: #5c4b40 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .terminal-header-title {
+  color: #3d070e !important;
+}
+
+body.light-mode .terminal-header-sub {
+  color: #614f44 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .role-select-card {
+  background: #ffffff !important;
+  border-color: #d1c2a5 !important;
+}
+
+body.light-mode .role-card-name {
+  color: #2b080e !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .role-card-sub {
+  color: #54463d !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .role-card-features span {
+  color: #40332c !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .role-select-card.active.role-owner {
+  background: linear-gradient(135deg, #fff9ee 0%, #faecd2 100%) !important;
+  border-color: #c59b27 !important;
+  box-shadow: 0 6px 20px rgba(197, 155, 39, 0.25) !important;
+}
+
+body.light-mode .role-select-card.active.role-owner .role-card-name {
+  color: #3d070e !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .role-select-card.active.role-owner .role-card-sub {
+  color: #63101b !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .role-select-card.active.role-owner .role-card-features span {
+  color: #4a151d !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .role-select-card.active.role-manager {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25) !important;
+}
+
+body.light-mode .role-select-card.active.role-manager .role-card-name {
+  color: #064e3b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .role-select-card.active.role-manager .role-card-sub {
+  color: #047857 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .role-select-card.active.role-manager .role-card-features span {
+  color: #065f46 !important;
+  font-weight: 600 !important;
 }
 
 body.light-mode .login-form-box {
@@ -3560,21 +3824,74 @@ body.light-mode .login-form-box {
   border-color: #e5d7ba !important;
 }
 
-@media (max-width: 768px) {
+body.light-mode .login-input {
+  background: #ffffff !important;
+  border: 1.5px solid #d1c2a5 !important;
+  color: #1f1418 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .login-input:focus {
+  border-color: #b8860b !important;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2) !important;
+}
+
+body.light-mode .form-label {
+  color: #2b080e !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .input-icon-adornment {
+  opacity: 0.9 !important;
+}
+
+body.light-mode .login-security-footer {
+  color: #54463d !important;
+  font-weight: 600 !important;
+}
+
+/* Light mode action buttons: Solid Gold, Dark Crisp Text, High Contrast */
+body.light-mode .btn-login-submit,
+body.light-mode .btn-quick-autofill {
+  background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%) !important;
+  color: #0d0406 !important;
+  font-weight: 800 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.35) !important;
+}
+
+body.light-mode .btn-login-submit:hover,
+body.light-mode .btn-quick-autofill:hover {
+  background: linear-gradient(135deg, #f0c950 0%, #c59b27 100%) !important;
+  color: #000000 !important;
+  box-shadow: 0 8px 25px rgba(184, 134, 11, 0.45) !important;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 980px) {
+  .login-card-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .login-full-card {
+    padding: 30px 24px;
+  }
+  .login-page-container {
+    padding: 20px 16px 40px;
+  }
+}
+
+@media (max-width: 650px) {
   .login-app-navbar {
     padding: 12px 18px;
   }
   .login-nav-center {
     display: none;
   }
-  .login-page-container {
-    padding: 20px 14px 40px;
-    align-items: flex-start;
-  }
-  .login-full-card {
-    padding: 24px 18px;
-  }
   .login-role-selector {
     grid-template-columns: 1fr;
+  }
+  .login-action-group {
+    grid-template-columns: 1fr !important;
   }
 }

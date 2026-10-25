@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.7">
+  <link rel="stylesheet" href="style.css?v=4.8">
 </head>
 <body>
 
@@ -378,95 +378,133 @@
     <!-- Centered Full-Page Login Workspace -->
     <main class="login-page-container">
       <div class="login-full-card">
-        
-        <div class="login-card-header">
-          <div class="brand-dp-circle login-logo-badge">
-            <img src="logo.svg" alt="Shah Ghouse Royal Seal" class="brand-dp-img" onerror="this.src='image.png'">
-          </div>
-          <span class="login-heritage-badge">SHAH GHOUSE HOTEL &amp; RESTAURANT &bull; ESTD 1984</span>
-          <h2 class="login-modal-title">Executive &amp; Operations Portal</h2>
-          <p class="login-modal-desc">Authorised personnel authentication for Shah Ghouse restaurant suite</p>
-        </div>
+        <div class="login-card-grid">
 
-        <!-- Real-Time Role Switcher Cards -->
-        <div class="login-role-selector">
-          <div class="role-select-card active role-owner" id="roleCardOwner" onclick="selectLoginRole('owner')">
-            <div class="role-card-icon-box owner">
-              <span>👑</span>
+          <!-- Left Column: Royal Nizam Heritage & Terminal Overview -->
+          <div class="login-brand-showcase">
+            <div class="brand-dp-circle login-logo-badge">
+              <img src="logo.svg" alt="Shah Ghouse Royal Seal" class="brand-dp-img" onerror="this.src='image.png'">
             </div>
-            <div class="role-card-info">
-              <span class="role-tag owner-tag">EXECUTIVE SUITE</span>
-              <h4 class="role-card-name">Owner Portal</h4>
-              <p class="role-card-sub">Al-Haj Mohammed Rabbani &bull; MD</p>
-              <div class="role-card-features">
-                <span>&bull; Master Catalog &amp; 72 Dishes</span>
-                <span>&bull; Category Architecture</span>
-                <span>&bull; Full Sovereign Ownership</span>
+            <span class="login-heritage-badge">ESTD 1984 &bull; HYDERABAD NIZAM CULINARY</span>
+            <h2 class="login-modal-title">Executive &amp; Operations Portal</h2>
+            <p class="login-modal-desc">
+              Sovereign executive management and real-time floor dispatch terminal for Al-Haj Mohammed Rabbani and authorized operations staff across all 5 Hyderabad branches.
+            </p>
+
+            <div class="login-feature-list">
+              <div class="login-feat-item">
+                <span class="login-feat-icon">👑</span>
+                <div>
+                  <strong class="login-feat-title">Owner Executive Suite</strong>
+                  <p class="login-feat-desc">Full master catalog control over all 72 authentic dishes, live pricing, Instagram dish links, and category architecture.</p>
+                </div>
+              </div>
+              <div class="login-feat-item">
+                <span class="login-feat-icon">📋</span>
+                <div>
+                  <strong class="login-feat-title">Manager Operations Hub</strong>
+                  <p class="login-feat-desc">Floor dispatch controller with daily dish availability toggles, 1-click select/deselect, and kitchen station quick-jumps.</p>
+                </div>
+              </div>
+              <div class="login-feat-item">
+                <span class="login-feat-icon">🔒</span>
+                <div>
+                  <strong class="login-feat-title">Multi-Branch TLS Protocol</strong>
+                  <p class="login-feat-desc">High-speed 256-bit encrypted link directly synchronized with Tolichowki Central master database node.</p>
+                </div>
               </div>
             </div>
-            <div class="role-card-radio">
-              <span class="role-radio-dot"></span>
-            </div>
           </div>
 
-          <div class="role-select-card role-manager" id="roleCardManager" onclick="selectLoginRole('manager')">
-            <div class="role-card-icon-box manager">
-              <span>📋</span>
+          <!-- Right Column: Interactive Clearance Selector & Login Terminal -->
+          <div class="login-terminal-panel">
+            <div class="terminal-panel-header">
+              <span class="terminal-header-title">Select Authentication Clearance</span>
+              <span class="terminal-header-sub">Choose your role to load designated operational controls:</span>
             </div>
-            <div class="role-card-info">
-              <span class="role-tag manager-tag">OPERATIONS HUB</span>
-              <h4 class="role-card-name">Manager Hub</h4>
-              <p class="role-card-sub">Floor &amp; Kitchen Operations Controller</p>
-              <div class="role-card-features">
-                <span>&bull; Daily Dish Availability &amp; Stock</span>
-                <span>&bull; Live Website Showcase Toggle</span>
-                <span>&bull; Kitchen Station Controls</span>
+
+            <!-- Real-Time Role Switcher Cards -->
+            <div class="login-role-selector">
+              <div class="role-select-card active role-owner" id="roleCardOwner" onclick="selectLoginRole('owner')">
+                <div class="role-card-icon-box owner">
+                  <span>👑</span>
+                </div>
+                <div class="role-card-info">
+                  <span class="role-tag owner-tag">EXECUTIVE SUITE</span>
+                  <h4 class="role-card-name">Owner Portal</h4>
+                  <p class="role-card-sub">Al-Haj Mohammed Rabbani &bull; MD</p>
+                  <div class="role-card-features">
+                    <span>&bull; Master Catalog &amp; 72 Dishes</span>
+                    <span>&bull; Category Architecture</span>
+                    <span>&bull; Full Sovereign Ownership</span>
+                  </div>
+                </div>
+                <div class="role-card-radio">
+                  <span class="role-radio-dot"></span>
+                </div>
+              </div>
+
+              <div class="role-select-card role-manager" id="roleCardManager" onclick="selectLoginRole('manager')">
+                <div class="role-card-icon-box manager">
+                  <span>📋</span>
+                </div>
+                <div class="role-card-info">
+                  <span class="role-tag manager-tag">OPERATIONS HUB</span>
+                  <h4 class="role-card-name">Manager Hub</h4>
+                  <p class="role-card-sub">Floor &amp; Kitchen Operations Controller</p>
+                  <div class="role-card-features">
+                    <span>&bull; Daily Dish Availability &amp; Stock</span>
+                    <span>&bull; Live Website Showcase Toggle</span>
+                    <span>&bull; Kitchen Station Controls</span>
+                  </div>
+                </div>
+                <div class="role-card-radio">
+                  <span class="role-radio-dot"></span>
+                </div>
               </div>
             </div>
-            <div class="role-card-radio">
-              <span class="role-radio-dot"></span>
-            </div>
+
+            <form id="loginForm" class="login-form-box">
+              <div class="form-group">
+                <label class="form-label" for="loginUsername">
+                  <span id="loginUsernameLabel">Owner Username / Email</span>
+                </label>
+                <div style="position: relative;">
+                  <input type="text" id="loginUsername" class="form-input login-input" placeholder="e.g. owner@shahghouse" value="owner@shahghouse" required autocomplete="username">
+                  <span class="input-icon-adornment">👤</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="loginPassword">
+                  <span>Password</span>
+                </label>
+                <div style="position: relative;">
+                  <input type="password" id="loginPassword" class="form-input login-input" placeholder="Enter password" value="owner@shahghouse" required autocomplete="current-password">
+                  <span class="input-icon-adornment">🔑</span>
+                </div>
+              </div>
+
+              <div class="login-action-group">
+                <button type="submit" id="loginSubmitBtn" class="btn-primary btn-login-submit" title="Login with credentials">
+                  <span class="btn-action-icon">🔓</span> <span id="loginSubmitText">Enter Executive Suite</span>
+                </button>
+                <button type="button" id="quickLoginBtn" class="btn-quick-autofill" onclick="quickLoginCurrentRole()" title="Instant 1-Click Login">
+                  <span class="btn-action-icon">🔓</span> <span id="quickLoginText">Instant 1-Click Login</span>
+                </button>
+              </div>
+
+              <div class="login-security-footer">
+                <span>🔒 256-Bit TLS Encrypted Connection</span>
+                <span>&bull;</span>
+                <span id="loginLiveIST">Hyderabad IST</span>
+                <span>&bull;</span>
+                <span>Tolichowki Central Node</span>
+              </div>
+            </form>
           </div>
+
         </div>
-
-        <form id="loginForm" class="login-form-box">
-          <div class="form-group">
-            <label class="form-label" for="loginUsername">
-              <span id="loginUsernameLabel">Owner Username / Email</span>
-            </label>
-            <div style="position: relative;">
-              <input type="text" id="loginUsername" class="form-input login-input" placeholder="e.g. owner@shahghouse" value="owner@shahghouse" required autocomplete="username">
-              <span class="input-icon-adornment">👤</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="loginPassword">
-              <span>Password</span>
-            </label>
-            <div style="position: relative;">
-              <input type="password" id="loginPassword" class="form-input login-input" placeholder="Enter password" value="owner@shahghouse" required autocomplete="current-password">
-              <span class="input-icon-adornment">🔑</span>
-            </div>
-          </div>
-
-          <div class="login-action-group">
-            <button type="submit" id="loginSubmitBtn" class="btn-primary btn-login-submit">
-              <span>🔓</span> Enter Executive Suite
-            </button>
-            <button type="button" class="btn-quick-autofill" onclick="quickLoginCurrentRole()">
-              <span>⚡</span> Instant 1-Click Login
-            </button>
-          </div>
-
-          <div class="login-security-footer">
-            <span>🔒 256-Bit TLS Encrypted Connection</span>
-            <span>&bull;</span>
-            <span id="loginLiveIST">Hyderabad IST</span>
-            <span>&bull;</span>
-            <span>Tolichowki Central Node</span>
-          </div>
-        </form>
       </div>
     </main>
   </div>
@@ -1090,6 +1128,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.7"></script>
+  <script src="app.js?v=4.8"></script>
 </body>
 </html>
