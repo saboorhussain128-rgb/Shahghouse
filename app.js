@@ -1486,11 +1486,13 @@ function startPortalClock() {
 
   function updateClock() {
     const clockEl = document.getElementById('livePortalClock');
+    const navClockEl = document.getElementById('livePortalClockNav');
     const loginClockEl = document.getElementById('loginLiveIST');
     const now = new Date();
     const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
 
     if (clockEl) clockEl.textContent = `${timeStr} IST`;
+    if (navClockEl) navClockEl.textContent = `${timeStr} IST`;
     if (loginClockEl) loginClockEl.textContent = `${timeStr} IST`;
   }
 
@@ -1543,7 +1545,7 @@ function setupStaffDashboard() {
   }
 
   if (closeAdminBtn) {
-    closeAdminBtn.addEventListener('click', () => closeModal('adminModal'));
+    closeAdminBtn.addEventListener('click', () => closeStaffDashboard());
   }
 
   const tabs = document.querySelectorAll('.admin-tab-btn');
@@ -1557,8 +1559,8 @@ function setupStaffDashboard() {
   populateCategorySelects();
 }
 
-// Open Staff Dashboard
-function openStaffDashboard() {
+// Open Staff Dashboard (Full-Page Web Application)
+window.openStaffDashboard = function() {
   if (!currentUser) return;
 
   const adminGreeting = document.getElementById('adminGreeting');
@@ -1569,12 +1571,14 @@ function openStaffDashboard() {
   const adminModal = document.getElementById('adminModal');
   const portalDpBadge = document.getElementById('portalDpBadge');
   const portalSecurityBadge = document.getElementById('portalSecurityBadge');
+  const portalNavEdition = document.getElementById('portalNavEdition');
 
   if (currentUser.role === 'owner') {
     if (adminModal) {
       adminModal.classList.add('theme-owner-portal');
       adminModal.classList.remove('theme-manager-hub');
     }
+    if (portalNavEdition) portalNavEdition.textContent = "EXECUTIVE SUITE";
     if (adminGreeting) adminGreeting.textContent = "Owner Executive Suite";
     if (adminRoleDisplay) adminRoleDisplay.innerHTML = "Al-Haj Mohammed Rabbani &bull; Managing Director &bull; Estd 1984";
     if (portalDpBadge) portalDpBadge.textContent = "👑";
@@ -1590,6 +1594,7 @@ function openStaffDashboard() {
       adminModal.classList.add('theme-manager-hub');
       adminModal.classList.remove('theme-owner-portal');
     }
+    if (portalNavEdition) portalNavEdition.textContent = "OPERATIONS HUB";
     if (adminGreeting) adminGreeting.textContent = "Manager Operations Hub";
     if (adminRoleDisplay) adminRoleDisplay.innerHTML = "Restaurant Operations Manager &bull; Floor &amp; Kitchen Dispatch";
     if (portalDpBadge) portalDpBadge.textContent = "📋";
@@ -1613,8 +1618,26 @@ function openStaffDashboard() {
   // Default to Products tab so owner or manager immediately sees the dishes
   switchAdminTab('tabCatalog');
 
-  openModal('adminModal');
-}
+  if (adminModal) {
+    adminModal.classList.add('active');
+    adminModal.scrollTop = 0;
+  }
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeStaffDashboard = function() {
+  const adminModal = document.getElementById('adminModal');
+  if (adminModal) adminModal.classList.remove('active');
+  document.body.style.overflow = '';
+};
+
+window.logoutStaff = function() {
+  currentUser = null;
+  localStorage.removeItem('shahghouse_session_user');
+  updateHeaderAuthUI();
+  closeStaffDashboard();
+  showToast("Logged out from Shah Ghouse Portal.", "👋");
+};
 
 window.switchAdminTab = function(targetId) {
   const tabs = document.querySelectorAll('.admin-tab-btn');
@@ -2405,6 +2428,9 @@ function openModal(id) {
 function closeModal(id) {
   const modal = document.getElementById(id);
   if (modal) modal.classList.remove('active');
+  if (id === 'adminModal') {
+    document.body.style.overflow = '';
+  }
 }
 
 function escapeHtml(text) {

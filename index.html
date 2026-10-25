@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.5">
+  <link rel="stylesheet" href="style.css?v=4.6">
 </head>
 <body>
 
@@ -447,11 +447,37 @@
   </div>
 
   <!-- =================================================================
-       STAFF / OWNER MANAGEMENT DASHBOARD MODAL
+       FULL-PAGE MANAGEMENT APPLICATION (OWNER SUITE & MANAGER OPERATIONS HUB)
        ================================================================= -->
-  <div class="modal-overlay" id="adminModal">
-    <div class="modal-card admin-modal">
-      <button class="modal-close-btn" id="closeAdminModal" title="Close">&times;</button>
+  <div class="portal-full-page" id="adminModal">
+    <!-- Top Sticky Full-Page Application Bar -->
+    <header class="portal-app-navbar">
+      <div class="portal-nav-left">
+        <div class="brand-dp-circle portal-nav-logo">
+          <img src="logo.svg" alt="Shah Ghouse Monogram" class="brand-dp-img" onerror="this.src='image.png'">
+        </div>
+        <div>
+          <span class="portal-nav-brand">SHAH GHOUSE</span>
+          <span class="portal-nav-edition" id="portalNavEdition">EXECUTIVE SUITE</span>
+        </div>
+      </div>
+      <div class="portal-nav-center">
+        <div class="portal-status-chip"><span class="live-pulse-dot"></span> <span id="portalNodeStatus">Tolichowki Master HQ</span></div>
+        <div class="portal-clock-chip"><span class="live-portal-clock-display" id="livePortalClockNav">12:00:00 PM IST</span></div>
+        <div class="portal-sync-chip"><span>5 Outlets Synced</span></div>
+      </div>
+      <div class="portal-nav-right">
+        <button type="button" class="btn-portal-view-site" id="closeAdminModal" onclick="closeStaffDashboard()" title="Return to Live Website">
+          <span>🌐</span> View Live Website
+        </button>
+        <button type="button" class="btn-portal-logout" id="portalLogoutBtn" onclick="logoutStaff()" title="Logout from Portal">
+          <span>🚪</span> Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Full-Page Main Content Body -->
+    <main class="portal-page-container">
 
       <!-- Real-Time Luxury Dashboard Header (Role Themed) -->
       <div class="admin-portal-header" id="adminPortalHeader">
@@ -834,7 +860,7 @@
         </div>
       </div>
 
-    </div>
+    </main>
   </div>
 
   <!-- =================================================================
@@ -1039,6 +1065,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.5"></script>
+  <script src="app.js?v=4.6"></script>
 </body>
 </html>
