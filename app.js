@@ -1412,6 +1412,28 @@ window.fillDemoCreds = function(role) {
   selectLoginRole(role);
 };
 
+window.openLoginGateway = function(role) {
+  if (role) selectedLoginRole = role;
+  selectLoginRole(selectedLoginRole || 'owner');
+  startPortalClock();
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) {
+    loginModal.classList.add('active');
+    loginModal.scrollTop = 0;
+  }
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeLoginGateway = function() {
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) loginModal.classList.remove('active');
+  const adminModal = document.getElementById('adminModal');
+  const adminActive = adminModal && adminModal.classList.contains('active');
+  if (!adminActive) {
+    document.body.style.overflow = '';
+  }
+};
+
 function setupAuth() {
   const loginForm = document.getElementById('loginForm');
   const loginNavBtn = document.getElementById('loginNavBtn');
@@ -1420,22 +1442,17 @@ function setupAuth() {
 
   if (loginNavBtn) {
     loginNavBtn.addEventListener('click', () => {
-      openModal('loginModal');
-      selectLoginRole(selectedLoginRole);
+      openLoginGateway();
     });
   }
 
   if (closeLoginBtn) {
-    closeLoginBtn.addEventListener('click', () => closeModal('loginModal'));
+    closeLoginBtn.addEventListener('click', () => closeLoginGateway());
   }
 
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      currentUser = null;
-      localStorage.removeItem('shahghouse_session_user');
-      updateHeaderAuthUI();
-      closeModal('adminModal');
-      showToast("Logged out from Shah Ghouse Portal.", "👋");
+      logoutStaff();
     });
   }
 
@@ -1452,7 +1469,7 @@ function setupAuth() {
           name: 'Al-Haj Mohammed Rabbani'
         };
         localStorage.setItem('shahghouse_session_user', JSON.stringify(currentUser));
-        closeModal('loginModal');
+        closeLoginGateway();
         updateHeaderAuthUI();
         showToast("Welcome Al-Haj Mohammed Rabbani! Executive Suite unlocked.", "👑");
         openStaffDashboard();
@@ -1467,7 +1484,7 @@ function setupAuth() {
           name: 'Floor & Kitchen Operations Manager'
         };
         localStorage.setItem('shahghouse_session_user', JSON.stringify(currentUser));
-        closeModal('loginModal');
+        closeLoginGateway();
         updateHeaderAuthUI();
         showToast("Welcome Manager! Operations Hub & Daily Availability connected.", "📋");
         openStaffDashboard();
@@ -1487,12 +1504,14 @@ function startPortalClock() {
   function updateClock() {
     const clockEl = document.getElementById('livePortalClock');
     const navClockEl = document.getElementById('livePortalClockNav');
+    const loginNavClockEl = document.getElementById('liveLoginClockNav');
     const loginClockEl = document.getElementById('loginLiveIST');
     const now = new Date();
     const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
 
     if (clockEl) clockEl.textContent = `${timeStr} IST`;
     if (navClockEl) navClockEl.textContent = `${timeStr} IST`;
+    if (loginNavClockEl) loginNavClockEl.textContent = `${timeStr} IST`;
     if (loginClockEl) loginClockEl.textContent = `${timeStr} IST`;
   }
 
@@ -1537,7 +1556,7 @@ function setupStaffDashboard() {
   if (staffBtn) {
     staffBtn.addEventListener('click', () => {
       if (!currentUser) {
-        openModal('loginModal');
+        openLoginGateway();
       } else {
         openStaffDashboard();
       }
@@ -2419,18 +2438,31 @@ function setupNavLinks() {
   });
 }
 
-// Modal Helpers
+// Modal & Full-Page Helpers
 function openModal(id) {
+  if (id === 'loginModal') {
+    openLoginGateway();
+    return;
+  }
+  if (id === 'adminModal') {
+    openStaffDashboard();
+    return;
+  }
   const modal = document.getElementById(id);
   if (modal) modal.classList.add('active');
 }
 
 function closeModal(id) {
+  if (id === 'loginModal') {
+    closeLoginGateway();
+    return;
+  }
+  if (id === 'adminModal') {
+    closeStaffDashboard();
+    return;
+  }
   const modal = document.getElementById(id);
   if (modal) modal.classList.remove('active');
-  if (id === 'adminModal') {
-    document.body.style.overflow = '';
-  }
 }
 
 function escapeHtml(text) {
