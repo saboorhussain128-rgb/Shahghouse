@@ -1861,7 +1861,7 @@ window.renderAdminMenuList = function() {
     container.innerHTML = `
       <div style="text-align: center; padding: 40px 20px; color: var(--text-secondary); background: var(--bg-secondary); border-radius: 8px;">
         <span style="font-size: 2.2rem;">🔍</span>
-        <h4 style="color: #fff; margin-top: 10px;">No dishes match current filters</h4>
+        <h4 class="admin-empty-title" style="margin-top: 10px;">No dishes match current filters</h4>
         <p style="font-size: 0.85rem; margin-top: 4px;">Try switching the availability filter or clear your search query.</p>
         <button class="btn-outline" style="margin-top: 12px; font-size: 0.82rem;" onclick="clearAdminSearch()">
           Clear Filters
@@ -2268,14 +2268,14 @@ window.renderAdminCategoriesList = function() {
     return `
       <div class="admin-category-card ${isCore ? '' : 'custom-cat'}">
         <div>
-          <strong style="color: #fff; font-size: 0.95rem;">${escapeHtml(c.name)}</strong>
-          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">
-            Slug: <code>${escapeHtml(c.id)}</code> • <span style="color: var(--gold-champagne); font-weight: 600;">${count} dish${count === 1 ? '' : 'es'}</span>
+          <strong class="admin-cat-name">${escapeHtml(c.name)}</strong>
+          <div class="admin-cat-meta">
+            Slug: <code>${escapeHtml(c.id)}</code> • <span class="admin-cat-count">${count} dish${count === 1 ? '' : 'es'}</span>
           </div>
         </div>
         <div>
           ${isCore 
-            ? '<span style="font-size: 0.72rem; color: var(--text-muted); background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px;">Core Category</span>' 
+            ? '<span class="admin-cat-badge core-badge">Core Category</span>' 
             : `<button class="btn-danger" style="font-size: 0.75rem; padding: 4px 8px;" onclick="deleteCategory('${c.id}')" title="Delete category">Delete</button>`}
         </div>
       </div>
@@ -2308,7 +2308,7 @@ function renderAdminFeaturesList() {
       <div class="item-row-left">
         <span style="font-size: 1.4rem;">${f.icon || '🍲'}</span>
         <div>
-          <strong style="color: #fff;">${escapeHtml(f.title)}</strong>
+          <strong class="admin-feat-name">${escapeHtml(f.title)}</strong>
           <span style="font-size: 0.72rem; background: rgba(212, 175, 55, 0.15); color: var(--gold-champagne); padding: 2px 6px; border-radius: 4px; margin-left: 6px;">${escapeHtml(f.badge || 'SPECIAL')}</span>
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">${escapeHtml(f.desc)}</p>
         </div>

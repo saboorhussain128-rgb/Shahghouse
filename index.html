@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.8">
+  <link rel="stylesheet" href="style.css?v=4.9">
 </head>
 <body>
 
@@ -705,7 +705,7 @@
         <div class="admin-card-section">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
             <div>
-              <h3 style="color: #fff; margin: 0; font-family: 'Cinzel', serif;">➕ Add New Dish to Live Website</h3>
+              <h3 class="admin-card-title">➕ Add New Dish to Live Website</h3>
               <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
                 Fill out the details below. As soon as you click Add, this dish will be published immediately to the live digital menu.
               </p>
@@ -751,7 +751,7 @@
 
           <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin: 6px 0 14px;">
             <input type="checkbox" id="newDishSpecial" style="width: 18px; height: 18px; accent-color: var(--royal-gold); cursor: pointer;">
-            <label for="newDishSpecial" style="cursor: pointer; font-size: 0.9rem; color: #fff; font-weight: 600;">⭐ Mark as Royal Chef Specialty</label>
+            <label for="newDishSpecial" class="admin-checkbox-label">⭐ Mark as Royal Chef Specialty</label>
           </div>
 
           <div class="form-group">
@@ -788,7 +788,7 @@
         <div class="admin-card-section">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
             <div>
-              <h3 style="color: #fff; margin: 0; font-family: 'Cinzel', serif;">➕ Add New Menu Category</h3>
+              <h3 class="admin-card-title">➕ Add New Menu Category</h3>
               <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
                 Create a brand new category (e.g. <em>"Hyderabadi Fish &amp; Seafood"</em>, <em>"Beverages &amp; Mocktails"</em>). It will immediately appear as a filter tab on the website and inside all dish forms.
               </p>
@@ -815,7 +815,7 @@
           </div>
         </div>
 
-        <h4 style="color: #fff; margin: 24px 0 12px; font-family: 'Cinzel', serif;">Live Menu Categories on Website:</h4>
+        <h4 class="admin-section-heading">Live Menu Categories on Website:</h4>
         <div id="adminCategoriesList" class="admin-categories-grid">
           <!-- Populated dynamically by JS -->
         </div>
@@ -826,7 +826,7 @@
            ============================================================= -->
       <div class="admin-tab-panel" id="tabFeatures">
         <div class="admin-card-section">
-          <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Cinzel', serif;">Add New Specialty Highlight</h3>
+          <h3 class="admin-card-title">Add New Specialty Highlight</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
             As the <strong>Owner</strong>, you can add new festival highlights, royal recipes, or announcements. Updates live on the site instantly!
           </p>
@@ -856,7 +856,7 @@
           </button>
         </div>
 
-        <h4 style="color: #fff; margin: 20px 0 10px; font-family: 'Cinzel', serif;">Current Live Specialties:</h4>
+        <h4 class="admin-section-heading">Current Live Specialties:</h4>
         <div id="adminFeaturesList">
           <!-- Populated by JS -->
         </div>
@@ -867,7 +867,7 @@
            ============================================================= -->
       <div class="admin-tab-panel" id="tabHero">
         <div class="admin-card-section">
-          <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Cinzel', serif;">Edit Banners &amp; Details</h3>
+          <h3 class="admin-card-title">Edit Banners &amp; Details</h3>
 
           <div class="form-group">
             <label class="form-label">Hero Title Headline</label>
@@ -905,7 +905,7 @@
            ============================================================= -->
       <div class="admin-tab-panel" id="tabGithub">
         <div class="admin-card-section">
-          <h3 style="color: #fff; margin-bottom: 8px; font-family: 'Cinzel', serif;">Catalog Backup &amp; Repository Export</h3>
+          <h3 class="admin-card-title" style="margin-bottom: 8px;">Catalog Backup &amp; Repository Export</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
             Connected Repository: <code>https://github.com/saboorhussain128-rgb/Shahghouse.git</code>
           </p>
@@ -934,7 +934,7 @@
       <button class="modal-close-btn" id="closeEditDishModal" title="Close" onclick="closeModal('editDishModal')">&times;</button>
       
       <div style="border-bottom: 1px solid var(--border-gold); padding-bottom: 14px; margin-bottom: 18px;">
-        <h3 class="modal-card-title" style="font-size: 1.35rem; color: #fff;">✏️ Edit Dish Details</h3>
+        <h3 class="modal-card-title admin-card-title" style="font-size: 1.35rem;">✏️ Edit Dish Details</h3>
         <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
           Update dish name, category, image, and culinary information live on the website.
         </p>
@@ -977,7 +977,7 @@
 
         <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin: 6px 0 12px;">
           <input type="checkbox" id="editDishSpecial" style="width: 18px; height: 18px; accent-color: var(--royal-gold); cursor: pointer;">
-          <label for="editDishSpecial" style="cursor: pointer; font-size: 0.9rem; color: #fff; font-weight: 600;">⭐ Mark as Royal Chef Specialty</label>
+          <label for="editDishSpecial" class="admin-checkbox-label">⭐ Mark as Royal Chef Specialty</label>
         </div>
 
         <div class="form-group">
@@ -1128,6 +1128,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.8"></script>
+  <script src="app.js?v=4.9"></script>
 </body>
 </html>

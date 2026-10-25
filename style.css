@@ -3895,3 +3895,219 @@ body.light-mode .btn-quick-autofill:hover {
     grid-template-columns: 1fr !important;
   }
 }
+
+
+/* ===================================================================
+   PORTAL TYPOGRAPHY & LIGHT MODE HIGH-CONTRAST VISIBILITY ENHANCEMENTS
+   Ensures 100% crisp legibility across Category Manager & Portal Tabs
+   =================================================================== */
+
+.admin-card-title {
+  color: #ffffff;
+  margin: 0 0 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.admin-section-heading {
+  color: #ffffff;
+  margin: 24px 0 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.admin-checkbox-label {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.admin-cat-name {
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  display: block;
+}
+
+.admin-cat-meta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.admin-cat-count {
+  color: var(--gold-champagne);
+  font-weight: 700;
+}
+
+.admin-cat-badge.core-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.admin-feat-name {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.admin-empty-title {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* --- LIGHT MODE ULTRA HIGH-CONTRAST PORTAL RULES --- */
+
+body.light-mode .admin-card-title,
+body.light-mode .admin-section-heading,
+body.light-mode .admin-card-section h3,
+body.light-mode .admin-card-section h4 {
+  color: #2b080e !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .admin-card-section {
+  background: #ffffff !important;
+  border: 1.5px solid #dcd1be !important;
+  box-shadow: 0 4px 18px rgba(61, 7, 14, 0.06) !important;
+}
+
+body.light-mode .admin-card-section p {
+  color: #4b3e36 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .admin-checkbox-label {
+  color: #2b080e !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .admin-category-card {
+  background: #ffffff !important;
+  border: 1.5px solid #dcd1be !important;
+  box-shadow: 0 4px 14px rgba(61, 7, 14, 0.05) !important;
+}
+
+body.light-mode .admin-category-card.custom-cat {
+  background: #fdfaf4 !important;
+  border-color: #c59b27 !important;
+}
+
+body.light-mode .admin-cat-name {
+  color: #2b080e !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .admin-cat-meta {
+  color: #54463d !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .admin-cat-meta code {
+  background: #f4ecdf !important;
+  color: #3d070e !important;
+  border: 1px solid #dcd1be !important;
+  padding: 1px 5px !important;
+  border-radius: 3px !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .admin-cat-count {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .admin-cat-badge.core-badge {
+  color: #4a3b32 !important;
+  background: #f3ece0 !important;
+  border: 1px solid #dcd1be !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .admin-feat-name {
+  color: #2b080e !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .admin-empty-title {
+  color: #2b080e !important;
+  font-weight: 800 !important;
+}
+
+/* Top Sticky Portal Navbar in Light Mode */
+body.light-mode .portal-nav-edition {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .btn-portal-view-site {
+  background: rgba(212, 175, 55, 0.22) !important;
+  border: 1.5px solid #b8860b !important;
+  color: #3d070e !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2) !important;
+}
+
+body.light-mode .btn-portal-view-site:hover {
+  background: #d4af37 !important;
+  color: #000000 !important;
+}
+
+body.light-mode .btn-portal-logout {
+  background: #fee2e2 !important;
+  border: 1.5px solid #ef4444 !important;
+  color: #991b1b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .btn-portal-logout:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+body.light-mode .admin-tab-btn {
+  color: #4b3e36 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .admin-tab-btn:hover {
+  color: #8a0a17 !important;
+}
+
+body.light-mode .admin-tab-btn.active {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+  border-bottom: 3px solid #8a0a17 !important;
+}
+
+body.light-mode .admin-card-section .form-label {
+  color: #2b080e !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .admin-card-section .form-input {
+  background: #ffffff !important;
+  border: 1.5px solid #d1c2a5 !important;
+  color: #1a0f12 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .admin-card-section .form-input:focus {
+  border-color: #b8860b !important;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2) !important;
+}
+
+body.light-mode .admin-card-section .form-input::placeholder {
+  color: #8c7b70 !important;
+}
