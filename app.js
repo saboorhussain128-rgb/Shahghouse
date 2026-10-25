@@ -1105,6 +1105,7 @@ const RESTAURANT_DATA = {
 let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
 let currentMenuFilter = 'all';
+let currentAvailFilter = 'all'; // 'all' | 'live' | 'hidden'
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
 const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v14';
@@ -1235,21 +1236,25 @@ function renderCategoryPills() {
   setupFilters();
 }
 
-// Render Menu Cards (Prices and WhatsApp removed, added "More Information" icon button)
+// Render Menu Cards (Only Selected / Available Dishes are Shown on Website)
 function renderMenuList(filter = null) {
   if (filter !== null) currentMenuFilter = filter;
   const container = document.getElementById('productsGrid');
   if (!container) return;
 
+  // Filter only dishes selected / available for today
+  const liveDishes = appData.menu.filter(d => d.available !== false);
+
   const filtered = currentMenuFilter === 'all' 
-    ? appData.menu 
-    : appData.menu.filter(p => p.category === currentMenuFilter);
+    ? liveDishes 
+    : liveDishes.filter(p => p.category === currentMenuFilter);
 
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-secondary);">
-        <span style="font-size: 2.8rem;">🍽️</span>
-        <p style="font-size: 1.2rem; margin-top: 12px; font-family: 'Cinzel', serif;">No culinary specialties listed under this category.</p>
+        <span style="font-size: 2.8rem;">🍲</span>
+        <p style="font-size: 1.25rem; margin-top: 12px; font-family: 'Cinzel', serif;">No Dishes Available in This Category Today</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 6px;">Our royal chefs are preparing fresh batches. Please browse our other active specialties!</p>
       </div>
     `;
     return;
@@ -1474,20 +1479,27 @@ function openStaffDashboard() {
   const adminRoleDisplay = document.getElementById('adminRoleDisplay');
   const ownerOnlyTab = document.getElementById('tabFeaturesBtn');
   const ownerCatsTab = document.getElementById('tabCategoriesBtn');
+  const ownerShortcuts = document.getElementById('ownerOnlyShortcuts');
 
   if (adminGreeting) {
-    adminGreeting.textContent = currentUser.role === 'owner' ? "👑 Owner Management Portal" : "📋 Manager Operations Hub";
+    adminGreeting.textContent = currentUser.role === 'owner' 
+      ? "👑 Owner Management Portal" 
+      : "📋 Manager Operations Hub — Daily Availability";
   }
   if (adminRoleDisplay) {
-    adminRoleDisplay.textContent = `Logged in as: ${currentUser.username} (${currentUser.role.toUpperCase()}) • Full Catalog Access`;
+    adminRoleDisplay.textContent = currentUser.role === 'owner'
+      ? `Logged in as: ${currentUser.username} (OWNER) • Full Catalog & Operations Access`
+      : `Logged in as: ${currentUser.username} (MANAGER) • Daily Dish Availability & Live Website Showcase Controller`;
   }
 
   if (currentUser.role !== 'owner') {
     if (ownerOnlyTab) ownerOnlyTab.style.display = 'none';
     if (ownerCatsTab) ownerCatsTab.style.display = 'none';
+    if (ownerShortcuts) ownerShortcuts.style.display = 'none';
   } else {
     if (ownerOnlyTab) ownerOnlyTab.style.display = 'inline-block';
     if (ownerCatsTab) ownerCatsTab.style.display = 'inline-block';
+    if (ownerShortcuts) ownerShortcuts.style.display = 'flex';
   }
 
   // Populate dynamic category dropdowns and lists
@@ -1584,32 +1596,104 @@ window.populateCategorySelects = function() {
 };
 
 // Render All Products in Owner Portal with Search & Filters
+// Availability Filter Controller (All / Live / Hidden)
+window.setAvailabilityFilter = function(filterVal, btnEl) {
+  currentAvailFilter = filterVal;
+  document.querySelectorAll('.avail-chip-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  renderAdminMenuList();
+};
+
+// Toggle Dish Availability (Select / Deselect)
+window.toggleDishAvailability = function(id) {
+  if (!currentUser) return;
+  const dish = appData.menu.find(d => d.id === id);
+  if (!dish) return;
+
+  const currentAvail = (dish.available !== false);
+  dish.available = !currentAvail;
+
+  saveData();
+  renderPublicSite();
+  renderAdminMenuList();
+
+  if (dish.available) {
+    showToast(`"${dish.name}" is now SELECTED and VISIBLE on website!`, "✅");
+  } else {
+    showToast(`"${dish.name}" is now DESELECTED and HIDDEN from website.`, "⭕");
+  }
+};
+
+// Batch Select / Deselect All Dishes
+window.selectAllDishes = function(selectState) {
+  if (!currentUser) return;
+
+  if (!selectState) {
+    if (!confirm("Are you sure you want to deselect ALL dishes? The public website will temporarily hide all dishes until you select items.")) {
+      return;
+    }
+  }
+
+  appData.menu.forEach(d => {
+    d.available = selectState;
+  });
+
+  saveData();
+  renderPublicSite();
+  renderAdminMenuList();
+
+  if (selectState) {
+    showToast("All dishes are now SELECTED and visible on website!", "✅");
+  } else {
+    showToast("All dishes unselected (hidden from website).", "⭕");
+  }
+};
+
+// Render All Products in Manager Hub / Owner Portal with Select Icons & Filters
 window.renderAdminMenuList = function() {
   const container = document.getElementById('adminMenuList');
   if (!container) return;
 
-  // Update Stats Cards
+  // Counts
+  const liveCount = appData.menu.filter(d => d.available !== false).length;
+  const hiddenCount = appData.menu.filter(d => d.available === false).length;
+
   const totalDishesEl = document.getElementById('adminStatTotalDishes');
   const totalCatsEl = document.getElementById('adminStatTotalCats');
   const nonVegEl = document.getElementById('adminStatNonVeg');
   const vegEl = document.getElementById('adminStatVeg');
+  const liveCountEl = document.getElementById('adminStatLiveCount');
+  const hiddenCountEl = document.getElementById('adminStatHiddenCount');
 
   const nonAllCats = appData.categories.filter(c => c.id !== 'all');
   if (totalDishesEl) totalDishesEl.textContent = appData.menu.length;
   if (totalCatsEl) totalCatsEl.textContent = nonAllCats.length;
   if (nonVegEl) nonVegEl.textContent = appData.menu.filter(d => d.type === 'nonveg').length;
   if (vegEl) vegEl.textContent = appData.menu.filter(d => d.type === 'veg').length;
+  if (liveCountEl) liveCountEl.textContent = liveCount;
+  if (hiddenCountEl) hiddenCountEl.textContent = hiddenCount;
 
-  // Search & Filter
+  // Search & Filters
   const searchInput = document.getElementById('adminSearchInput');
   const searchVal = searchInput ? searchInput.value.trim().toLowerCase() : '';
   const catFilter = document.getElementById('adminCategoryFilter');
   const catVal = catFilter ? catFilter.value : 'all';
 
   let filtered = appData.menu;
+
+  // 1. Availability filter (All / Live / Hidden)
+  if (currentAvailFilter === 'live') {
+    filtered = filtered.filter(d => d.available !== false);
+  } else if (currentAvailFilter === 'hidden') {
+    filtered = filtered.filter(d => d.available === false);
+  }
+
+  // 2. Category filter
   if (catVal !== 'all') {
     filtered = filtered.filter(d => d.category === catVal);
   }
+
+  // 3. Search query filter
   if (searchVal) {
     filtered = filtered.filter(d => 
       (d.name && d.name.toLowerCase().includes(searchVal)) ||
@@ -1622,15 +1706,15 @@ window.renderAdminMenuList = function() {
 
   const countDisplay = document.getElementById('adminDishCountDisplay');
   if (countDisplay) {
-    countDisplay.textContent = `Showing ${filtered.length} of ${appData.menu.length} Dishes`;
+    countDisplay.textContent = `Showing ${filtered.length} of ${appData.menu.length} Dishes (${liveCount} Live on Website)`;
   }
 
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="text-align: center; padding: 40px 20px; color: var(--text-secondary); background: var(--bg-secondary); border-radius: 8px;">
         <span style="font-size: 2.2rem;">🔍</span>
-        <h4 style="color: #fff; margin-top: 10px;">No dishes match your search</h4>
-        <p style="font-size: 0.85rem; margin-top: 4px;">Try searching with different keywords or switch the category filter.</p>
+        <h4 style="color: #fff; margin-top: 10px;">No dishes match current filters</h4>
+        <p style="font-size: 0.85rem; margin-top: 4px;">Try switching the availability filter or clear your search query.</p>
         <button class="btn-outline" style="margin-top: 12px; font-size: 0.82rem;" onclick="clearAdminSearch()">
           Clear Filters
         </button>
@@ -1640,13 +1724,22 @@ window.renderAdminMenuList = function() {
   }
 
   container.innerHTML = filtered.map(d => {
+    const isAvailable = (d.available !== false);
     const catObj = appData.categories.find(c => c.id === d.category);
     const catName = catObj ? catObj.name : d.category;
     const isVeg = d.type === 'veg';
 
     return `
-      <div class="admin-product-item" id="admin-dish-${d.id}">
+      <div class="admin-product-item ${isAvailable ? 'item-live' : 'item-hidden'}" id="admin-dish-${d.id}">
+        
+        <!-- SELECT ICON / AVAILABILITY TOGGLE BUTTON -->
+        <button type="button" class="btn-select-dish ${isAvailable ? 'selected' : 'unselected'}" onclick="toggleDishAvailability('${d.id}')" title="${isAvailable ? 'Selected: Currently visible on website. Click to hide.' : 'Not Selected: Hidden from website. Click to make visible.'}">
+          <span class="select-check-icon">${isAvailable ? '✅' : '⭕'}</span>
+          <span class="select-check-label">${isAvailable ? 'Shown on Site' : 'Hidden'}</span>
+        </button>
+
         <img src="${escapeHtml(d.image)}" class="admin-prod-thumb" alt="${escapeHtml(d.name)}" onerror="this.onerror=null; this.src='image.png';">
+        
         <div class="admin-prod-details">
           <div class="admin-prod-title">
             <span>${escapeHtml(d.name)}</span>
@@ -1654,6 +1747,9 @@ window.renderAdminMenuList = function() {
               ? '<span class="diet-tag veg-tag" style="font-size:0.68rem; padding: 2px 6px;"><span class="diet-dot"></span> Veg</span>' 
               : '<span class="diet-tag nonveg-tag" style="font-size:0.68rem; padding: 2px 6px;"><span class="diet-dot"></span> Non-Veg</span>'}
             ${d.special ? '<span class="chef-special-badge" style="font-size:0.68rem; padding: 2px 8px;">⭐ Royal Special</span>' : ''}
+            ${isAvailable 
+              ? '<span class="badge-status-live">● Live on Website</span>' 
+              : '<span class="badge-status-hidden">○ Hidden from Website</span>'}
           </div>
           <div class="admin-prod-meta">
             <span style="color: var(--gold-champagne); background: rgba(212, 175, 55, 0.12); padding: 2px 8px; border-radius: 4px; font-weight: 600;">${escapeHtml(catName)}</span>
@@ -1662,6 +1758,7 @@ window.renderAdminMenuList = function() {
           </div>
           <p class="admin-prod-desc-snippet">${escapeHtml(d.desc || '')}</p>
         </div>
+        
         <div class="admin-prod-actions">
           <button class="btn-edit" onclick="openEditDishModal('${d.id}')" title="Edit this dish's details">
             <span>✏️</span> Edit
@@ -1804,6 +1901,7 @@ window.addNewDish = function() {
     type: type,
     portion: portion,
     special: special,
+    available: true,
     desc: desc,
     image: image,
     heritage: heritage || "Crafted using traditional slow-cooking Nizami culinary methods.",

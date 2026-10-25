@@ -2376,3 +2376,266 @@ body.light-mode .btn-confirm-no {
 body.light-mode .btn-confirm-no:hover {
   background: #e5e7eb !important;
 }
+
+
+/* ===================================================================
+   MANAGER OPERATIONS HUB - DAILY MENU AVAILABILITY CONTROLS
+   =================================================================== */
+.manager-availability-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.availability-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+}
+
+.avail-title-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.avail-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.avail-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.avail-subheading {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.avail-counts-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.avail-count-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.avail-count-tag.live {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.avail-count-tag.hidden {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.avail-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-avail-batch {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.btn-avail-batch.select-all {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #34d399;
+}
+
+.btn-avail-batch.select-all:hover {
+  background: #10b981;
+  color: #064e3b;
+}
+
+.btn-avail-batch.deselect-all {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+.btn-avail-batch.deselect-all:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.avail-filter-chips {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.avail-chip-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.avail-chip-btn:hover {
+  border-color: var(--royal-gold);
+  color: #fff;
+}
+
+.avail-chip-btn.active {
+  background: var(--royal-gold);
+  border-color: var(--royal-gold);
+  color: #120e0f;
+  font-weight: 700;
+}
+
+/* Individual Dish Select Button */
+.btn-select-dish {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 82px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-select-dish.selected {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1.5px solid #10b981;
+  color: #34d399;
+}
+
+.btn-select-dish.selected:hover {
+  background: rgba(16, 185, 129, 0.35);
+  transform: scale(1.03);
+}
+
+.btn-select-dish.unselected {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px dashed rgba(239, 68, 68, 0.55);
+  color: #f87171;
+}
+
+.btn-select-dish.unselected:hover {
+  background: rgba(239, 68, 68, 0.22);
+  transform: scale(1.03);
+}
+
+.select-check-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.select-check-label {
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+/* Item Status Badges in Dish Details */
+.badge-status-live {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.badge-status-hidden {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.15);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.admin-product-item.item-hidden {
+  opacity: 0.78;
+  border-style: dashed;
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(20, 10, 12, 0.5);
+}
+
+.admin-product-item.item-hidden .admin-prod-thumb {
+  filter: grayscale(40%);
+}
+
+/* Light mode overrides */
+body.light-mode .manager-availability-bar {
+  background: #fdfaf4 !important;
+  border-color: #d4af37 !important;
+}
+body.light-mode .avail-heading {
+  color: #3d070e !important;
+}
+body.light-mode .avail-chip-btn {
+  background: #f3f4f6 !important;
+  color: #4b5563 !important;
+}
+body.light-mode .avail-chip-btn.active {
+  background: #8a0a17 !important;
+  color: #ffffff !important;
+}

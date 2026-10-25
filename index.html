@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.3">
+  <link rel="stylesheet" href="style.css?v=4.4">
 </head>
 <body>
 
@@ -460,8 +460,49 @@
           </div>
         </div>
 
-        <!-- Quick Action Shortcut Buttons -->
-        <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+        <!-- Manager & Owner Daily Menu Availability Control Panel -->
+        <div class="manager-availability-bar" id="managerAvailabilityBar">
+          <div class="availability-header">
+            <div class="avail-title-box">
+              <span class="avail-icon">📅</span>
+              <div>
+                <h4 class="avail-heading">Daily Menu Availability &amp; Live Showcase Controller</h4>
+                <p class="avail-subheading">
+                  Select which dishes are being served today. Selected dishes (✅) appear live on the website. Unselected dishes (⭕) are hidden from visitors.
+                </p>
+              </div>
+            </div>
+            <div class="avail-counts-box">
+              <span class="avail-count-tag live">
+                <span class="live-pulse-dot"></span> Live on Site: <strong id="adminStatLiveCount">72</strong>
+              </span>
+              <span class="avail-count-tag hidden">
+                <span>⭕</span> Hidden: <strong id="adminStatHiddenCount">0</strong>
+              </span>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="avail-actions-row">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button type="button" class="btn-avail-batch select-all" onclick="selectAllDishes(true)">
+                <span>✅</span> Select All Dishes (Show All on Website)
+              </button>
+              <button type="button" class="btn-avail-batch deselect-all" onclick="selectAllDishes(false)">
+                <span>⭕</span> Deselect All Dishes (Hide All)
+              </button>
+            </div>
+            <div class="avail-filter-chips">
+              <span style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">Filter View:</span>
+              <button type="button" class="avail-chip-btn active" data-avail-filter="all" onclick="setAvailabilityFilter('all', this)">All</button>
+              <button type="button" class="avail-chip-btn" data-avail-filter="live" onclick="setAvailabilityFilter('live', this)">🟢 Shown (Live)</button>
+              <button type="button" class="avail-chip-btn" data-avail-filter="hidden" onclick="setAvailabilityFilter('hidden', this)">⭕ Hidden</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Shortcut Buttons (Owner Only) -->
+        <div id="ownerOnlyShortcuts" style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
           <button class="btn-primary" onclick="switchAdminTab('tabAddDish')">
             <span>➕</span> Add New Dish
           </button>
@@ -920,6 +961,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.3"></script>
+  <script src="app.js?v=4.4"></script>
 </body>
 </html>
