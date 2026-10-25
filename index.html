@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.9">
+  <link rel="stylesheet" href="style.css?v=5.0">
 </head>
 <body>
 
@@ -345,6 +345,8 @@
         <h4>📖 Overview</h4>
         <p id="dishModalDesc"></p>
       </div>
+
+      <div id="dishModalInstaContainer" style="margin-top: 18px;"></div>
     </div>
   </div>
 
@@ -714,6 +716,35 @@
               ⬅️ Back to All Products
             </button>
           </div>
+
+          <!-- Smart Instagram Auto-Detect & Live Photo Generator Card -->
+          <div class="insta-autodetect-card">
+            <div class="insta-autodetect-header">
+              <div class="insta-icon-circle">
+                <span>📸</span>
+              </div>
+              <div style="flex: 1;">
+                <h4 class="insta-card-title">Shah Ghouse Instagram Auto-Detect &amp; Live Photo Generator</h4>
+                <p class="insta-card-subtitle">
+                  Paste any Shah Ghouse Instagram Post or Reel link. The official photo will instantly appear, and the authentic dish name, category, and culinary details will automatically generate.
+                </p>
+              </div>
+            </div>
+
+            <div class="insta-input-action-bar">
+              <div style="position: relative; flex: 1;">
+                <input type="url" id="newDishInstagram" class="form-input insta-url-input" 
+                  placeholder="Paste Shah Ghouse Instagram URL (e.g. https://www.instagram.com/p/DIV_STpSdM2/)" 
+                  oninput="handleInstagramLinkInput(this.value, 'new')">
+                <span class="insta-input-icon">🔗</span>
+              </div>
+              <button type="button" class="btn-insta-detect-action" onclick="triggerInstagramAutoDetect('new')">
+                <span>✨</span> Auto-Fetch Photo &amp; Details
+              </button>
+            </div>
+
+            <div id="newDishInstaStatus" class="insta-status-banner" style="display: none;"></div>
+          </div>
           
           <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 14px;">
             <div class="form-group">
@@ -742,9 +773,14 @@
             </div>
             <div class="form-group">
               <label class="form-label">Food Photo URL or Path</label>
-              <div style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" id="newDishImage" class="form-input" placeholder="Paste image URL (e.g. https://... or images/biryani-1-mutton.jpg)" style="flex: 1;" oninput="updateNewImagePreview()">
-                <img id="newDishImagePreview" src="image.png" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-gold);" onerror="this.src='image.png';" alt="Preview">
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <div style="position: relative; width: 68px; height: 68px; flex-shrink: 0;">
+                  <img id="newDishImagePreview" src="image.png" style="width: 68px; height: 68px; object-fit: cover; border-radius: 8px; border: 2px solid var(--royal-gold); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);" onerror="this.src='image.png';" alt="Preview">
+                </div>
+                <div style="flex: 1;">
+                  <input type="text" id="newDishImage" class="form-input" placeholder="Paste image URL (e.g. https://... or images/biryani-1-mutton.jpg)" oninput="updateNewImagePreview()">
+                  <span style="font-size: 0.74rem; color: var(--text-muted); display: block; margin-top: 4px;">Photo will also automatically load when you paste an Instagram link above.</span>
+                </div>
               </div>
             </div>
           </div>
@@ -973,6 +1009,17 @@
               <img id="editDishImagePreview" src="image.png" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-gold);" onerror="this.src='image.png';" alt="Preview">
             </div>
           </div>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label class="form-label">Shah Ghouse Instagram Post Link</label>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="url" id="editDishInstagram" class="form-input" placeholder="Paste Instagram post/reel link (e.g. https://www.instagram.com/p/...)" style="flex: 1;" oninput="handleInstagramLinkInput(this.value, 'edit')">
+            <button type="button" class="btn-insta-detect-action" onclick="triggerInstagramAutoDetect('edit')" style="padding: 10px 16px; font-size: 0.85rem; white-space: nowrap;">
+              <span>✨</span> Auto-Fetch
+            </button>
+          </div>
+          <div id="editDishInstaStatus" class="insta-status-banner" style="display: none; margin-top: 8px;"></div>
+        </div>
         </div>
 
         <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin: 6px 0 12px;">
@@ -1128,6 +1175,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.9"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>

@@ -1285,10 +1285,15 @@ function renderMenuList(filter = null) {
           <h3 class="product-name" onclick="openDishInfoModal('${dish.id}')" style="cursor: pointer;">${escapeHtml(dish.name)}</h3>
           <p class="product-desc">${escapeHtml(dish.desc)}</p>
           
-          <div style="margin-top: 14px;">
-            <button class="btn-more-info" onclick="openDishInfoModal('${dish.id}')">
-              <span>ℹ️</span> More Information
+          <div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-more-info" style="flex: 1.2;" onclick="openDishInfoModal('${dish.id}')">
+              <span>ℹ️</span> Details
             </button>
+            ${dish.instagram ? `
+              <a href="${escapeHtml(dish.instagram)}" target="_blank" rel="noopener noreferrer" class="btn-card-insta" title="View official post on Shah Ghouse Instagram" onclick="event.stopPropagation()">
+                <span>📸</span> Instagram
+              </a>
+            ` : ''}
           </div>
         </div>
       </div>
@@ -1330,6 +1335,28 @@ window.openDishInfoModal = function(dishId) {
   if (pairingsEl) pairingsEl.textContent = dish.pairings || "Accompanied with authentic Nizami condiments and fresh breads.";
 
 
+
+    const instaBlock = document.getElementById('dishModalInstaContainer');
+  if (instaBlock) {
+    if (dish.instagram) {
+      instaBlock.style.display = 'block';
+      instaBlock.innerHTML = `
+        <div class="dish-modal-insta-banner">
+          <span class="insta-badge-icon">📸</span>
+          <div style="flex: 1;">
+            <strong>Official Shah Ghouse Instagram Video &amp; Post</strong>
+            <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--text-secondary);">Watch authentic handi preparation and live service video on Instagram.</p>
+          </div>
+          <a href="${escapeHtml(dish.instagram)}" target="_blank" rel="noopener noreferrer" class="btn-modal-insta-action">
+            <span>View Official Post</span> <span>↗</span>
+          </a>
+        </div>
+      `;
+    } else {
+      instaBlock.style.display = 'none';
+      instaBlock.innerHTML = '';
+    }
+  }
 
   openModal('dishInfoModal');
 };
@@ -1972,6 +1999,10 @@ window.openEditDishModal = function(id) {
   document.getElementById('editDishHeritage').value = dish.heritage || '';
   document.getElementById('editDishIngredients').value = dish.ingredients || '';
   document.getElementById('editDishPairings').value = dish.pairings || '';
+  const editInstaEl = document.getElementById('editDishInstagram');
+  if (editInstaEl) editInstaEl.value = dish.instagram || '';
+  const editStatusEl = document.getElementById('editDishInstaStatus');
+  if (editStatusEl) editStatusEl.style.display = 'none';
 
   openModal('editDishModal');
 };
@@ -2009,6 +2040,8 @@ window.saveEditedDish = function(e) {
   dish.special = special;
   dish.image = image;
   dish.desc = desc;
+  const editInstaInp = document.getElementById('editDishInstagram');
+  if (editInstaInp) dish.instagram = editInstaInp.value.trim();
   dish.heritage = heritage || "Crafted following authentic Hyderabadi culinary recipes passed down through royal Nizami kitchens.";
   dish.ingredients = ingredients || "Aromatic Shahi Spices, Pure Desi Ghee, Farm-fresh ingredients.";
   dish.pairings = pairings || "Accompanied with authentic Nizami condiments and fresh breads.";
@@ -2042,6 +2075,12 @@ window.addNewDish = function() {
     return;
   }
 
+  const instaInp = document.getElementById('newDishInstagram');
+  let instagramUrl = instaInp ? instaInp.value.trim() : '';
+  if (!instagramUrl && image.includes('instagram.com/')) {
+    instagramUrl = image;
+  }
+
   const newDish = {
     id: "dish-" + Date.now(),
     name: name,
@@ -2052,6 +2091,7 @@ window.addNewDish = function() {
     available: true,
     desc: desc,
     image: image,
+    instagram: instagramUrl || "https://www.instagram.com/shahghouseofficial",
     heritage: heritage || "Crafted using traditional slow-cooking Nizami culinary methods.",
     ingredients: ingredients || "Aromatic Shahi Spices, Pure Ghee, and Fresh Herbs.",
     pairings: pairings || "Enjoyed with traditional Hyderabadi accompaniments."
@@ -2069,6 +2109,8 @@ window.addNewDish = function() {
   document.getElementById('newDishIngredients').value = '';
   document.getElementById('newDishPairings').value = '';
   document.getElementById('newDishImage').value = '';
+  if (document.getElementById('newDishInstagram')) document.getElementById('newDishInstagram').value = '';
+  if (document.getElementById('newDishInstaStatus')) document.getElementById('newDishInstaStatus').style.display = 'none';
   document.getElementById('newDishImagePreview').src = 'image.png';
   if (document.getElementById('newDishSpecial')) document.getElementById('newDishSpecial').checked = false;
 
@@ -2283,15 +2325,23 @@ window.renderAdminCategoriesList = function() {
   }).join('');
 };
 
-// Image Preview Handlers
+// Image Preview Handlers & Automatic Instagram URL Detection
 window.updateNewImagePreview = function() {
   const val = document.getElementById('newDishImage').value.trim();
+  if (val.includes('instagram.com/')) {
+    handleInstagramLinkInput(val, 'new');
+    return;
+  }
   const prev = document.getElementById('newDishImagePreview');
   if (prev) prev.src = val || 'image.png';
 };
 
 window.updateEditImagePreview = function() {
   const val = document.getElementById('editDishImage').value.trim();
+  if (val.includes('instagram.com/')) {
+    handleInstagramLinkInput(val, 'edit');
+    return;
+  }
   const prev = document.getElementById('editDishImagePreview');
   if (prev) prev.src = val || 'image.png';
 };
@@ -2538,3 +2588,975 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDishBtn.addEventListener('click', () => closeModal('dishInfoModal'));
   }
 });
+
+
+
+// ===================================================================
+// SHAH GHOUSE INSTAGRAM SMART AUTO-DETECT & LIVE PHOTO GENERATOR
+// ===================================================================
+
+window.INSTAGRAM_DISH_CATALOG = {
+  "C8bxGgCJ4NP": {
+    "name": "Special Mutton Dum Biryani (50 Years Legacy)",
+    "category": "biryani",
+    "type": "nonveg",
+    "portion": "Handi / Single Serving",
+    "special": true,
+    "image": "images/biryani-1-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/C8bxGgCJ4NP/",
+    "desc": "Discover the timeless flavor of Shah Ghouse\u2019s iconic Mutton Biryani. Serving the best Hyderabadi biryani for over 50 years with tender slow-cooked mutton and aged saffron basmati.",
+    "heritage": "Carrying five decades of heritage from the royal kitchens of Hyderabad, slow-steamed under dough-sealed handis.",
+    "ingredients": "Aged Basmati Rice, Tender Mutton, Kashmiri Saffron, Pure Desi Ghee, Crispy Brown Onions, Shahi Jeera, Green Cardamom.",
+    "pairings": "Mirchi Ka Salan, Dahi Ki Chutney, and Fresh Sliced Onions."
+  },
+  "CzMSLCXPVTP": {
+    "name": "Hyderabadi Chicken Dum Biryani",
+    "category": "biryani",
+    "type": "nonveg",
+    "portion": "Full Handi",
+    "special": false,
+    "image": "images/biryani-2-chicken.jpg",
+    "instagram": "https://www.instagram.com/p/CzMSLCXPVTP/",
+    "desc": "In a world full of rice, be Hyderabadi Biryani! Succulent farm-fresh chicken marinated in fragrant spices and slow-cooked in charcoal dum.",
+    "heritage": "Classic Deccan Kachhi Dum style where raw chicken and aromatic rice cook together in sealed brass cauldrons.",
+    "ingredients": "Prime Chicken, Long Grain Basmati, Mint, Coriander, Ginger-Garlic, Yogurt, Royal Spices.",
+    "pairings": "Chilled Raita, Spicy Deccan Salan, and Lemon."
+  },
+  "CvHm5nJvAWH": {
+    "name": "Hyderabae Royal Biryani Vibes",
+    "category": "biryani",
+    "type": "nonveg",
+    "portion": "Special Dastarkhwan Serving",
+    "special": true,
+    "image": "images/biryani-3-vibes.jpg",
+    "instagram": "https://www.instagram.com/p/CvHm5nJvAWH/",
+    "desc": "Hyderabae Biryani Vibes \u2014 the pure definition of food love and authentic Hyderabadi taste from Shah Ghouse.",
+    "heritage": "Crafted with extra saffron-infused rice and double marinated succulent meat.",
+    "ingredients": "Selected Cuts of Meat, Basmati Rice, Desi Ghee, Saffron Strands, Fried Onions, Garam Masala.",
+    "pairings": "Tangy Mirchi Ka Salan and Fresh Onion Salad."
+  },
+  "CwmWo43R_G1": {
+    "name": "The Crown Handi Biryani",
+    "category": "biryani",
+    "type": "nonveg",
+    "portion": "Royal Handi Platter",
+    "special": true,
+    "image": "images/biryani-4-crown.jpg",
+    "instagram": "https://www.instagram.com/p/CwmWo43R_G1/",
+    "desc": "The crown of a perfect meal. Served hot in authentic royal handi with fragrant aromas that fill the room.",
+    "heritage": "The quintessential royal centerpiece of every Hyderabadi family gathering and festive dastarkhwan.",
+    "ingredients": "Tender Meat Cuts, Saffron Basmati, Whole Spices, Roasted Cashews, Boiled Egg, Desi Ghee.",
+    "pairings": "Salad, Dahi Chutney, and Salan."
+  },
+  "CrD8YMXB5NY": {
+    "name": "Authentic Nizam Dum Biryani Feast",
+    "category": "biryani",
+    "type": "nonveg",
+    "portion": "Grand Feast Platter",
+    "special": true,
+    "image": "images/biryani-5-nizam.jpg",
+    "instagram": "https://www.instagram.com/p/CrD8YMXB5NY/",
+    "desc": "Get ready to take a flavorful journey to the heart of Hyderabad with authentic Hyderabadi dum biryani with rich spices and fragrant rice.",
+    "heritage": "Prepared using royal Nizami cooking methods preserved unchanged since 1984.",
+    "ingredients": "Prime Meat, Aged Rice, Shahi Potli Masala, Pure Clarified Butter, Saffron Essence.",
+    "pairings": "Mirchi Ka Salan, Dahi Ki Chutney, and Qubani Ka Meetha."
+  },
+  "Cr27dbRBe3r": {
+    "name": "Classic Shah Ghouse Mutton Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Platter (Serves 2-3)",
+    "special": false,
+    "image": "images/mandi-1-classic-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/Cr27dbRBe3r/",
+    "desc": "Mutton Mandi \u2014 the ultimate comfort food for any occasion. Tender mutton over fragrant spiced mandi rice.",
+    "heritage": "Traditional Arabian pit-roasted delicacy brought by Yemenis to Hyderabad.",
+    "ingredients": "Mutton Shank, Basmati Rice, Hawaij Spices, Dried Lemon (Loomi), Roasted Nuts.",
+    "pairings": "Arabian Spicy Tomato Chutney and Garlic Mayo."
+  },
+  "CtwLb9BhSSA": {
+    "name": "Shah Ghouse Juicy Mutton Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Signature Platter (Serves 2-4)",
+    "special": true,
+    "image": "images/mandi-2-juicy-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/CtwLb9BhSSA/",
+    "desc": "Juicy, tender mutton paired with aromatic rice and a burst of delectable spices. It's a flavor explosion that leaves you craving for more!",
+    "heritage": "Slow-roasted for hours until the meat effortlessly falls off the bone.",
+    "ingredients": "Juicy Mutton Shanks, Aromatic Mandi Rice, Golden Fried Cashews, Yemeni Spices, Clarified Butter.",
+    "pairings": "Spicy Yemeni Salsa, Garlic Touwm, and Clear Soup."
+  },
+  "C2WQZypx2Tu": {
+    "name": "Shah Ghouse Perfection Mutton Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Platter (Serves 2-3)",
+    "special": false,
+    "image": "images/mandi-3-perfection-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/C2WQZypx2Tu/",
+    "desc": "Experience perfection on your plate with Shah Ghouse\u2019s Mutton Mandi \u2014 where spice and tenderness unite in culinary harmony.",
+    "heritage": "Meticulously spiced and steam-roasted to maintain peak moisture and aroma.",
+    "ingredients": "Prime Mutton, Long Grain Rice, Cardamom, Clove, Black Pepper, Cinnamon, Ghee.",
+    "pairings": "Arabian Dips and Fresh Salad."
+  },
+  "C6ivZhtp-OI": {
+    "name": "Delectable Mutton Mandi Feast",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Family Feast (Serves 3-4)",
+    "special": true,
+    "image": "images/mandi-4-feast-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/C6ivZhtp-OI/",
+    "desc": "Unveiling the delectable Mutton Mandi feast at Shah Ghouse Restaurant! A grand spread of juicy meat and golden spiced rice.",
+    "heritage": "A festive celebration dish served on wide circular platters meant for shared dining.",
+    "ingredients": "Double Mutton Shanks, Spiced Mandi Rice, Roasted Almonds, Golden Sultanas.",
+    "pairings": "Tomato Chutney, Cucumber Yogurt Salsa, and Marag Broth."
+  },
+  "C-UjlB7PpAE": {
+    "name": "Signature Arabian Mutton Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Signature Platter",
+    "special": false,
+    "image": "images/mandi-5-signature-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/C-UjlB7PpAE/",
+    "desc": "Authentic Arabian Mutton Mandi seasoned with dry roasted whole spices and golden fried dry fruits.",
+    "heritage": "Barkas style Arabian mandi perfected with Hyderabadi culinary zest.",
+    "ingredients": "Slow-Cooked Mutton, Mandi Basmati, Dry Lime, Fried Cashews, Ghee.",
+    "pairings": "Arabic Garlic Dip and Spicy Chutney."
+  },
+  "DcvzALnzQjp": {
+    "name": "Shah Ghouse Royal Mutton Mandi Platter",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Royal Platter (Serves 3-5)",
+    "special": true,
+    "image": "images/mandi-6-royal-mutton.jpg",
+    "instagram": "https://www.instagram.com/p/DcvzALnzQjp/",
+    "desc": "Shah Ghouse Royal Mutton Mandi Platter. Extra large slow-roasted mutton pieces with caramelized onions and nuts.",
+    "heritage": "The ultimate party platter for mutton lovers across Hyderabad.",
+    "ingredients": "Selected Mutton Cuts, Fragrant Rice, Shahi Nuts, Clarified Butter, Saffron.",
+    "pairings": "Yemeni Salsa, Touwm, and Mutton Bone Soup."
+  },
+  "DcvuzJtzx0f": {
+    "name": "Smoky Charcoal Chicken Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Half / Full Bird Platter",
+    "special": false,
+    "image": "images/mandi-7-smoky-chicken.jpg",
+    "instagram": "https://www.instagram.com/p/DcvuzJtzx0f/",
+    "desc": "Smoky, aromatic and pure happiness on a plate \u2014 our Charcoal Chicken Mandi is roasted to juicy perfection.",
+    "heritage": "Smoky char combined with subtle cardamom and clove-scented basmati rice.",
+    "ingredients": "Whole Char-Grilled Chicken, Mandi Rice, Garlic Paste, Arabian Spices, Fried Onions.",
+    "pairings": "Garlic Mayonnaise Dip (Touwm) and Spicy Tomato Salsa."
+  },
+  "CuOmHVsvx-r": {
+    "name": "Shah Ghouse Faham Chicken Mandi",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Full Platter (Serves 2-3)",
+    "special": true,
+    "image": "images/mandi-8-faham-chicken.jpg",
+    "instagram": "https://www.instagram.com/p/CuOmHVsvx-r/",
+    "desc": "Shah Ghouse Faham Chicken Mandi. Grilled over real charcoal embers, seasoned with lemon zest and Arab herbs.",
+    "heritage": "A gulf favorite that has become a sensational evening craving in Hyderabad.",
+    "ingredients": "Faham Spiced Chicken, Fragrant Basmati, Olive Oil, Roasted Cashews, Raisins.",
+    "pairings": "Creamy Garlic Touwm and Fiery Arabian Salsa."
+  },
+  "C63M2MIAdYG": {
+    "name": "Shah Ghouse Mix Mandi (Mutton & Chicken)",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Mixed Feast (Serves 3-4)",
+    "special": true,
+    "image": "images/mandi-9-mix-mandi.jpg",
+    "instagram": "https://www.instagram.com/p/C63M2MIAdYG/",
+    "desc": "Experience the ultimate harmony of flavors with our Mix Mandi, where succulent meat meets juicy chicken.",
+    "heritage": "The best of both worlds uniting tender slow-cooked mutton and crispy charcoal chicken.",
+    "ingredients": "Tender Mutton Shanks, Grilled Chicken, Mandi Rice, Fried Cashews, Saffron Butter.",
+    "pairings": "Double Dips (Garlic Touwm & Tomato Chutney) and Clear Soup."
+  },
+  "Cu6odrhPLob": {
+    "name": "Double Flavor Mix Mandi Feast",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Grand Feast (Serves 3-4)",
+    "special": true,
+    "image": "images/mandi-10-double-mix.jpg",
+    "instagram": "https://www.instagram.com/p/Cu6odrhPLob/",
+    "desc": "Double the Flavor, Double the Fun \u2014 Mix Chicken & Meat Mandi Feast from Shah Ghouse!",
+    "heritage": "Created for groups who want both juicy mutton and smoky chicken on a single platter.",
+    "ingredients": "Braised Mutton, Roasted Chicken, Fragrant Basmati, Dry Lime, Golden Almonds.",
+    "pairings": "Yemeni Salsa, Garlic Cream, and Onion Rings."
+  },
+  "C2Rx88pxzbq": {
+    "name": "Shah Ghouse Grand Mix Mandi Harmony",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "Royal Platter (Serves 4-5)",
+    "special": true,
+    "image": "images/mandi-11-grand-mix.jpg",
+    "instagram": "https://www.instagram.com/p/C2Rx88pxzbq/",
+    "desc": "A tantalizing blend of fragrant rice, succulent mutton, and flavorful chicken \u2014 a symphony of tastes in every bite!",
+    "heritage": "A grand celebration banquet platter loaded with roasted dry fruits and juicy meats.",
+    "ingredients": "Selected Mutton Cuts, Half Chicken, Spiced Rice, Fried Cashews, Ghee.",
+    "pairings": "Arabic Dips, Raita, and Hot Mutton Broth."
+  },
+  "Dcvwi9azztD": {
+    "name": "All-in-One Arabian Mandi Platter",
+    "category": "mandi",
+    "type": "nonveg",
+    "portion": "All-in-One Feast (Serves 4-6)",
+    "special": true,
+    "image": "images/mandi-12-all-in-one.jpg",
+    "instagram": "https://www.instagram.com/p/Dcvwi9azztD/",
+    "desc": "Why choose one when the platter can have it all? A little chicken, a little mutton and a whole lot of Mandi goodness.",
+    "heritage": "Shah Ghouse's signature oversized Mandi platter designed for family feasts.",
+    "ingredients": "Full Spread Mutton, Chicken Pieces, Saffron Mandi Rice, Roasted Nuts, Fried Onions.",
+    "pairings": "Complete Set of Arabian Dips, Salsa, and Soup."
+  },
+  "DVTH2jcEU9N": {
+    "name": "Shah Ghouse Special Mutton Haleem",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Bowl / Family Pack",
+    "special": true,
+    "image": "images/haleem-1-special.jpg",
+    "instagram": "https://www.instagram.com/p/DVTH2jcEU9N/",
+    "desc": "Your friend owes you this! World-famous Shah Ghouse Mutton Haleem, pounded for 12 hours with pure desi ghee and tender meat.",
+    "heritage": "GI-tagged authentic Hyderabadi culinary legend, prepared continuously during Ramzan and special seasons.",
+    "ingredients": "Prime Mutton, Cracked Wheat, Lentils, Pure Desi Ghee, Crispy Fried Onions, Roasted Cashews.",
+    "pairings": "Fried Cashews, Fresh Lemon Slice, and Boiled Egg."
+  },
+  "DVLrYBuEYbs": {
+    "name": "Slow-Cooked Desi Ghee Haleem",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Sealed Box / Dine-in Bowl",
+    "special": true,
+    "image": "images/haleem-2-desi-ghee.jpg",
+    "instagram": "https://www.instagram.com/reel/DVLrYBuEYbs/",
+    "desc": "Pure slow-cooked perfection, sealed with care. Every scoop of Haleem carries tradition, richness and that signature Shah Ghouse taste.",
+    "heritage": "Pounded with heavy wooden ghotnas until meat fibers melt smoothly into rich wheat broth.",
+    "ingredients": "Boneless Mutton, Wheat Porridge, Clarified Butter, Rose Petals, Cardamom, Mint.",
+    "pairings": "Extra Ghee Tadka and Fresh Lime."
+  },
+  "DUdSL6qEe3Y": {
+    "name": "Ramzan Shahi Pounded Haleem",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Royal Serving",
+    "special": true,
+    "image": "images/haleem-3-ramzan.jpg",
+    "instagram": "https://www.instagram.com/p/DUdSL6qEe3Y/",
+    "desc": "Will you be my Haleem\u00e8? It's a promise of slow-cooked love. Decadent, rich, and unforgettable.",
+    "heritage": "The iconic Ramzan delicacy that draws food lovers from across the country to Shah Ghouse.",
+    "ingredients": "Mutton, Daliya, Chana Dal, Desi Ghee, Shahi Garam Masala, Crispy Birista.",
+    "pairings": "Cashew Garnish and Sliced Green Chillies."
+  },
+  "C6UohFbg3kp": {
+    "name": "Shah Ghouse Eid Season Haleem",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Festival Special Bowl",
+    "special": true,
+    "image": "images/haleem-4-eid-season.jpg",
+    "instagram": "https://www.instagram.com/reel/C6UohFbg3kp/",
+    "desc": "Shah Ghouse Eid Season Haleem \u2014 the undisputed go-to destination for Haleem lovers across Hyderabad.",
+    "heritage": "A four-decade tradition celebrated in food blogs and global culinary travel guides.",
+    "ingredients": "Prime Meat, Cracked Wheat, Pounded Spices, Desi Ghee, Almond Slivers.",
+    "pairings": "Hard-Boiled Egg and Mint Leaves."
+  },
+  "C4seK64xo0O": {
+    "name": "Soulful Hyderabadi Mutton Haleem",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Classic Bowl",
+    "special": false,
+    "image": "images/haleem-5-soulful.jpg",
+    "instagram": "https://www.instagram.com/p/C4seK64xo0O/",
+    "desc": "Soulful Hyderabadi Mutton Haleem. A symphony of flavors that will tantalize your taste buds with velvety richness.",
+    "heritage": "Traditional Nizami breakfast and evening nourishment packed with high protein and aroma.",
+    "ingredients": "Tender Mutton, Wheat, Ghee, Cinnamon, Cloves, Black Cumin, Brown Onions.",
+    "pairings": "Hot Naan or enjoyed on its own with a squeeze of lime."
+  },
+  "C4_Sc7ty_6W": {
+    "name": "Hyderabadi Mutton Marag (Royal Broth)",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Soup Bowl",
+    "special": false,
+    "image": "images/haleem-6-marag.jpg",
+    "instagram": "https://www.instagram.com/p/C4_Sc7ty_6W/",
+    "desc": "Hyderabadi Mutton Marag. A velvety, peppery royal bone broth simmered for hours with tender mutton chops and almond paste.",
+    "heritage": "The traditional royal wedding starter of Hyderabad, served steaming hot to warm the palate.",
+    "ingredients": "Mutton Chops, Bone Broth, Almond-Pistachio Puree, Black Pepper, Green Cardamom, Ghee.",
+    "pairings": "Crisp Sheermal Roti, Naan, or enjoyed as a hot soup."
+  },
+  "DPllzBgEUD4": {
+    "name": "Shah Ghouse Nahari Paya with Warm Naan",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Breakfast / Evening Bowl",
+    "special": true,
+    "image": "images/haleem-7-nahari-naan.jpg",
+    "instagram": "https://www.instagram.com/p/DPllzBgEUD4/",
+    "desc": "Pair it with warm naan, tear, dip, and taste the magic. Our Nahari Paya isn\u2019t just food \u2014 it\u2019s Hyderabad in a bowl.",
+    "heritage": "Served fresh every morning at Shah Ghouse, slow-cooked overnight over simmering coals.",
+    "ingredients": "Mutton Trotters (Paya), Bone Marrow, Potli Masala, Ginger, Caramelized Onions, Lemon.",
+    "pairings": "Warm Tandoori Naan, Sheermal, and Sliced Chillies."
+  },
+  "DPlldj-ER7l": {
+    "name": "Slow-Simmered Shahi Nahari Paya",
+    "category": "haleem",
+    "type": "nonveg",
+    "portion": "Rich Stew Bowl",
+    "special": true,
+    "image": "images/haleem-8-shahi-nahari.jpg",
+    "instagram": "https://www.instagram.com/p/DPlldj-ER7l/",
+    "desc": "Rich, spicy, and soul-soothing \u2014 our Nahari Paya is Hyderabadi comfort in every spoonful. Slow-cooked to perfection with age-old spices.",
+    "heritage": "The legendary breakfast that has fueled Hyderabad for generations.",
+    "ingredients": "Paya Trotters, Mutton Shanks, Bone Marrow Gravy, Royal Potli Herbs, Lemon.",
+    "pairings": "Fresh Naan and Lemon Wedges."
+  },
+  "DIV_STpSdM2": {
+    "name": "Shah Ghouse Charcoal Seekh & Boti Kebab Platter",
+    "category": "kebabs",
+    "type": "nonveg",
+    "portion": "Sizzling Skewer Platter",
+    "special": true,
+    "image": "images/kebab-1.jpg",
+    "instagram": "https://www.instagram.com/p/DIV_STpSdM2/",
+    "desc": "Juiciest, most flavorful chargrilled kebabs in Hyderabad. Succulent mutton seekh and spicy boti kebabs marinated in authentic spices and grilled fresh over live charcoal embers.",
+    "heritage": "Every skewer tells a 50-year story of royal Hyderabadi heritage, bold flavors, and charcoal grilling mastery.",
+    "ingredients": "Finely Minced Mutton, Prime Meat Cubes, Brown Crispy Onions, Mint, Garam Masala, Ginger-Garlic, Pure Ghee Basting.",
+    "pairings": "Spicy Mint Chutney, Charred Green Chillies, Sliced Lemon, and Rumali Roti."
+  },
+  "DIbbllttlF3": {
+    "name": "Shah Ghouse Melt-in-Mouth Chicken Kebab Bites",
+    "category": "kebabs",
+    "type": "nonveg",
+    "portion": "Portion (6-8 Juicy Pieces)",
+    "special": false,
+    "image": "images/kebab-2.jpg",
+    "instagram": "https://www.instagram.com/p/DIbbllttlF3/",
+    "desc": "Grilled to golden perfection, these tender, juicy boneless chicken chunks are seasoned with an exquisite royal blend of spices and fresh herbs. Every single bite bursts with irresistible flavor.",
+    "heritage": "Slow-roasted over coals for a signature melt-in-the-mouth texture that has made Shah Ghouse a meat-lover's paradise.",
+    "ingredients": "Boneless Farm Chicken, Strained Curd, Green Chillies, Kasuri Methi, Lemon Juice, Aromatic Herbs, Butter Glaze.",
+    "pairings": "Creamy Mint Dip, Pickled Red Onion Rings, and Butter Naan."
+  },
+  "C14cmK2xM7v": {
+    "name": "Shah Ghouse Royal Tandoori Chicken",
+    "category": "kebabs",
+    "type": "nonveg",
+    "portion": "Half / Full Bird",
+    "special": true,
+    "image": "images/kebab-3.jpg",
+    "instagram": "https://www.instagram.com/p/C14cmK2xM7v/",
+    "desc": "A burst of authentic flavors that redefine the essence of culinary delight. Whole farm chicken scored and double-marinated in strained curd, Kashmiri deggi mirch, and mustard oil, roasted in clay tandoors.",
+    "heritage": "Centuries-old clay tandoor technique creating an enticing smoky char outside while keeping the meat juicy and succulent within.",
+    "ingredients": "Whole Farm Chicken, Hung Curd, Deggi Mirch, Mustard Oil, Kasuri Methi, Lemon, Chaat Masala, Butter Glaze.",
+    "pairings": "Fresh Mint-Coriander Chutney, Onion Lachha, Lemon Wedges, and Rumali Roti."
+  },
+  "DK4OEaKSKxM": {
+    "name": "Shah Ghouse Flame-Grilled Tangdi Kebab",
+    "category": "kebabs",
+    "type": "nonveg",
+    "portion": "4 Plump Drumsticks",
+    "special": true,
+    "image": "images/kebab-4.jpg",
+    "instagram": "https://www.instagram.com/p/DK4OEaKSKxM/",
+    "desc": "Juicy, plump chicken drumsticks marinated overnight in cashew paste, rich spices, and hung curd, flame-grilled over live fire to lock in tantalizing smoky tenderness.",
+    "heritage": "Where tradition meets taste \u2014 a celebrated Mughlai delicacy roasted to golden amber perfection on red-hot skewers.",
+    "ingredients": "Tender Chicken Drumsticks, Cashew-Nut Paste, Shahi Garam Masala, Kashmiri Chilli, Lemon, Pure Desi Ghee.",
+    "pairings": "Green Mint Chutney, Charred Lemon, and Fluffy Tandoori Naan."
+  },
+  "DRo9lwuEeKa": {
+    "name": "Shah Ghouse Grand Tandoori Feast Platter",
+    "category": "kebabs",
+    "type": "nonveg",
+    "portion": "Grand Royal Feast Platter",
+    "special": true,
+    "image": "images/kebab-5.jpg",
+    "instagram": "https://www.instagram.com/p/DRo9lwuEeKa/",
+    "desc": "A platter so big, even your cravings need backup! An opulent assortment of Shah Ghouse's finest kebabs, seekhs, and smoked tandoori delicacies served sizzling on one grand feast platter.",
+    "heritage": "Designed for grand gatherings, festive family celebrations, and true meat connoisseurs of Hyderabad.",
+    "ingredients": "Assorted Mutton & Chicken Kebabs, Tangdi, Seekh, Potli Masala, Fresh Mint, Lemon, Saffron-infused Ghee.",
+    "pairings": "Assorted Shahi Chutneys, Pickled Onions, and a Basket of Fresh Tandoori Breads."
+  },
+  "DReuKK1ETzX": {
+    "name": "Shah Ghouse Smoky Nizami Starter Bites",
+    "category": "starters",
+    "type": "nonveg",
+    "portion": "Chef's Special Serving",
+    "special": false,
+    "image": "images/starter-5.jpg",
+    "instagram": "https://www.instagram.com/p/DReuKK1ETzX/",
+    "desc": "Smoky. Juicy. Tandoori done right. Prime boneless cuts chargrilled to tender perfection with Shah Ghouse's signature Hyderabadi spice kick, locking in intense flavor over red-hot coals.",
+    "heritage": "Slow-roasted over coal embers by master grill chefs for an unmistakable charcoal smoke flavor.",
+    "ingredients": "Marinated Chicken, Black Peppercorns, Roasted Cumin, Green Cardamom, Mustard Oil, Fresh Mint.",
+    "pairings": "Mint Yogurt Dip, Sliced Red Onions, and Garlic Naan."
+  },
+  "DA0Z_vcSCuO": {
+    "name": "Shah Ghouse Legendary Chicken 65",
+    "category": "starters",
+    "type": "nonveg",
+    "portion": "Signature Sizzling Plate",
+    "special": true,
+    "image": "images/starter-1.jpg",
+    "instagram": "https://www.instagram.com/p/DA0Z_vcSCuO/",
+    "desc": "The ultimate South Indian & Hyderabadi icon! Crispy on the outside, juicy on the inside, and packed with fiery flavors. Boneless chicken tossed with aromatic spices, fresh curry leaves, and green chillies.",
+    "heritage": "Created in 1965 and elevated by Shah Ghouse with a signature spiced curd tempering and crackling curry leaf aroma.",
+    "ingredients": "Boneless Farm Chicken, Crisp Curry Leaves, Slit Green Chillies, Garlic, Red Chilli Paste, Spiced Curd, Black Pepper.",
+    "pairings": "Sliced Red Onions, Fresh Lemon Wedges, or paired with Biryani."
+  },
+  "C3fpQFRh_CO": {
+    "name": "Shah Ghouse Crispy Prawn Manchurian",
+    "category": "starters",
+    "type": "nonveg",
+    "portion": "Full Platter",
+    "special": true,
+    "image": "images/starter-2.jpg",
+    "instagram": "https://www.instagram.com/p/C3fpQFRh_CO/",
+    "desc": "Experience the essence of Shah Ghouse\u2019s Prawn Manchurian: A delectable fusion of zesty flavors featuring golden battered prawns tossed with scallions, crushed garlic, and a tangy Indo-Hyderabadi glaze.",
+    "heritage": "A celebrated Indo-Deccan seafood specialty perfected in our kitchens with a crispy crunch and luscious glaze.",
+    "ingredients": "Fresh Bay Prawns, Spring Onions, Minced Garlic, Szechuan Chilli, Soya Glaze, White Pepper, Coriander.",
+    "pairings": "Fresh Lemon, Shredded Cabbage Salad, and Mint Dip."
+  },
+  "C_Lp5VrBWVG": {
+    "name": "Shah Ghouse Arabian Delights Starter Platter",
+    "category": "starters",
+    "type": "nonveg",
+    "portion": "Grand Appetizer Platter",
+    "special": true,
+    "image": "images/starter-3.jpg",
+    "instagram": "https://www.instagram.com/p/C_Lp5VrBWVG/",
+    "desc": "A feast of Arabian & Hyderabadi delights! Loaded with juicy spiced meats, golden fritters, and sizzling barbecue cuts served alongside traditional dips and crisp accompaniments.",
+    "heritage": "An iconic combination platter celebrating the cross-cultural Arabian and Hyderabadi culinary heritage of Old City.",
+    "ingredients": "Assorted Tender Chicken & Mutton Cuts, Garlic Dip, Toum, Pickled Turnips, Royal Nizami Spices.",
+    "pairings": "Garlic Toum, Spicy Harissa Sauce, and Warm Khubz / Naan."
+  },
+  "DAvuDgvym2z": {
+    "name": "Shah Ghouse Zesty Chicken Hariyali Starter",
+    "category": "starters",
+    "type": "nonveg",
+    "portion": "Tender Herb Platter",
+    "special": false,
+    "image": "images/starter-4.jpg",
+    "instagram": "https://www.instagram.com/p/DAvuDgvym2z/",
+    "desc": "Experience the zesty flavor of Chicken Hariyali! Tender chicken marinated in a vibrant blend of fresh garden mint, coriander leaves, green chillies, and shahi spices, grilled to juicy succulent perfection.",
+    "heritage": "A fresh herbal Mughlai favorite known for its bright green emerald color and soothing mint-coriander aromatic finish.",
+    "ingredients": "Boneless Chicken Chunks, Fresh Coriander, Garden Mint, Hung Yogurt, Green Chillies, Lemon Juice, Chaat Masala.",
+    "pairings": "Creamy Mint Chutney, Pickled Onions, and Lime Slices."
+  },
+  "Cw2JPstRWW2": {
+    "name": "Shah Ghouse Signature Matka Mutton Curry",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Clay Matka Bowl",
+    "special": true,
+    "image": "images/curry-1.jpg",
+    "instagram": "https://www.instagram.com/p/Cw2JPstRWW2/",
+    "desc": "Where taste meets royal tradition! Tender mutton cuts simmered slowly in unglazed earthen clay pots (matkas) with stone-ground spices, caramelized onions, and pure desi ghee.",
+    "heritage": "Slow-cooked inside sealed clay matkas to impart an earthy aroma that modern cookware can never replicate.",
+    "ingredients": "Prime Mutton Shanks, Earthen Pot Herbs, Brown Onions, Cinnamon, Black Cardamom, Pure Desi Ghee.",
+    "pairings": "Hot Tandoori Roti, Sheermal, or Steamed Basmati Rice."
+  },
+  "Cz3HrFoRngX": {
+    "name": "Shah Ghouse Mutton Roghan Josh",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Royal Handi Bowl",
+    "special": true,
+    "image": "images/curry-2.jpg",
+    "instagram": "https://www.instagram.com/p/Cz3HrFoRngX/",
+    "desc": "Immerse in heritage's warmth! Tender mutton cooked in a deeply flavorful Kashmiri red chilli and ratan jot infusion with yogurt and whole shahi spices. Crafted with love and timeless Nizami culinary mastery.",
+    "heritage": "A Persian-Mughlai royal curry refined by generations of Hyderabadi bawarchis into a velvety gravy.",
+    "ingredients": "Tender Mutton Chops, Kashmiri Mirch, Fennel Seeds, Dried Ginger (Sonth), Cloves, Cinnamon, Desi Ghee.",
+    "pairings": "Tandoori Butter Roti, Garlic Naan, or Jeera Rice."
+  },
+  "DNS9CqQhTb4": {
+    "name": "Shah Ghouse Shahi Murgh Musallam (Royal Feast)",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Full Royal Platter (Serves 2-3)",
+    "special": true,
+    "image": "images/curry-3.jpg",
+    "instagram": "https://www.instagram.com/p/DNS9CqQhTb4/",
+    "desc": "Unwrap the luxury of Murgh Musallam \u2013 a golden indulgence where spices melt into velvet richness! Whole chicken marinated in saffron, spices, and almond-cashew paste, roasted and served in a rich velvety gravy with boiled eggs.",
+    "heritage": "Served royal, tastes regal. A historical centerpiece of imperial banquet tables across the Deccan.",
+    "ingredients": "Whole Farm Chicken, Shahi Masala, Cashew-Almond Gravy, Kashmiri Saffron, Hard-Boiled Eggs, Desi Ghee.",
+    "pairings": "Butter Garlic Naan, Rumali Roti, and Sheermal."
+  },
+  "DNANAUlSWMz": {
+    "name": "Nawabi Murgh Musallam Deluxe",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Grand Feast Platter",
+    "special": true,
+    "image": "images/curry-4.jpg",
+    "instagram": "https://www.instagram.com/p/DNANAUlSWMz/",
+    "desc": "Crafted for kings, devoured by foodies! Whole chicken drenched in decadent spices, rich almond-khowa gravy, golden fried onions, and garnished with spiced boiled eggs. A true nawabi masterpiece.",
+    "heritage": "A majestic meal celebrated as the epitome of luxury on a plate in Hyderabad's royal culinary heritage.",
+    "ingredients": "Whole Tender Chicken, Khowa, Cashew Paste, Royal Potli Herbs, Fried Onions, Farm Eggs, Pure Ghee.",
+    "pairings": "Fresh Tandoori Naan, Rumali Roti, and Laccha Onions."
+  },
+  "Cy3Gm5lRLy6": {
+    "name": "Shah Ghouse Shahi Butter Chicken",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Full Handi Bowl",
+    "special": false,
+    "image": "images/curry-5.jpg",
+    "instagram": "https://www.instagram.com/p/Cy3Gm5lRLy6/",
+    "desc": "Indulge in the rich, creamy delight of Shah Ghouse's Butter Chicken! Succulent tandoori-roasted chicken pieces simmered in a velvety makhani gravy of ripe tomatoes, butter, fresh cream, and fragrant kasuri methi.",
+    "heritage": "A taste truly fit for royalty, perfected with an irresistible balance of mild sweetness and smoky char.",
+    "ingredients": "Tandoori Chicken Chunks, Ripe Tomato Puree, Fresh Dairy Butter, Rich Cream, Kasuri Methi, Honey.",
+    "pairings": "Garlic Butter Naan, Laccha Paratha, or Fragrant Biryani Rice."
+  },
+  "DMxQsvtyWNR": {
+    "name": "Shah Ghouse Velvet Handi Murgh Musallam",
+    "category": "curries",
+    "type": "nonveg",
+    "portion": "Handi Special Serving",
+    "special": false,
+    "image": "images/curry-6.jpg",
+    "instagram": "https://www.instagram.com/p/DMxQsvtyWNR/",
+    "desc": "A golden indulgence where spices melt into velvet richness. Whole seasoned chicken slow-steamed in copper handis until fork tender, enveloped in a fragrant saffron and poppy-seed reduction.",
+    "heritage": "Handi slow-steaming technique sealing in natural poultry juices with authentic royal seasonings.",
+    "ingredients": "Chicken Cuts, Poppy Seed Paste, Saffron, Green Cardamom, Fried Cashews, Desi Ghee.",
+    "pairings": "Rumali Roti, Tandoori Roti, and Fresh Lime Wedges."
+  },
+  "CurF_v3PQsr": {
+    "name": "Shah Ghouse Kadhai Paneer Special",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Handi Bowl",
+    "special": true,
+    "image": "images/veg-1.jpg",
+    "instagram": "https://www.instagram.com/p/CurF_v3PQsr/",
+    "desc": "A fiery dance of royal flavors that sets your taste buds ablaze! Succulent malai paneer cubes tossed in high-heat iron kadhai with diced bell peppers, ripe tomatoes, and freshly roasted coriander & red chilli seeds.",
+    "heritage": "Classic North Indian & Hyderabadi kadhai style cooking capturing the smoky essence of freshly pounded spices.",
+    "ingredients": "Fresh Malai Paneer, Crisp Bell Peppers, Whole Red Chillies, Crushed Coriander Seeds, Onion-Tomato Masala, Kasuri Methi, Pure Butter.",
+    "pairings": "Tandoori Butter Naan, Garlic Naan, or Jeera Rice."
+  },
+  "Cugg1yUPy2C": {
+    "name": "Shah Ghouse Sizzling Paneer 65",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Crispy Sizzling Plate",
+    "special": true,
+    "image": "images/veg-2.jpg",
+    "instagram": "https://www.instagram.com/p/Cugg1yUPy2C/",
+    "desc": "Sizzle, spice, and everything nice! Indulge in the tantalizing flavors of Paneer 65 \u2014 a vegetarian delight bold, crisp, and tossed with fiery green chillies, cracked garlic, and aromatic curry leaves.",
+    "heritage": "Hyderabad's famous 65 tempering adapted for premium cottage cheese lovers.",
+    "ingredients": "Diced Cottage Cheese, Curry Leaves, Slit Green Chillies, Spiced Curd, Crushed Pepper, Ginger-Garlic.",
+    "pairings": "Mint Yogurt Dip, Sliced Red Onions, and Lime."
+  },
+  "CxBAEhAJzcE": {
+    "name": "Shah Ghouse Royal Veg Handi & Biryani Feast",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Royal Family Platter",
+    "special": false,
+    "image": "images/veg-3.jpg",
+    "instagram": "https://www.instagram.com/p/CxBAEhAJzcE/",
+    "desc": "A celebratory weekend feast for vegetarian royalty! Garden-fresh vegetables, cottage cheese, and fragrant basmati layered with royal nizami spices, slow-steamed under dough-sealed handis.",
+    "heritage": "Nizami banquet recipes adapted for complete vegetarian royal celebrations.",
+    "ingredients": "Seasonal Farm Vegetables, Paneer, Kashmiri Saffron, Ghee, Crispy Onions, Mint, Whole Spices.",
+    "pairings": "Mirchi Ka Salan, Mixed Raita, and Tandoori Roti."
+  },
+  "C5QRaEJJKjx": {
+    "name": "Shah Ghouse Shahi Paneer Curry Extravaganza",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Velvet Handi Bowl",
+    "special": true,
+    "image": "images/veg-4.jpg",
+    "instagram": "https://www.instagram.com/reel/C5QRaEJJKjx/",
+    "desc": "Unveiling the rich symphony of flavors in every spoonful of our Shah Ghouse Paneer Curry! Tender cottage cheese cubes enveloped in a luxurious cashew-almond and fresh tomato reduction.",
+    "heritage": "Centuries-old Shahi gravy preparation enriched with fragrant mawa and cream.",
+    "ingredients": "Malai Paneer, Cashew-Almond Paste, Mawa, Tomato Coulis, Cardamom, Saffron, Fresh Dairy Cream.",
+    "pairings": "Butter Naan, Sheermal, or Peas Pulao."
+  },
+  "C8on6EzJBpj": {
+    "name": "Shah Ghouse Indo-Chinese Chilli Paneer",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Full Sizzler Plate",
+    "special": false,
+    "image": "images/veg-5.jpg",
+    "instagram": "https://www.instagram.com/p/C8on6EzJBpj/",
+    "desc": "Indulge in the spicy, saucy, and flavorful Chilli Paneer at Shah Ghouse! Golden fried cottage cheese tossed with bell peppers, spring onions, and our signature oriental garlic chilli glaze.",
+    "heritage": "Hyderabad's favorite Indo-Chinese street-style delicacy, loved by all generations.",
+    "ingredients": "Crisp Fried Paneer, Green & Red Bell Peppers, Spring Onions, Szechuan Chilli, Dark Soy, Minced Garlic.",
+    "pairings": "Fried Rice, Hakka Noodles, or enjoyed as a starter."
+  },
+  "DADLG6MPauK": {
+    "name": "Shah Ghouse Hong Kong Veg Starter",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Crunchy Appetizer Platter",
+    "special": false,
+    "image": "images/veg-6.jpg",
+    "instagram": "https://www.instagram.com/p/DADLG6MPauK/",
+    "desc": "Savor the crunch and flavor of our Hong Kong Veg Starter! A perfect blend of wok-tossed crispy vegetables, baby corn, water chestnuts, and zesty Asian-Hyderabadi spices to kickstart your meal.",
+    "heritage": "A contemporary crunch-infused appetizer crafted to delight vegetable lovers.",
+    "ingredients": "Crisp Baby Corn, Broccoli, Water Chestnuts, Bell Peppers, Garlic-Chilli Seasoning, Scallions.",
+    "pairings": "Sweet Chilli Dip and Shredded Cabbage Salad."
+  },
+  "DEU1CMJyprh": {
+    "name": "Shah Ghouse Creamy Paneer Butter Masala",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Shahi Handi Bowl",
+    "special": true,
+    "image": "images/veg-7.jpg",
+    "instagram": "https://www.instagram.com/p/DEU1CMJyprh/",
+    "desc": "Arrey baba, ye toh asli creamy buttery mazza hai! Melt-in-mouth cottage cheese simmered in a velvety tomato-butter makhani gravy, infused with roasted kasuri methi and fresh dairy cream.",
+    "heritage": "The undisputed emperor of North Indian gravies, prepared with pure dairy butter and slow-simmered perfection.",
+    "ingredients": "Soft Paneer Cubes, Rich Tomato Puree, Amul Butter, Dairy Cream, Kasuri Methi, Cardamom, Honey.",
+    "pairings": "Garam-Garam Butter Naan, Garlic Naan, or Jeera Rice."
+  },
+  "C0_NXr2RSLW": {
+    "name": "Shah Ghouse Crispy Veg Manchurian",
+    "category": "vegetarian",
+    "type": "veg",
+    "portion": "Full Plate (Dry / Gravy)",
+    "special": false,
+    "image": "images/veg-8.jpg",
+    "instagram": "https://www.instagram.com/p/C0_NXr2RSLW/",
+    "desc": "Crispy, spicy, aur Indo-Chinese ka perfect blend! Golden seasoned vegetable balls flash-fried and tossed in a rich, savory ginger-soy reduction with chopped coriander and chillies.",
+    "heritage": "The quintessential fusion favorite, marrying Chinese wok techniques with bold Indian spices.",
+    "ingredients": "Minced Farm Veggies, Ginger-Garlic, Dark Soya, Green Chillies, Spring Onions, White Pepper.",
+    "pairings": "Fried Rice, Soft Naan, or enjoyed as a hot snack."
+  },
+  "Cvu56owvXtr": {
+    "name": "Shah Ghouse Traditional Tandoori Roti",
+    "category": "breads",
+    "type": "veg",
+    "portion": "Fresh from Tandoor (Plain / Butter)",
+    "special": false,
+    "image": "images/bread-1.jpg",
+    "instagram": "https://www.instagram.com/p/Cvu56owvXtr/",
+    "desc": "Roti: Timeless comfort on a plate! Wholesome stone-ground whole wheat dough hand-stretched and slapped onto blazing clay tandoor walls, roasted to smoky blistered perfection.",
+    "heritage": "The daily staple of the Deccan, baked over live charcoal embers for an authentic rustic char.",
+    "ingredients": "Stone-Ground Whole Wheat Atta, Water, Sea Salt, Roasted in authentic clay ovens.",
+    "pairings": "Matka Mutton Curry, Roghan Josh, or Dal Tadka."
+  },
+  "Cvu5n_7PoTQ": {
+    "name": "Shah Ghouse Fluffy Butter Naan",
+    "category": "breads",
+    "type": "veg",
+    "portion": "Jumbo Tandoor Bake",
+    "special": true,
+    "image": "images/bread-2.jpg",
+    "instagram": "https://www.instagram.com/p/Cvu5n_7PoTQ/",
+    "desc": "The buttery pillow for your royal curries! Light, pillowy leavened bread baked in blazing tandoors and generously brushed with melted golden dairy butter.",
+    "heritage": "Royal Mughlai bread making tradition with centuries of leavening artistry.",
+    "ingredients": "Refined Wheat Flour, Fresh Dairy Milk, Butter Glaze, Nigella Seeds (Kalonji), Yogurt.",
+    "pairings": "Butter Chicken, Murgh Musallam, or Paneer Butter Masala."
+  },
+  "DNyMwNPwnb1": {
+    "name": "Shah Ghouse Charred Garlic Naan",
+    "category": "breads",
+    "type": "veg",
+    "portion": "Aromatic Garlic Platter",
+    "special": false,
+    "image": "images/bread-3.jpg",
+    "instagram": "https://www.instagram.com/p/DNyMwNPwnb1/",
+    "desc": "City escape, culinary bliss! Leavened tandoor bread generously topped with finely minced roasted garlic, fresh cilantro, and brushed with hot butter.",
+    "heritage": "A fragrant tandoor classic that pairs seamlessly with rich gravies and smoky kebabs.",
+    "ingredients": "Flour, Freshly Minced Garlic, Coriander, Pure Butter, Kalonji Seeds.",
+    "pairings": "Mutton Korma, Tangdi Kebab, or Shahi Paneer."
+  },
+  "DcbFABxTUtV": {
+    "name": "Shah Ghouse Signature Rumali Shawarma",
+    "category": "shawarma",
+    "type": "nonveg",
+    "portion": "Jumbo Rumali Wrap",
+    "special": true,
+    "image": "images/shawarma-1.jpg",
+    "instagram": "https://www.instagram.com/p/DcbFABxTUtV/",
+    "desc": "Hyderabad's beloved late-night obsession! Succulent rotisserie chicken carved hot from our vertical spit, rolled inside a delicate, thin rumali roti with velvety garlic mayo and pickled gherkins. Pure meat, zero cabbage fillers.",
+    "heritage": "Adopted into Hyderabad's culinary fabric from the Arabian Gulf, elevated with Shah Ghouse's proprietary meat marinade.",
+    "ingredients": "Slow-Roasted Spit Chicken, Garlic Toum, Pickled Turnips & Cucumbers, Thin Rumali Roti.",
+    "pairings": "Extra Garlic Dip, Spicy Peri Peri Dip, and Pickled Green Chillies."
+  },
+  "DZ7YBh6TujF": {
+    "name": "Shah Ghouse Creamy Malai Chicken Shawarma Wrap",
+    "category": "shawarma",
+    "type": "nonveg",
+    "portion": "Creamy Malai Wrap",
+    "special": true,
+    "image": "images/shawarma-2.jpg",
+    "instagram": "https://www.instagram.com/p/DZ7YBh6TujF/",
+    "desc": "Wrapped with creamy Malai Chicken and packed with pure lazeez vibes! Tender chicken marinated in fresh cream, mild spices, and cheese, wrapped tightly in toasted khubz/rumali with rich garlic cream. One bite and hunger doesn't stand a chance.",
+    "heritage": "A luxurious twist on the traditional shawarma, combining Mughlai malai creaminess with Arabian street wraps.",
+    "ingredients": "Malai-Marinated Tender Chicken, Fresh Cream, Garlic Mayonnaise, Toasted Wrap, Mild Spices.",
+    "pairings": "French Fries, Spicy Harissa Dip, and Pickles."
+  },
+  "DScbzStkbie": {
+    "name": "Shah Ghouse Royal Dum Irani Chai",
+    "category": "irani-chai",
+    "type": "veg",
+    "portion": "Traditional Cutting / Cup",
+    "special": true,
+    "image": "images/chai-1.jpg",
+    "instagram": "https://www.instagram.com/p/DScbzStkbie/",
+    "desc": "Where time slows down and every sip feels refined! Steaming hot, slow-brewed strong Assam tea decoction blended with reduced creamy milk and mawa. Served with quiet elegance and timeless warmth.",
+    "heritage": "The living soul of Hyderabad culture since the early 20th century, fueling conversations across generations.",
+    "ingredients": "Aged Assam CTC Tea, Reduced Full-Cream Milk, Mawa (Khowa), Crushed Cardamom.",
+    "pairings": "Osmania Biscuits, Tie Biscuits, and Fine Khari."
+  },
+  "DQg-nhPkZXq": {
+    "name": "Shah Ghouse Irani Chai with Maska Bun",
+    "category": "irani-chai",
+    "type": "veg",
+    "portion": "Chai + Butter Slathered Bun",
+    "special": true,
+    "image": "images/chai-2.jpg",
+    "instagram": "https://www.instagram.com/reel/DQg-nhPkZXq/",
+    "desc": "Where conversations brew and buns melt! Steaming hot cup of Irani Dum Chai served alongside a freshly baked, ultra-soft bun loaded with chilled, luscious dairy butter.",
+    "heritage": "The classic Hyderabadi breakfast and afternoon ritual savored at our bustling cafes daily.",
+    "ingredients": "Dum Irani Chai, Fresh Bakery Buns, Rich Dairy Butter (Maska), Sugar.",
+    "pairings": "Best enjoyed dipped directly into hot steaming chai."
+  },
+  "DLmE2sUJL2z": {
+    "name": "Shah Ghouse Freshly Baked Dum Ka Roat",
+    "category": "irani-chai",
+    "type": "veg",
+    "portion": "Freshly Baked Slice / Cake",
+    "special": true,
+    "image": "images/chai-3.jpg",
+    "instagram": "https://www.instagram.com/p/DLmE2sUJL2z/",
+    "desc": "Still warm. Still soft. Still unforgettable! Freshly baked every day, our Dum Ka Roat is a timeless Hyderabadi delicacy \u2014 roasted to golden amber perfection with semolina, pure desi ghee, and a generous heart of crunchy almonds and dry fruits.",
+    "heritage": "Hyderabad's most cherished heritage baked dessert, reliving the taste and nostalgia of royal festivities.",
+    "ingredients": "Fine Semolina (Sooji), Pure Desi Ghee, Saffron, Khoya, Almonds, Pistachios, Cardamom.",
+    "pairings": "Hot Irani Chai or enjoyed warm as a comforting dessert."
+  },
+  "DKtzNXaJVrW": {
+    "name": "The Iconic Irani Chai & Osmania Biscuit Pair",
+    "category": "irani-chai",
+    "type": "veg",
+    "portion": "Hot Cup + 4 Osmania Biscuits",
+    "special": true,
+    "image": "images/chai-4.jpg",
+    "instagram": "https://www.instagram.com/p/DKtzNXaJVrW/",
+    "desc": "Steaming traditions, timeless taste! Dive into the legendary pairing of piping-hot Irani Dum Chai and sweet-and-salty Osmania biscuits \u2014 your comfort cup awaits at Shah Ghouse.",
+    "heritage": "Named after the last Nizam of Hyderabad, Mir Osman Ali Khan, who made these melt-in-mouth biscuits world-famous.",
+    "ingredients": "Flour, Pure Dairy Butter, Salt-Sweet Seasoning, Reduced Cardamom Milk, Tea Decoction.",
+    "pairings": "The ultimate Hyderabadi pairing that defined street culture."
+  },
+  "C0tEJsmxSmC": {
+    "name": "Shah Ghouse Teatime Bliss Chai & Bakery Cookies",
+    "category": "irani-chai",
+    "type": "veg",
+    "portion": "Tea Cup + Assorted Cookie Plate",
+    "special": false,
+    "image": "images/chai-5.jpg",
+    "instagram": "https://www.instagram.com/p/C0tEJsmxSmC/",
+    "desc": "Cozying up with a warm cup of chai and a plate of traditional Hyderabadi bakery biscuits! An assortment of Tie biscuits, fine khari puffs, and cashew butter cookies.",
+    "heritage": "Honoring the iconic bakeries of Old City Hyderabad with handcrafted teatime crunchy delights.",
+    "ingredients": "Assorted Bakery Biscuits, Clarified Butter, Cardamom Tea, Khari Puff.",
+    "pairings": "Steaming Irani Dum Chai."
+  },
+  "DJrGfVRJqGN": {
+    "name": "Shah Ghouse Shahi Badam Ki Kheer",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Clay Matka Bowl",
+    "special": true,
+    "image": "images/dessert-1.jpg",
+    "instagram": "https://www.instagram.com/p/DJrGfVRJqGN/",
+    "desc": "Indulge in the royal richness of Badam Ki Kheer \u2014 a creamy, nutty masterpiece that melts your heart with every single spoonful! Prepared by slow-simmering blanched California almonds with full-cream milk, saffron, and cardamom.",
+    "heritage": "The prized royal pudding of the Nizams, renowned for its nourishing almond essence and velvety texture.",
+    "ingredients": "Blanched Almond Paste, Full Cream Dairy Milk, Saffron Strands, Green Cardamom, Crushed Pistachios, Sugar.",
+    "pairings": "Enjoyed chilled after a royal Biryani feast."
+  },
+  "DJvmNE8p0SC": {
+    "name": "Shah Ghouse Seasonal Royal Aamras",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Chilled Dessert Glass / Bowl",
+    "special": false,
+    "image": "images/dessert-2.jpg",
+    "instagram": "https://www.instagram.com/p/DJvmNE8p0SC/",
+    "desc": "Sip, smile, and savor the magic of mangoes with our refreshing Aamras! Thick, sun-ripened Alphonso mango pulp infused with fragrant cardamom and saffron \u2014 the sweetest way to celebrate summer in Hyderabad.",
+    "heritage": "Traditional Indian seasonal mango feast, served pure without artificial preservatives.",
+    "ingredients": "Pure Ripe Mango Pulp, Cardamom Powder, Saffron-infused Milk, Chopped Mango Chunks.",
+    "pairings": "Warm Puris, Naan, or savored as a rich chilled dessert."
+  },
+  "C_x2EmtgOBC": {
+    "name": "Shah Ghouse Zafrani Badam Ki Kheer",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Royal Dessert Bowl",
+    "special": true,
+    "image": "images/dessert-3.jpg",
+    "instagram": "https://www.instagram.com/p/C_x2EmtgOBC/",
+    "desc": "Discover the magic of tradition with our Zafrani Badam Ki Kheer! Crafted with love, this creamy almond dessert is heavily enriched with Kashmiri saffron, slivered dry fruits, and a gentle sweetness that dissolves on the tongue.",
+    "heritage": "A staple at lavish Hyderabadi wedding banquets celebrating century-old sweet traditions.",
+    "ingredients": "Almond Flour, Reduced Milk, Kashmiri Zafran (Saffron), Cardamom, Silver Leaf, Almond Slivers.",
+    "pairings": "Fresh Irani Chai or enjoyed chilled."
+  },
+  "C_r-9M0tcbS": {
+    "name": "Shah Ghouse Royal Cream Fruit Salad",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Loaded Dessert Bowl",
+    "special": false,
+    "image": "images/dessert-4.jpg",
+    "instagram": "https://www.instagram.com/p/C_r-9M0tcbS/",
+    "desc": "Dive into delight with our Cream Fruit Salad! Refreshing, luscious, and loaded with a colorful medley of crisp apples, sweet pomegranates, grapes, and tropical fruits folded into whipped sweet cream.",
+    "heritage": "Hyderabad's timeless sweet finish loved by diners of all generations across Charminar and Tolichowki.",
+    "ingredients": "Seasonal Fresh Fruits, Sweetened Dairy Cream, Vanilla Essence, Glazed Cherries, Honey Drizzle.",
+    "pairings": "A light, refreshing contrast after rich spicy curries and biryanis."
+  },
+  "CuBiLmfJdZO": {
+    "name": "Shah Ghouse Shahi Eid Sheer Khurma & Kheer",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Festival Shahi Bowl",
+    "special": true,
+    "image": "images/dessert-5.jpg",
+    "instagram": "https://www.instagram.com/p/CuBiLmfJdZO/",
+    "desc": "Savor the sweetness of tradition with our heavenly Kheer & Sheer Khurma! Creamy, fragrant, and slow-roasted with fine vermicelli, dates (chhuara), pure desi ghee, and dry fruits to celebrate joyous festive occasions.",
+    "heritage": "The quintessential celebratory dessert of Hyderabad, representing unity, warmth, and royal hospitality.",
+    "ingredients": "Roasted Fine Seviyan, Dry Dates, Condensed Milk, Pistachios, Almonds, Chirongi, Pure Desi Ghee.",
+    "pairings": "Served warm or chilled as the crowning finale of your feast."
+  },
+  "CteZFdMBsNR": {
+    "name": "Shah Ghouse Arabian Umm Ali",
+    "category": "desserts",
+    "type": "veg",
+    "portion": "Baked Arabian Bowl",
+    "special": true,
+    "image": "images/dessert-6.jpg",
+    "instagram": "https://www.instagram.com/p/CteZFdMBsNR/",
+    "desc": "Discover the enchantment of Umm Ali \u2014 a heavenly Middle Eastern baked dessert that transports your taste buds to blissful realms! Golden flaky pastry layered with sweetened hot milk, toasted coconut, raisins, and roasted nuts.",
+    "heritage": "An Egyptian & Arabian classic embraced by Hyderabad's cosmopolitan food connoisseurs.",
+    "ingredients": "Crisp Puff Pastry, Sweet Whole Milk, Heavy Cream, Desiccated Coconut, Golden Sultanas, Pistachios.",
+    "pairings": "Served warm straight from the oven."
+  }
+};
+
+window.extractInstagramShortcode = function(url) {
+  if (!url) return '';
+  url = String(url).trim();
+  const match = url.match(/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/);
+  if (match) return match[1];
+  if (/^[A-Za-z0-9_-]{8,16}$/.test(url)) return url;
+  return '';
+};
+
+window.handleInstagramLinkInput = function(rawUrl, mode = 'new') {
+  if (!rawUrl) return;
+  const shortcode = extractInstagramShortcode(rawUrl);
+  if (!shortcode) return;
+
+  const prefix = mode === 'edit' ? 'edit' : 'new';
+  const statusEl = document.getElementById(prefix + 'DishInstaStatus');
+  const previewImg = document.getElementById(prefix + 'DishImagePreview');
+  const imageInp = document.getElementById(prefix + 'DishImage');
+  const nameInp = document.getElementById(prefix + 'DishName');
+  const catInp = document.getElementById(prefix + 'DishCategory');
+  const typeInp = document.getElementById(prefix + 'DishType');
+  const portionInp = document.getElementById(prefix + 'DishPortion');
+  const descInp = document.getElementById(prefix + 'DishDesc');
+  const heritageInp = document.getElementById(prefix + 'DishHeritage');
+  const ingredientsInp = document.getElementById(prefix + 'DishIngredients');
+  const pairingsInp = document.getElementById(prefix + 'DishPairings');
+  const specialInp = document.getElementById(prefix + 'DishSpecial');
+  const instaInp = document.getElementById(prefix + 'DishInstagram');
+
+  const cleanInstaUrl = 'https://www.instagram.com/p/' + shortcode + '/';
+  if (instaInp && !instaInp.value.includes(shortcode)) {
+    instaInp.value = cleanInstaUrl;
+  }
+
+  // 1. Check verified Shah Ghouse Instagram dish catalog
+  const matched = INSTAGRAM_DISH_CATALOG[shortcode];
+  if (matched) {
+    if (imageInp) imageInp.value = matched.image;
+    if (previewImg) {
+      previewImg.src = matched.image;
+      previewImg.classList.add('insta-preview-active');
+    }
+    if (nameInp && (!nameInp.value || mode === 'new')) nameInp.value = matched.name;
+    if (catInp && (!catInp.value || mode === 'new')) catInp.value = matched.category;
+    if (typeInp && (!typeInp.value || mode === 'new')) typeInp.value = matched.type;
+    if (portionInp && (!portionInp.value || mode === 'new')) portionInp.value = matched.portion;
+    if (descInp && (!descInp.value || mode === 'new')) descInp.value = matched.desc;
+    if (heritageInp && (!heritageInp.value || mode === 'new')) heritageInp.value = matched.heritage;
+    if (ingredientsInp && (!ingredientsInp.value || mode === 'new')) ingredientsInp.value = matched.ingredients;
+    if (pairingsInp && (!pairingsInp.value || mode === 'new')) pairingsInp.value = matched.pairings;
+    if (specialInp && mode === 'new') specialInp.checked = !!matched.special;
+
+    if (statusEl) {
+      statusEl.style.display = 'flex';
+      statusEl.className = 'insta-status-banner success';
+      statusEl.innerHTML = `
+        <span style="font-size: 1.15rem;">✨</span>
+        <div>
+          <strong>Shah Ghouse Instagram Post Verified!</strong>
+          <p style="margin: 2px 0 0; font-size: 0.8rem;">Auto-loaded authentic photo and culinary details for <em>"${escapeHtml(matched.name)}"</em>.</p>
+        </div>
+      `;
+    }
+    showToast(`Instagram photo & details loaded: "${matched.name}"`, "📸");
+    return;
+  }
+
+  // 2. New / unmapped Instagram link: generate live photo preview
+  const instaCandidateImg = `https://www.instagram.com/p/${shortcode}/media/?size=l`;
+  if (imageInp && mode === 'new') imageInp.value = instaCandidateImg;
+  if (previewImg) {
+    previewImg.src = instaCandidateImg;
+    previewImg.onerror = function() {
+      this.onerror = null;
+      this.src = `https://images.weserv.nl/?url=www.instagram.com/p/${shortcode}/media/?size=l`;
+    };
+    previewImg.classList.add('insta-preview-active');
+  }
+
+  const lowerUrl = rawUrl.toLowerCase();
+  let guessedCat = 'biryani';
+  if (lowerUrl.includes('mandi')) guessedCat = 'mandi';
+  else if (lowerUrl.includes('haleem')) guessedCat = 'haleem';
+  else if (lowerUrl.includes('kebab') || lowerUrl.includes('tandoor')) guessedCat = 'kebabs';
+  else if (lowerUrl.includes('starter') || lowerUrl.includes('65')) guessedCat = 'starters';
+  else if (lowerUrl.includes('curry') || lowerUrl.includes('korma')) guessedCat = 'curries';
+  else if (lowerUrl.includes('veg') || lowerUrl.includes('paneer')) guessedCat = 'vegetarian';
+  else if (lowerUrl.includes('roti') || lowerUrl.includes('naan')) guessedCat = 'breads';
+  else if (lowerUrl.includes('shawarma')) guessedCat = 'shawarma';
+  else if (lowerUrl.includes('chai') || lowerUrl.includes('tea')) guessedCat = 'irani-chai';
+  else if (lowerUrl.includes('dessert') || lowerUrl.includes('sweet') || lowerUrl.includes('qubani')) guessedCat = 'desserts';
+
+  if (catInp && mode === 'new') catInp.value = guessedCat;
+
+  if (statusEl) {
+    statusEl.style.display = 'flex';
+    statusEl.className = 'insta-status-banner success';
+    statusEl.innerHTML = `
+      <span style="font-size: 1.15rem;">📸</span>
+      <div>
+        <strong>Instagram Photo Synchronized!</strong>
+        <p style="margin: 2px 0 0; font-size: 0.8rem;">Live photo preview generated from Instagram post <code>${shortcode}</code>.</p>
+      </div>
+    `;
+  }
+};
+
+window.triggerInstagramAutoDetect = function(mode = 'new') {
+  const prefix = mode === 'edit' ? 'edit' : 'new';
+  const inp = document.getElementById(prefix + 'DishInstagram');
+  const val = inp ? inp.value.trim() : '';
+  if (!val) {
+    alert("Please paste a Shah Ghouse Instagram link first (e.g. https://www.instagram.com/p/DIV_STpSdM2/).");
+    return;
+  }
+  handleInstagramLinkInput(val, mode);
+};
