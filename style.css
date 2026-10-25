@@ -1577,23 +1577,49 @@ body.light-mode .btn-more-info {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: #242021;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--royal-gold);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
+  font-weight: 300;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 20;
 }
 
 .modal-close-btn:hover {
-  background: #ef4444;
-  color: #fff;
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.45) !important;
+}
+
+.modal-close-btn:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* Light mode luxury close cross */
+body.light-mode .modal-close-btn {
+  background: #fdf6ec !important;
+  color: #5a0c16 !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2) !important;
+}
+
+body.light-mode .modal-close-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35) !important;
 }
 
 /* Dish Info Modal Layout */
@@ -1831,7 +1857,7 @@ body.light-mode .btn-more-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  z-index: 3000;
+  z-index: 4000 !important;
   transform: translateY(100px);
   opacity: 0;
   transition: all 0.35s ease;
@@ -1959,6 +1985,10 @@ body.light-mode .btn-more-info {
   padding: 30px !important;
 }
 
+#editDishModal {
+  z-index: 3500 !important; /* Floats above full-page portal (z-index: 2500) */
+}
+
 .modal-card.edit-dish-modal {
   max-width: 820px !important;
   width: 95% !important;
@@ -2019,14 +2049,36 @@ body.light-mode .btn-more-info {
 }
 
 .admin-count-badge {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: var(--gold-champagne);
+  color: var(--royal-gold);
   background: rgba(212, 175, 55, 0.12);
-  border: 1px solid var(--border-gold);
-  padding: 6px 14px;
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  padding: 6px 16px;
   border-radius: 20px;
   white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.admin-count-badge strong {
+  color: #ffffff;
+}
+
+.admin-live-count-highlight {
+  color: #34d399;
+  font-weight: 800;
+}
+
+.admin-cat-pill {
+  color: var(--gold-champagne);
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+  display: inline-block;
 }
 
 /* Products in Admin */
@@ -2160,6 +2212,45 @@ body.light-mode .admin-search-toolbar {
   background: #fbf8f2 !important;
   border-color: #e5ded2 !important;
 }
+
+body.light-mode .admin-count-badge,
+body.light-mode #adminDishCountDisplay {
+  background: #fdf3e4 !important;
+  border: 1.5px solid #c59b27 !important;
+  color: #5a0c16 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(197, 155, 39, 0.15) !important;
+}
+
+body.light-mode .admin-count-badge strong,
+body.light-mode #adminDishCountDisplay strong {
+  color: #8a0a17 !important;
+}
+
+body.light-mode .admin-live-count-highlight {
+  color: #15803d !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .admin-cat-pill {
+  color: #5a0c16 !important;
+  background: #fdf3e4 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .btn-edit {
+  background: #fdf5e6 !important;
+  color: #5a0c16 !important;
+  border: 1.5px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .btn-edit:hover {
+  background: #d4af37 !important;
+  color: #200408 !important;
+  border-color: #aa820a !important;
+}
 body.light-mode .admin-product-item {
   background: #ffffff !important;
   border-color: #e8e0d5 !important;
@@ -2234,6 +2325,30 @@ body.light-mode .modal-card.edit-dish-modal {
 }
 
 /* Item Preview Card */
+.confirm-delete-card .modal-close-btn {
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.confirm-delete-card .modal-close-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+}
+
+body.light-mode .confirm-delete-card .modal-close-btn {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+  border: 1.5px solid #fca5a5 !important;
+}
+
+body.light-mode .confirm-delete-card .modal-close-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+}
+
 .confirm-item-preview {
   display: flex;
   align-items: center;
@@ -4337,4 +4452,252 @@ body.light-mode .dish-modal-insta-banner strong {
 
 body.light-mode .dish-modal-insta-banner p {
   color: #54463d !important;
+}
+
+
+/* ===================================================================
+   PUBLISH DISH CONFIRMATION POPUP MODAL (#publishDishModal)
+   =================================================================== */
+#publishDishModal {
+  z-index: 3500 !important; /* Floats above Owner Portal modal (z-index: 2500) */
+  background: rgba(4, 2, 4, 0.88) !important;
+}
+
+.modal-card.publish-dish-card {
+  max-width: 660px !important;
+  width: 95% !important;
+  background: linear-gradient(135deg, #1b0a0e 0%, #110507 100%) !important;
+  border: 1.5px solid var(--royal-gold) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 30px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 30px rgba(212, 175, 55, 0.15) !important;
+  position: relative !important;
+  animation: confirmPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.publish-dish-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.publish-header-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1.5px solid var(--royal-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.publish-modal-title {
+  font-family: var(--font-royal);
+  font-size: 1.35rem;
+  color: var(--royal-gold);
+  margin: 0;
+  font-weight: 700;
+}
+
+.publish-modal-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.publish-dish-showcase {
+  display: flex;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.publish-thumb-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid var(--royal-gold);
+  background: #000;
+}
+
+.publish-preview-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.publish-type-pill {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.publish-type-pill.nonveg {
+  background: rgba(220, 38, 38, 0.95);
+  color: #ffffff;
+}
+
+.publish-type-pill.veg {
+  background: rgba(16, 185, 129, 0.95);
+  color: #ffffff;
+}
+
+.publish-showcase-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.publish-dish-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.publish-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.publish-meta-portion {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.publish-meta-insta {
+  font-size: 0.74rem;
+  color: #f43f5e;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.publish-dish-overview {
+  font-size: 0.84rem;
+  color: #e0d5cf;
+  line-height: 1.4;
+  margin: 4px 0 0 0;
+}
+
+.publish-culinary-highlights {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.publish-culinary-highlights strong {
+  color: var(--royal-gold);
+}
+
+.publish-live-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 22px;
+  font-size: 0.82rem;
+  color: #34d399;
+}
+
+.publish-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-save-publish {
+  background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%) !important;
+  color: #0b0204 !important;
+  font-weight: 800 !important;
+  font-size: 0.98rem !important;
+  padding: 12px 24px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4) !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-save-publish:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.6) !important;
+}
+
+/* Light mode overrides for publish modal */
+body.light-mode #publishDishModal {
+  background: rgba(30, 20, 22, 0.7) !important;
+}
+
+body.light-mode .modal-card.publish-dish-card {
+  background: #ffffff !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 16px 48px rgba(90, 12, 22, 0.25) !important;
+}
+
+body.light-mode .publish-modal-title {
+  color: #5a0c16 !important;
+}
+
+body.light-mode .publish-modal-desc {
+  color: #6b5256 !important;
+}
+
+body.light-mode .publish-dish-showcase {
+  background: #fffbf2 !important;
+  border-color: #e5cf96 !important;
+}
+
+body.light-mode .publish-dish-name {
+  color: #2b060b !important;
+}
+
+body.light-mode .publish-dish-overview {
+  color: #3c2a2d !important;
+}
+
+body.light-mode .publish-meta-portion {
+  color: #6b5256 !important;
+}
+
+body.light-mode .publish-live-notice {
+  background: #eefbf3 !important;
+  border-color: #86efac !important;
+  color: #166534 !important;
 }

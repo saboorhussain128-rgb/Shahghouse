@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=5.0">
+  <link rel="stylesheet" href="style.css?v=5.1">
 </head>
 <body>
 
@@ -811,7 +811,7 @@
             <input type="text" id="newDishPairings" class="form-input" placeholder="e.g. Mirchi Ka Salan, Dahi Ki Chutney, Butter Naan">
           </div>
 
-          <button class="btn-primary" onclick="addNewDish()" style="padding: 12px 24px; font-size: 1rem;">
+          <button class="btn-primary" onclick="promptPublishNewDish()" style="padding: 12px 24px; font-size: 1rem;">
             <span>➕</span> Publish Dish to Live Website
           </button>
         </div>
@@ -1059,6 +1059,76 @@
   </div>
 
   <!-- =================================================================
+       CONFIRM PUBLISH DISH LIVE POPUP MODAL (SAVE & PUBLISH)
+       ================================================================= -->
+  <div class="modal-overlay" id="publishDishModal">
+    <div class="modal-card publish-dish-card">
+      <button class="modal-close-btn" id="closePublishDishModal" title="Close" onclick="closeModal('publishDishModal')">&times;</button>
+      
+      <div class="publish-dish-header">
+        <div class="publish-header-icon-wrap">
+          <span class="publish-header-icon">🚀</span>
+        </div>
+        <div>
+          <h3 class="publish-modal-title">Publish Dish Live to Website</h3>
+          <p class="publish-modal-desc">
+            Review your dish photo, authentic Nizami details, and live display settings before publishing.
+          </p>
+        </div>
+      </div>
+
+      <!-- Preview Dish Showcase Card -->
+      <div class="publish-dish-showcase">
+        <div class="publish-thumb-container">
+          <img id="publishPreviewImg" src="image.png" alt="Dish Preview" class="publish-preview-thumb" onerror="this.onerror=null; this.src='image.png';">
+          <span id="publishPreviewTypeBadge" class="publish-type-pill nonveg">Non-Veg</span>
+        </div>
+        
+        <div class="publish-showcase-info">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
+            <h4 id="publishPreviewName" class="publish-dish-name">Special Hyderabadi Dum Biryani</h4>
+            <span id="publishPreviewSpecialBadge" class="chef-special-badge" style="display: none; font-size: 0.72rem;">⭐ Royal Chef Special</span>
+          </div>
+
+          <div class="publish-meta-row">
+            <span id="publishPreviewCategory" class="admin-cat-pill">Royal Dum Biryani</span>
+            <span id="publishPreviewPortion" class="publish-meta-portion">Portion: Signature Serving</span>
+            <span id="publishPreviewInstaBadge" class="publish-meta-insta" style="display: none;">📸 Instagram Connected</span>
+          </div>
+
+          <p id="publishPreviewDesc" class="publish-dish-overview">
+            Overview description of the dish will appear here.
+          </p>
+
+          <div class="publish-culinary-highlights">
+            <div class="publish-highlight-item">
+              <strong>Heritage:</strong> <span id="publishPreviewHeritage">Authentic Nizami recipe.</span>
+            </div>
+            <div class="publish-highlight-item">
+              <strong>Spices:</strong> <span id="publishPreviewIngredients">Shahi Spices &amp; Pure Desi Ghee.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="publish-live-notice">
+        <span class="notice-icon">🌐</span>
+        <span>Once saved, this dish will immediately appear live on the public Shah Ghouse menu and can be ordered by customers.</span>
+      </div>
+
+      <!-- Actions at the bottom -->
+      <div class="publish-modal-actions">
+        <button type="button" class="btn-outline btn-publish-cancel" onclick="closeModal('publishDishModal')">
+          <span>✏️</span> Edit Details
+        </button>
+        <button type="button" class="btn-primary btn-save-publish" id="btnConfirmPublishLive" onclick="executePublishNewDish()">
+          <span>💾</span> Save &amp; Publish Live
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================
        CONFIRM DELETE POPUP MODAL (YES / NO POPUP)
        ================================================================= -->
   <div class="modal-overlay confirm-delete-overlay" id="confirmDeleteModal">
@@ -1175,6 +1245,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=5.0"></script>
+  <script src="app.js?v=5.1"></script>
 </body>
 </html>

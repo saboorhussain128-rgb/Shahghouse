@@ -1141,20 +1141,26 @@ function initData() {
     saveData();
   }
 
+  window.appData = appData;
+
   // Check saved session
   const savedUser = localStorage.getItem('shahghouse_session_user');
   if (savedUser) {
     try {
       currentUser = JSON.parse(savedUser);
+      window.currentUser = currentUser;
     } catch (e) {
       currentUser = null;
+      window.currentUser = null;
     }
   }
 }
 
 function saveData() {
+  window.appData = appData;
   localStorage.setItem(CURRENT_STORAGE_KEY, JSON.stringify(appData));
 }
+window.saveData = saveData;
 
 // Show Toast
 function showToast(message, icon = "✅") {
@@ -1881,7 +1887,7 @@ window.renderAdminMenuList = function() {
 
   const countDisplay = document.getElementById('adminDishCountDisplay');
   if (countDisplay) {
-    countDisplay.textContent = `Showing ${filtered.length} of ${appData.menu.length} Dishes (${liveCount} Live on Website)`;
+    countDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${appData.menu.length}</strong> Dishes (<span class="admin-live-count-highlight">${liveCount} Live on Website</span>)`;
   }
 
   if (filtered.length === 0) {
@@ -1927,7 +1933,7 @@ window.renderAdminMenuList = function() {
               : '<span class="badge-status-hidden">○ Hidden from Website</span>'}
           </div>
           <div class="admin-prod-meta">
-            <span style="color: var(--gold-champagne); background: rgba(212, 175, 55, 0.12); padding: 2px 8px; border-radius: 4px; font-weight: 600;">${escapeHtml(catName)}</span>
+            <span class="admin-cat-pill">${escapeHtml(catName)}</span>
             <span>• Portion: ${escapeHtml(d.portion || 'Signature Serving')}</span>
             <span>• ID: <code>${escapeHtml(d.id)}</code></span>
           </div>
@@ -2054,26 +2060,43 @@ window.saveEditedDish = function(e) {
 };
 
 // ===================================================================
-// ADD NEW DISH LOGIC
+// ADD NEW DISH & PUBLISH CONFIRMATION POPUP LOGIC
 // ===================================================================
-window.addNewDish = function() {
-  if (!currentUser) return;
+let pendingPublishDish = null;
 
-  const name = document.getElementById('newDishName').value.trim();
-  const category = document.getElementById('newDishCategory').value;
-  const type = document.getElementById('newDishType').value;
-  const portion = document.getElementById('newDishPortion').value.trim() || "Signature Serving";
-  const special = document.getElementById('newDishSpecial') ? document.getElementById('newDishSpecial').checked : false;
-  const image = document.getElementById('newDishImage').value.trim() || "image.png";
-  const desc = document.getElementById('newDishDesc').value.trim();
-  const heritage = document.getElementById('newDishHeritage').value.trim();
-  const ingredients = document.getElementById('newDishIngredients').value.trim();
-  const pairings = document.getElementById('newDishPairings').value.trim();
-
-  if (!name || !desc) {
-    alert("Please fill in Dish Name and Overview Description.");
+// Opens the luxury Publish Dish Preview modal so owner can review before publishing live
+window.promptPublishNewDish = function() {
+  if (!currentUser) {
+    showToast("Please log in as Owner to publish dishes.", "⚠️");
     return;
   }
+
+  const nameInput = document.getElementById('newDishName');
+  let name = nameInput ? nameInput.value.trim() : '';
+  const catSelect = document.getElementById('newDishCategory');
+  const category = catSelect ? catSelect.value : 'biryani';
+  const typeSelect = document.getElementById('newDishType');
+  const type = typeSelect ? typeSelect.value : 'nonveg';
+  const portionInput = document.getElementById('newDishPortion');
+  const portion = portionInput && portionInput.value.trim() ? portionInput.value.trim() : "Signature Serving";
+  const specialCheck = document.getElementById('newDishSpecial');
+  const special = specialCheck ? specialCheck.checked : false;
+  const imageInput = document.getElementById('newDishImage');
+  let image = imageInput && imageInput.value.trim() ? imageInput.value.trim() : "image.png";
+  const descInput = document.getElementById('newDishDesc');
+  let desc = descInput ? descInput.value.trim() : '';
+  const heritageInput = document.getElementById('newDishHeritage');
+  const heritage = heritageInput && heritageInput.value.trim() 
+    ? heritageInput.value.trim() 
+    : "Crafted following authentic Nizami culinary heritage passed down through royal Hyderabadi kitchens.";
+  const ingInput = document.getElementById('newDishIngredients');
+  const ingredients = ingInput && ingInput.value.trim()
+    ? ingInput.value.trim()
+    : "Fresh selected cuts, royal Shahi garam masala, pure desi ghee, saffron.";
+  const pairingsInput = document.getElementById('newDishPairings');
+  const pairings = pairingsInput && pairingsInput.value.trim()
+    ? pairingsInput.value.trim()
+    : "Mirchi Ka Salan, Dahi Ki Chutney, Rumali Roti.";
 
   const instaInp = document.getElementById('newDishInstagram');
   let instagramUrl = instaInp ? instaInp.value.trim() : '';
@@ -2081,41 +2104,160 @@ window.addNewDish = function() {
     instagramUrl = image;
   }
 
-  const newDish = {
-    id: "dish-" + Date.now(),
-    name: name,
-    category: category,
-    type: type,
-    portion: portion,
-    special: special,
-    available: true,
-    desc: desc,
-    image: image,
-    instagram: instagramUrl || "https://www.instagram.com/shahghouseofficial",
-    heritage: heritage || "Crafted using traditional slow-cooking Nizami culinary methods.",
-    ingredients: ingredients || "Aromatic Shahi Spices, Pure Ghee, and Fresh Herbs.",
-    pairings: pairings || "Enjoyed with traditional Hyderabadi accompaniments."
+  // If dish name is missing, prompt cleanly
+  if (!name) {
+    if (nameInput) {
+      nameInput.focus();
+      nameInput.style.borderColor = '#ef4444';
+      setTimeout(() => { nameInput.style.borderColor = ''; }, 2200);
+    }
+    showToast("Please enter a Dish Name before publishing.", "⚠️");
+    return;
+  }
+
+  // Default description if omitted
+  if (!desc) {
+    desc = `Authentic Shah Ghouse ${name} prepared fresh with traditional Nizami spices, pure desi ghee, and our secret 1989 culinary craft.`;
+    if (descInput) descInput.value = desc;
+  }
+
+  // Find category display name
+  const catObj = (appData.categories || []).find(c => c.id === category);
+  const catName = catObj ? catObj.name : category;
+
+  // Store in pending state
+  pendingPublishDish = {
+    name,
+    category,
+    catName,
+    type,
+    portion,
+    special,
+    image,
+    desc,
+    heritage,
+    ingredients,
+    pairings,
+    instagram: instagramUrl || "https://www.instagram.com/shahghouseofficial"
   };
 
+  // Populate preview elements inside #publishDishModal
+  const previewImg = document.getElementById('publishPreviewImg');
+  if (previewImg) {
+    previewImg.src = image;
+    previewImg.onerror = function() { this.src = 'image.png'; };
+  }
+
+  const previewName = document.getElementById('publishPreviewName');
+  if (previewName) previewName.textContent = name;
+
+  const previewCat = document.getElementById('publishPreviewCategory');
+  if (previewCat) previewCat.textContent = catName;
+
+  const previewPortion = document.getElementById('publishPreviewPortion');
+  if (previewPortion) previewPortion.textContent = `Portion: ${portion}`;
+
+  const typeBadge = document.getElementById('publishPreviewTypeBadge');
+  if (typeBadge) {
+    typeBadge.textContent = type === 'veg' ? '🟢 Veg' : '🔴 Non-Veg';
+    typeBadge.className = `publish-type-pill ${type === 'veg' ? 'veg' : 'nonveg'}`;
+  }
+
+  const specialBadge = document.getElementById('publishPreviewSpecialBadge');
+  if (specialBadge) {
+    specialBadge.style.display = special ? 'inline-block' : 'none';
+  }
+
+  const instaBadge = document.getElementById('publishPreviewInstaBadge');
+  if (instaBadge) {
+    instaBadge.style.display = instagramUrl ? 'inline-block' : 'none';
+  }
+
+  const previewDesc = document.getElementById('publishPreviewDesc');
+  if (previewDesc) previewDesc.textContent = desc;
+
+  const previewHeritage = document.getElementById('publishPreviewHeritage');
+  if (previewHeritage) previewHeritage.textContent = heritage;
+
+  const previewIngredients = document.getElementById('publishPreviewIngredients');
+  if (previewIngredients) previewIngredients.textContent = ingredients;
+
+  // Open the confirmation modal (z-index: 3500)
+  openModal('publishDishModal');
+};
+
+// Saves the dish to database, updates the live website, and redirects to catalog view
+window.executePublishNewDish = function() {
+  if (!pendingPublishDish) {
+    // If pendingPublishDish was cleared or not set, prompt again
+    closeModal('publishDishModal');
+    window.promptPublishNewDish();
+    return;
+  }
+
+  const dishData = pendingPublishDish;
+
+  const newDish = {
+    id: "dish-" + Date.now(),
+    name: dishData.name,
+    category: dishData.category,
+    type: dishData.type,
+    portion: dishData.portion,
+    special: dishData.special,
+    available: true,
+    desc: dishData.desc,
+    image: dishData.image,
+    instagram: dishData.instagram,
+    heritage: dishData.heritage,
+    ingredients: dishData.ingredients,
+    pairings: dishData.pairings
+  };
+
+  // Add at the beginning so owner sees it at the top
   appData.menu.unshift(newDish);
+
+  // Persist to storage and refresh both public and admin interfaces
   saveData();
   renderPublicSite();
   populateCategorySelects();
   renderAdminMenuList();
 
-  document.getElementById('newDishName').value = '';
-  document.getElementById('newDishDesc').value = '';
-  document.getElementById('newDishHeritage').value = '';
-  document.getElementById('newDishIngredients').value = '';
-  document.getElementById('newDishPairings').value = '';
-  document.getElementById('newDishImage').value = '';
-  if (document.getElementById('newDishInstagram')) document.getElementById('newDishInstagram').value = '';
-  if (document.getElementById('newDishInstaStatus')) document.getElementById('newDishInstaStatus').style.display = 'none';
-  document.getElementById('newDishImagePreview').src = 'image.png';
-  if (document.getElementById('newDishSpecial')) document.getElementById('newDishSpecial').checked = false;
+  // Reset form
+  const nameInput = document.getElementById('newDishName');
+  if (nameInput) nameInput.value = '';
+  const descInput = document.getElementById('newDishDesc');
+  if (descInput) descInput.value = '';
+  const heritageInput = document.getElementById('newDishHeritage');
+  if (heritageInput) heritageInput.value = '';
+  const ingInput = document.getElementById('newDishIngredients');
+  if (ingInput) ingInput.value = '';
+  const pairingsInput = document.getElementById('newDishPairings');
+  if (pairingsInput) pairingsInput.value = '';
+  const imgInput = document.getElementById('newDishImage');
+  if (imgInput) imgInput.value = '';
+  const instaInp = document.getElementById('newDishInstagram');
+  if (instaInp) instaInp.value = '';
+  const instaStatus = document.getElementById('newDishInstaStatus');
+  if (instaStatus) instaStatus.style.display = 'none';
+  const imgPreview = document.getElementById('newDishImagePreview');
+  if (imgPreview) imgPreview.src = 'image.png';
+  const specialCheck = document.getElementById('newDishSpecial');
+  if (specialCheck) specialCheck.checked = false;
 
+  // Close the publish modal
+  closeModal('publishDishModal');
+  pendingPublishDish = null;
+
+  // Automatically switch tab to All Dishes catalog view
   switchAdminTab('tabCatalog');
-  showToast(`Dish "${name}" added and live on website!`, "🍽️");
+
+  // Trigger celebration toast
+  showToast(`Dish "${newDish.name}" saved & live on website!`, "💾");
+};
+
+// Alias for backwards compatibility
+window.addNewDish = function() {
+  window.promptPublishNewDish();
 };
 
 // ===================================================================
