@@ -1948,3 +1948,230 @@ body.light-mode .btn-more-info {
     font-size: 2.3rem;
   }
 }
+
+
+/* ===================================================================
+   OWNER PORTAL ENHANCEMENTS & EDIT DISH MODAL
+   =================================================================== */
+.modal-card.admin-modal {
+  max-width: 1050px !important;
+  width: 96% !important;
+  padding: 30px !important;
+}
+
+.modal-card.edit-dish-modal {
+  max-width: 820px !important;
+  width: 95% !important;
+  padding: 30px !important;
+}
+
+/* Stats Summary Cards */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-stat-card .stat-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.admin-stat-card .stat-number {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--royal-gold);
+  line-height: 1.1;
+}
+
+.admin-stat-card .stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+/* Admin Search & Filter Toolbar */
+.admin-search-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.admin-count-badge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-champagne);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--border-gold);
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Products in Admin */
+.admin-menu-list {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.admin-product-item:hover {
+  border-color: var(--border-gold);
+  background: rgba(41, 16, 21, 0.4);
+}
+
+.admin-prod-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-gold);
+  flex-shrink: 0;
+}
+
+.admin-prod-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-prod-title {
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-prod-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.admin-prod-desc-snippet {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500px;
+}
+
+.admin-prod-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-edit {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-champagne);
+  border: 1px solid var(--border-gold);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: var(--transition);
+}
+
+.btn-edit:hover {
+  background: var(--royal-gold);
+  color: #100406;
+}
+
+/* Category Grid in Admin */
+.admin-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.admin-category-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-category-card.custom-cat {
+  border-color: var(--border-gold);
+  background: rgba(212, 175, 55, 0.06);
+}
+
+/* Light mode overrides */
+body.light-mode .admin-stat-card {
+  background: #fdfaf4 !important;
+  border-color: #d4af37 !important;
+}
+body.light-mode .admin-stat-card .stat-number {
+  color: #8a0a17 !important;
+}
+body.light-mode .admin-search-toolbar {
+  background: #fbf8f2 !important;
+  border-color: #e5ded2 !important;
+}
+body.light-mode .admin-product-item {
+  background: #ffffff !important;
+  border-color: #e8e0d5 !important;
+}
+body.light-mode .admin-prod-title {
+  color: #3d070e !important;
+}
+body.light-mode .admin-category-card {
+  background: #ffffff !important;
+  border-color: #e8e0d5 !important;
+}
+body.light-mode .modal-card.edit-dish-modal {
+  background: #ffffff !important;
+  color: #2b2b2b !important;
+}

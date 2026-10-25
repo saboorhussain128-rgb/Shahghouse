@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.1">
+  <link rel="stylesheet" href="style.css?v=4.2">
 </head>
 <body>
 
@@ -415,14 +415,208 @@
 
       <!-- Tab Navigation -->
       <div class="admin-tabs">
-        <button class="admin-tab-btn active" data-target="tabFeatures" id="tabFeaturesBtn">👑 Add Specialties</button>
-        <button class="admin-tab-btn" data-target="tabCatalog" id="tabCatalogBtn">🍽️ Manage Menu Dishes</button>
+        <button class="admin-tab-btn active" data-target="tabCatalog" id="tabCatalogBtn">🍽️ All Products &amp; Dishes</button>
+        <button class="admin-tab-btn" data-target="tabAddDish" id="tabAddDishBtn">➕ Add New Dish</button>
+        <button class="admin-tab-btn" data-target="tabCategories" id="tabCategoriesBtn">📂 Manage Categories</button>
+        <button class="admin-tab-btn" data-target="tabFeatures" id="tabFeaturesBtn">👑 Royal Specialties</button>
         <button class="admin-tab-btn" data-target="tabHero" id="tabHeroBtn">⚙️ Banners &amp; Timings</button>
-        <button class="admin-tab-btn" data-target="tabGithub" id="tabGithubBtn">🐙 GitHub Sync &amp; JSON</button>
+        <button class="admin-tab-btn" data-target="tabGithub" id="tabGithubBtn">🐙 Backup &amp; Sync</button>
       </div>
 
-      <!-- TAB 1: ADD NEW SPECIALS (OWNER ONLY) -->
-      <div class="admin-tab-panel active" id="tabFeatures">
+      <!-- =============================================================
+           TAB 1: ALL PRODUCTS & DISHES (OWNER PRODUCT MANAGEMENT)
+           ============================================================= -->
+      <div class="admin-tab-panel active" id="tabCatalog">
+        
+        <!-- Stats Summary Bar -->
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <span class="stat-icon">🍽️</span>
+            <div>
+              <div class="stat-number" id="adminStatTotalDishes">0</div>
+              <div class="stat-label">Total Live Dishes</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-icon">📂</span>
+            <div>
+              <div class="stat-number" id="adminStatTotalCats">0</div>
+              <div class="stat-label">Categories</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-icon">🔴</span>
+            <div>
+              <div class="stat-number" id="adminStatNonVeg">0</div>
+              <div class="stat-label">Non-Veg Dishes</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <span class="stat-icon">🟢</span>
+            <div>
+              <div class="stat-number" id="adminStatVeg">0</div>
+              <div class="stat-label">Veg Dishes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Shortcut Buttons -->
+        <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="switchAdminTab('tabAddDish')">
+            <span>➕</span> Add New Dish
+          </button>
+          <button class="btn-outline" onclick="switchAdminTab('tabCategories')">
+            <span>📂</span> Add &amp; Manage Categories
+          </button>
+        </div>
+
+        <!-- Search & Filter Toolbar -->
+        <div class="admin-search-toolbar">
+          <div style="position: relative; flex: 1; min-width: 240px;">
+            <input type="text" id="adminSearchInput" class="form-input" placeholder="🔍 Search any dish by name, ingredients, or ID..." style="padding-left: 36px;" oninput="handleAdminSearch()">
+            <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
+          </div>
+          <div style="min-width: 220px;">
+            <select id="adminCategoryFilter" class="form-select" onchange="handleAdminCategoryFilter()">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+          <div id="adminDishCountDisplay" class="admin-count-badge">Showing 72 Dishes</div>
+        </div>
+
+        <!-- Dishes List Container -->
+        <div id="adminMenuList" class="admin-menu-list">
+          <!-- Populated dynamically by JS with Edit and Delete options -->
+        </div>
+      </div>
+
+      <!-- =============================================================
+           TAB 2: ADD NEW DISH
+           ============================================================= -->
+      <div class="admin-tab-panel" id="tabAddDish">
+        <div class="admin-card-section">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="color: #fff; margin: 0; font-family: 'Cinzel', serif;">➕ Add New Dish to Live Website</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                Fill out the details below. As soon as you click Add, this dish will be published immediately to the live digital menu.
+              </p>
+            </div>
+            <button class="btn-outline" onclick="switchAdminTab('tabCatalog')" style="font-size: 0.82rem; padding: 6px 12px;">
+              ⬅️ Back to All Products
+            </button>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Dish Name *</label>
+              <input type="text" id="newDishName" class="form-input" placeholder="e.g. Shah Ghouse Mutton Shikampur Kebab" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="newDishCategory" class="form-select">
+                <!-- Dynamically populated from appData.categories including new categories -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Dietary Type *</label>
+              <select id="newDishType" class="form-select">
+                <option value="nonveg">🔴 Non-Veg</option>
+                <option value="veg">🟢 Veg</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Portion Size</label>
+              <input type="text" id="newDishPortion" class="form-input" placeholder="e.g. Signature Handi Serving / Serves 2">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Food Photo URL or Path</label>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="newDishImage" class="form-input" placeholder="Paste image URL (e.g. https://... or images/biryani-1-mutton.jpg)" style="flex: 1;" oninput="updateNewImagePreview()">
+                <img id="newDishImagePreview" src="image.png" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-gold);" onerror="this.src='image.png';" alt="Preview">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin: 6px 0 14px;">
+            <input type="checkbox" id="newDishSpecial" style="width: 18px; height: 18px; accent-color: var(--royal-gold); cursor: pointer;">
+            <label for="newDishSpecial" style="cursor: pointer; font-size: 0.9rem; color: #fff; font-weight: 600;">⭐ Mark as Royal Chef Specialty</label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Overview Description *</label>
+            <textarea id="newDishDesc" class="form-textarea" rows="2" placeholder="Brief flavor notes, tenderness, and aroma overview..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Heritage &amp; Cooking Technique</label>
+              <textarea id="newDishHeritage" class="form-textarea" rows="2" placeholder="Culinary lineage, slow cooking in copper degs, dum sealing..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Key Shahi Ingredients &amp; Spices</label>
+              <textarea id="newDishIngredients" class="form-textarea" rows="2" placeholder="Aromatic Nizami spices, pure desi ghee, fresh mint, saffron..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Perfect Traditional Pairings</label>
+            <input type="text" id="newDishPairings" class="form-input" placeholder="e.g. Mirchi Ka Salan, Dahi Ki Chutney, Butter Naan">
+          </div>
+
+          <button class="btn-primary" onclick="addNewDish()" style="padding: 12px 24px; font-size: 1rem;">
+            <span>➕</span> Publish Dish to Live Website
+          </button>
+        </div>
+      </div>
+
+      <!-- =============================================================
+           TAB 3: MANAGE CATEGORIES
+           ============================================================= -->
+      <div class="admin-tab-panel" id="tabCategories">
+        <div class="admin-card-section">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="color: #fff; margin: 0; font-family: 'Cinzel', serif;">➕ Add New Menu Category</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                Create a brand new category (e.g. <em>"Hyderabadi Fish &amp; Seafood"</em>, <em>"Beverages &amp; Mocktails"</em>). It will immediately appear as a filter tab on the website and inside all dish forms.
+              </p>
+            </div>
+            <button class="btn-outline" onclick="switchAdminTab('tabCatalog')" style="font-size: 0.82rem; padding: 6px 12px;">
+              ⬅️ Back to All Products
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 14px; align-items: flex-end;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Category Name *</label>
+              <input type="text" id="newCategoryName" class="form-input" placeholder="e.g. Hyderabadi Fish &amp; Seafood" oninput="autoGenerateCatId()">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Category Slug / ID *</label>
+              <input type="text" id="newCategoryId" class="form-input" placeholder="e.g. seafood">
+            </div>
+            <div>
+              <button class="btn-primary" onclick="addNewCategory()" style="height: 42px; white-space: nowrap;">
+                <span>➕</span> Create Category
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="color: #fff; margin: 24px 0 12px; font-family: 'Cinzel', serif;">Live Menu Categories on Website:</h4>
+        <div id="adminCategoriesList" class="admin-categories-grid">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- =============================================================
+           TAB 4: ADD NEW SPECIALS (OWNER ONLY)
+           ============================================================= -->
+      <div class="admin-tab-panel" id="tabFeatures">
         <div class="admin-card-section">
           <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Cinzel', serif;">Add New Specialty Highlight</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
@@ -460,85 +654,9 @@
         </div>
       </div>
 
-      <!-- TAB 2: MANAGE MENU DISHES (OWNER & MANAGER) -->
-      <div class="admin-tab-panel" id="tabCatalog">
-        <div class="admin-card-section">
-          <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Cinzel', serif;">Add New Dish to Showcase</h3>
-          
-          <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 14px;">
-            <div class="form-group">
-              <label class="form-label">Dish Name</label>
-              <input type="text" id="newDishName" class="form-input" placeholder="e.g. Mutton Shikampur Kebab">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Category</label>
-              <select id="newDishCategory" class="form-select">
-                <option value="biryani">Royal Dum Biryani</option>
-                <option value="mandi">Arabian Mandi</option>
-                <option value="haleem">Haleem &amp; Soups</option>
-                <option value="kebabs">Stone Kebabs &amp; Tandoor</option>
-                <option value="starters">Hyderabadi Starters</option>
-                <option value="curries">Shahi Nizami Curries</option>
-                <option value="vegetarian">Vegetarian Delights</option>
-                <option value="breads">Tandoori Breads</option>
-                <option value="shawarma">Shawarma &amp; Rolls</option>
-                <option value="irani-chai">Irani Chai &amp; Bakery</option>
-                <option value="desserts">Royal Desserts</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Dietary Type</label>
-              <select id="newDishType" class="form-select">
-                <option value="nonveg">🔴 Non-Veg</option>
-                <option value="veg">🟢 Veg</option>
-              </select>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
-            <div class="form-group">
-              <label class="form-label">Portion Size</label>
-              <input type="text" id="newDishPortion" class="form-input" placeholder="e.g. Signature Serving">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Food Photo URL</label>
-              <input type="text" id="newDishImage" class="form-input" placeholder="Paste image link or leave default" value="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=80">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Overview Description</label>
-            <textarea id="newDishDesc" class="form-textarea" rows="2" placeholder="Brief flavor and texture overview..."></textarea>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-            <div class="form-group">
-              <label class="form-label">Heritage &amp; Cooking Technique</label>
-              <textarea id="newDishHeritage" class="form-textarea" rows="2" placeholder="History and slow-cooking method..."></textarea>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Key Shahi Ingredients</label>
-              <textarea id="newDishIngredients" class="form-textarea" rows="2" placeholder="Spices, herbs, nuts, and ghee..."></textarea>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Perfect Traditional Pairings</label>
-            <input type="text" id="newDishPairings" class="form-input" placeholder="e.g. Mirchi Ka Salan, Dahi Ki Chutney, Butter Naan">
-          </div>
-
-          <button class="btn-primary" onclick="addNewDish()">
-            <span>➕</span> Add Dish to Showcase
-          </button>
-        </div>
-
-        <h4 style="color: #fff; margin: 20px 0 10px; font-family: 'Cinzel', serif;">Current Dishes in Showcase:</h4>
-        <div id="adminMenuList">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-
-      <!-- TAB 3: BANNERS & TIMINGS -->
+      <!-- =============================================================
+           TAB 5: BANNERS & TIMINGS
+           ============================================================= -->
       <div class="admin-tab-panel" id="tabHero">
         <div class="admin-card-section">
           <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Cinzel', serif;">Edit Banners &amp; Details</h3>
@@ -574,22 +692,114 @@
         </div>
       </div>
 
-      <!-- TAB 4: GITHUB SYNC & DATA EXPORT -->
+      <!-- =============================================================
+           TAB 6: GITHUB SYNC, BACKUP & FACTORY RESTORE
+           ============================================================= -->
       <div class="admin-tab-panel" id="tabGithub">
         <div class="admin-card-section">
-          <h3 style="color: #fff; margin-bottom: 8px; font-family: 'Cinzel', serif;">GitHub Repository Integration</h3>
+          <h3 style="color: #fff; margin-bottom: 8px; font-family: 'Cinzel', serif;">Catalog Backup &amp; Repository Export</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
             Connected Repository: <code>https://github.com/saboorhussain128-rgb/Shahghouse.git</code>
           </p>
 
           <textarea id="jsonExportArea" class="form-textarea" rows="8" readonly style="font-family: monospace; font-size: 0.82rem; background: var(--bg-secondary);"></textarea>
           
-          <button class="btn-primary" style="margin-top: 10px;" onclick="copyJsonData()">
-            <span>📋</span> Copy Data to Clipboard
-          </button>
+          <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="copyJsonData()">
+              <span>📋</span> Copy Data to Clipboard
+            </button>
+            <button class="btn-danger" onclick="restoreDefaultCatalog()" style="padding: 10px 18px;">
+              <span>🔄</span> Restore Factory Default Menu (72 Authentic Dishes)
+            </button>
+          </div>
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- =================================================================
+       OWNER EDIT DISH MODAL
+       ================================================================= -->
+  <div class="modal-overlay" id="editDishModal">
+    <div class="modal-card edit-dish-modal">
+      <button class="modal-close-btn" id="closeEditDishModal" title="Close" onclick="closeModal('editDishModal')">&times;</button>
+      
+      <div style="border-bottom: 1px solid var(--border-gold); padding-bottom: 14px; margin-bottom: 18px;">
+        <h3 class="modal-card-title" style="font-size: 1.35rem; color: #fff;">✏️ Edit Dish Details</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+          Update dish name, category, image, and culinary information live on the website.
+        </p>
+      </div>
+
+      <form id="editDishForm" onsubmit="saveEditedDish(event)">
+        <input type="hidden" id="editDishId">
+        
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Dish Name *</label>
+            <input type="text" id="editDishName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select id="editDishCategory" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dietary Type *</label>
+            <select id="editDishType" class="form-select">
+              <option value="nonveg">🔴 Non-Veg</option>
+              <option value="veg">🟢 Veg</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Portion Size</label>
+            <input type="text" id="editDishPortion" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Food Photo URL or Path</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" id="editDishImage" class="form-input" style="flex: 1;" oninput="updateEditImagePreview()">
+              <img id="editDishImagePreview" src="image.png" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-gold);" onerror="this.src='image.png';" alt="Preview">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin: 6px 0 12px;">
+          <input type="checkbox" id="editDishSpecial" style="width: 18px; height: 18px; accent-color: var(--royal-gold); cursor: pointer;">
+          <label for="editDishSpecial" style="cursor: pointer; font-size: 0.9rem; color: #fff; font-weight: 600;">⭐ Mark as Royal Chef Specialty</label>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Overview Description *</label>
+          <textarea id="editDishDesc" class="form-textarea" rows="2" required></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Culinary Heritage &amp; Technique</label>
+            <textarea id="editDishHeritage" class="form-textarea" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Key Shahi Ingredients &amp; Spices</label>
+            <textarea id="editDishIngredients" class="form-textarea" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Perfect Traditional Accompaniments</label>
+          <input type="text" id="editDishPairings" class="form-input">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 18px;">
+          <button type="button" class="btn-outline" onclick="closeModal('editDishModal')">Cancel</button>
+          <button type="submit" class="btn-primary" style="padding: 10px 22px;">
+            <span>💾</span> Save Changes &amp; Update Live Website
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -669,6 +879,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.1"></script>
+  <script src="app.js?v=4.2"></script>
 </body>
 </html>

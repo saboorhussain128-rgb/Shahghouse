@@ -1104,25 +1104,29 @@ const RESTAURANT_DATA = {
 // Application State
 let appData = null;
 let currentUser = null; // { role: 'owner' | 'manager', username: '...' }
+let currentMenuFilter = 'all';
 
 // Current menu storage key - incrementing forces all client browsers to load latest dishes
-const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v13';
+const CURRENT_STORAGE_KEY = 'shahghouse_luxury_menu_v14';
 
 // Initialize Data
 function initData() {
   // Purge any older cached versions from localStorage
   ['shahghouse_luxury_menu', 'shahghouse_luxury_menu_v2', 'shahghouse_luxury_menu_v3', 
    'shahghouse_luxury_menu_v4', 'shahghouse_luxury_menu_v5', 'shahghouse_luxury_menu_v6', 
-   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 'shahghouse_luxury_menu_v10', 'shahghouse_luxury_menu_v11', 'shahghouse_luxury_menu_v12'].forEach(key => {
+   'shahghouse_luxury_menu_v7', 'shahghouse_luxury_menu_v8', 'shahghouse_luxury_menu_v9', 
+   'shahghouse_luxury_menu_v10', 'shahghouse_luxury_menu_v11', 'shahghouse_luxury_menu_v12', 
+   'shahghouse_luxury_menu_v13'].forEach(key => {
     try { localStorage.removeItem(key); } catch(e) {}
   });
 
   const saved = localStorage.getItem(CURRENT_STORAGE_KEY);
   if (saved) {
     try {
-      appData = JSON.parse(saved);
-      // Ensure authentic catalog has all dishes; if not, re-sync to RESTAURANT_DATA
-      if (!appData || !appData.menu || appData.menu.length < RESTAURANT_DATA.menu.length) {
+      const parsed = JSON.parse(saved);
+      if (parsed && Array.isArray(parsed.menu) && Array.isArray(parsed.categories)) {
+        appData = parsed;
+      } else {
         appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
         saveData();
       }
@@ -1200,28 +1204,46 @@ function renderFeaturesList() {
   `).join('');
 }
 
+// Setup Public Filter Tabs
+function setupFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.getAttribute('data-filter');
+      currentMenuFilter = cat;
+      renderMenuList(cat);
+    });
+  });
+}
+
 // Render Category Filter Tabs
 function renderCategoryPills() {
   const container = document.getElementById('categoryFilters');
   if (!container) return;
 
-  container.innerHTML = appData.categories.map((cat, idx) => `
-    <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-filter="${cat.id}">
-      ${escapeHtml(cat.name)}
-    </button>
-  `).join('');
+  container.innerHTML = appData.categories.map((cat, idx) => {
+    const isActive = (currentMenuFilter === cat.id) || (currentMenuFilter === 'all' && idx === 0);
+    return `
+      <button class="filter-btn ${isActive ? 'active' : ''}" data-filter="${cat.id}">
+        ${escapeHtml(cat.name)}
+      </button>
+    `;
+  }).join('');
 
   setupFilters();
 }
 
 // Render Menu Cards (Prices and WhatsApp removed, added "More Information" icon button)
-function renderMenuList(filter = 'all') {
+function renderMenuList(filter = null) {
+  if (filter !== null) currentMenuFilter = filter;
   const container = document.getElementById('productsGrid');
   if (!container) return;
 
-  const filtered = filter === 'all' 
+  const filtered = currentMenuFilter === 'all' 
     ? appData.menu 
-    : appData.menu.filter(p => p.category === filter);
+    : appData.menu.filter(p => p.category === currentMenuFilter);
 
   if (filtered.length === 0) {
     container.innerHTML = `
@@ -1411,8 +1433,10 @@ function setupAuth() {
 }
 
 // ===================================================================
-// STAFF MANAGEMENT / ADMIN DASHBOARD
+// STAFF MANAGEMENT / OWNER DASHBOARD ENGINE
 // ===================================================================
+
+// Setup Staff & Owner Dashboard
 function setupStaffDashboard() {
   const staffBtn = document.getElementById('staffNavBtn');
   const closeAdminBtn = document.getElementById('closeAdminModal');
@@ -1434,43 +1458,79 @@ function setupStaffDashboard() {
   const tabs = document.querySelectorAll('.admin-tab-btn');
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
-      
-      tab.classList.add('active');
       const targetId = tab.getAttribute('data-target');
-      const panel = document.getElementById(targetId);
-      if (panel) panel.classList.add('active');
+      switchAdminTab(targetId);
     });
   });
 
-  populateAdminForms();
+  populateCategorySelects();
 }
 
+// Open Staff Dashboard
 function openStaffDashboard() {
   if (!currentUser) return;
 
   const adminGreeting = document.getElementById('adminGreeting');
   const adminRoleDisplay = document.getElementById('adminRoleDisplay');
   const ownerOnlyTab = document.getElementById('tabFeaturesBtn');
+  const ownerCatsTab = document.getElementById('tabCategoriesBtn');
 
   if (adminGreeting) {
-    adminGreeting.textContent = currentUser.role === 'owner' ? "Owner Portal: Full Management Hub" : "Manager Portal: Catalog Operations";
+    adminGreeting.textContent = currentUser.role === 'owner' ? "👑 Owner Management Portal" : "📋 Manager Operations Hub";
   }
   if (adminRoleDisplay) {
-    adminRoleDisplay.textContent = `Logged in as: ${currentUser.username} (${currentUser.role.toUpperCase()})`;
+    adminRoleDisplay.textContent = `Logged in as: ${currentUser.username} (${currentUser.role.toUpperCase()}) • Full Catalog Access`;
   }
 
   if (currentUser.role !== 'owner') {
     if (ownerOnlyTab) ownerOnlyTab.style.display = 'none';
+    if (ownerCatsTab) ownerCatsTab.style.display = 'none';
   } else {
     if (ownerOnlyTab) ownerOnlyTab.style.display = 'inline-block';
+    if (ownerCatsTab) ownerCatsTab.style.display = 'inline-block';
   }
 
+  // Populate dynamic category dropdowns and lists
+  populateCategorySelects();
   populateAdminForms();
+  
+  // Default to Products tab so owner immediately sees all dishes
+  switchAdminTab('tabCatalog');
+
   openModal('adminModal');
 }
 
+// Switch Tabs inside Admin Modal
+window.switchAdminTab = function(targetId) {
+  const tabs = document.querySelectorAll('.admin-tab-btn');
+  const panels = document.querySelectorAll('.admin-tab-panel');
+
+  tabs.forEach(t => {
+    if (t.getAttribute('data-target') === targetId) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  panels.forEach(p => {
+    if (p.id === targetId) {
+      p.classList.add('active');
+    } else {
+      p.classList.remove('active');
+    }
+  });
+
+  if (targetId === 'tabCatalog') {
+    renderAdminMenuList();
+  } else if (targetId === 'tabCategories') {
+    renderAdminCategoriesList();
+  } else if (targetId === 'tabAddDish') {
+    populateCategorySelects();
+  }
+};
+
+// Populate Admin Forms & Fields
 function populateAdminForms() {
   const inputHeroTitle = document.getElementById('inputHeroTitle');
   const inputHeroSubtitle = document.getElementById('inputHeroSubtitle');
@@ -1483,6 +1543,7 @@ function populateAdminForms() {
   if (inputInstagram) inputInstagram.value = appData.settings.instagram;
 
   renderAdminFeaturesList();
+  renderAdminCategoriesList();
   renderAdminMenuList();
 
   const jsonExportArea = document.getElementById('jsonExportArea');
@@ -1491,7 +1552,432 @@ function populateAdminForms() {
   }
 }
 
-// Render Features in Admin
+// Populate Category Select Dropdowns Across Portal
+window.populateCategorySelects = function() {
+  const newSelect = document.getElementById('newDishCategory');
+  const editSelect = document.getElementById('editDishCategory');
+  const filterSelect = document.getElementById('adminCategoryFilter');
+
+  const nonAllCats = appData.categories.filter(c => c.id !== 'all');
+
+  if (newSelect) {
+    const curVal = newSelect.value;
+    newSelect.innerHTML = nonAllCats.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+    if (curVal && nonAllCats.some(c => c.id === curVal)) newSelect.value = curVal;
+  }
+  if (editSelect) {
+    editSelect.innerHTML = nonAllCats.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+  }
+  if (filterSelect) {
+    const curFilter = filterSelect.value || 'all';
+    filterSelect.innerHTML = `
+      <option value="all">All Categories (${appData.menu.length})</option>
+      ${nonAllCats.map(c => {
+        const count = appData.menu.filter(d => d.category === c.id).length;
+        return `<option value="${c.id}">${escapeHtml(c.name)} (${count})</option>`;
+      }).join('')}
+    `;
+    if (filterSelect.querySelector(`option[value="${curFilter}"]`)) {
+      filterSelect.value = curFilter;
+    }
+  }
+};
+
+// Render All Products in Owner Portal with Search & Filters
+window.renderAdminMenuList = function() {
+  const container = document.getElementById('adminMenuList');
+  if (!container) return;
+
+  // Update Stats Cards
+  const totalDishesEl = document.getElementById('adminStatTotalDishes');
+  const totalCatsEl = document.getElementById('adminStatTotalCats');
+  const nonVegEl = document.getElementById('adminStatNonVeg');
+  const vegEl = document.getElementById('adminStatVeg');
+
+  const nonAllCats = appData.categories.filter(c => c.id !== 'all');
+  if (totalDishesEl) totalDishesEl.textContent = appData.menu.length;
+  if (totalCatsEl) totalCatsEl.textContent = nonAllCats.length;
+  if (nonVegEl) nonVegEl.textContent = appData.menu.filter(d => d.type === 'nonveg').length;
+  if (vegEl) vegEl.textContent = appData.menu.filter(d => d.type === 'veg').length;
+
+  // Search & Filter
+  const searchInput = document.getElementById('adminSearchInput');
+  const searchVal = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const catFilter = document.getElementById('adminCategoryFilter');
+  const catVal = catFilter ? catFilter.value : 'all';
+
+  let filtered = appData.menu;
+  if (catVal !== 'all') {
+    filtered = filtered.filter(d => d.category === catVal);
+  }
+  if (searchVal) {
+    filtered = filtered.filter(d => 
+      (d.name && d.name.toLowerCase().includes(searchVal)) ||
+      (d.category && d.category.toLowerCase().includes(searchVal)) ||
+      (d.id && d.id.toLowerCase().includes(searchVal)) ||
+      (d.desc && d.desc.toLowerCase().includes(searchVal)) ||
+      (d.ingredients && d.ingredients.toLowerCase().includes(searchVal))
+    );
+  }
+
+  const countDisplay = document.getElementById('adminDishCountDisplay');
+  if (countDisplay) {
+    countDisplay.textContent = `Showing ${filtered.length} of ${appData.menu.length} Dishes`;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 40px 20px; color: var(--text-secondary); background: var(--bg-secondary); border-radius: 8px;">
+        <span style="font-size: 2.2rem;">🔍</span>
+        <h4 style="color: #fff; margin-top: 10px;">No dishes match your search</h4>
+        <p style="font-size: 0.85rem; margin-top: 4px;">Try searching with different keywords or switch the category filter.</p>
+        <button class="btn-outline" style="margin-top: 12px; font-size: 0.82rem;" onclick="clearAdminSearch()">
+          Clear Filters
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(d => {
+    const catObj = appData.categories.find(c => c.id === d.category);
+    const catName = catObj ? catObj.name : d.category;
+    const isVeg = d.type === 'veg';
+
+    return `
+      <div class="admin-product-item" id="admin-dish-${d.id}">
+        <img src="${escapeHtml(d.image)}" class="admin-prod-thumb" alt="${escapeHtml(d.name)}" onerror="this.onerror=null; this.src='image.png';">
+        <div class="admin-prod-details">
+          <div class="admin-prod-title">
+            <span>${escapeHtml(d.name)}</span>
+            ${isVeg 
+              ? '<span class="diet-tag veg-tag" style="font-size:0.68rem; padding: 2px 6px;"><span class="diet-dot"></span> Veg</span>' 
+              : '<span class="diet-tag nonveg-tag" style="font-size:0.68rem; padding: 2px 6px;"><span class="diet-dot"></span> Non-Veg</span>'}
+            ${d.special ? '<span class="chef-special-badge" style="font-size:0.68rem; padding: 2px 8px;">⭐ Royal Special</span>' : ''}
+          </div>
+          <div class="admin-prod-meta">
+            <span style="color: var(--gold-champagne); background: rgba(212, 175, 55, 0.12); padding: 2px 8px; border-radius: 4px; font-weight: 600;">${escapeHtml(catName)}</span>
+            <span>• Portion: ${escapeHtml(d.portion || 'Signature Serving')}</span>
+            <span>• ID: <code>${escapeHtml(d.id)}</code></span>
+          </div>
+          <p class="admin-prod-desc-snippet">${escapeHtml(d.desc || '')}</p>
+        </div>
+        <div class="admin-prod-actions">
+          <button class="btn-edit" onclick="openEditDishModal('${d.id}')" title="Edit this dish's details">
+            <span>✏️</span> Edit
+          </button>
+          <button class="btn-danger" onclick="deleteDish('${d.id}')" title="Delete this dish from website">
+            <span>🗑️</span> Delete
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+};
+
+window.handleAdminSearch = function() {
+  renderAdminMenuList();
+};
+
+window.handleAdminCategoryFilter = function() {
+  renderAdminMenuList();
+};
+
+window.clearAdminSearch = function() {
+  const searchInput = document.getElementById('adminSearchInput');
+  const catFilter = document.getElementById('adminCategoryFilter');
+  if (searchInput) searchInput.value = '';
+  if (catFilter) catFilter.value = 'all';
+  renderAdminMenuList();
+};
+
+// ===================================================================
+// EDIT DISH MODAL LOGIC
+// ===================================================================
+window.openEditDishModal = function(id) {
+  const dish = appData.menu.find(d => d.id === id);
+  if (!dish) {
+    alert("Dish not found!");
+    return;
+  }
+
+  document.getElementById('editDishId').value = dish.id;
+  document.getElementById('editDishName').value = dish.name || '';
+  
+  // Populate editDishCategory select
+  const editCatSelect = document.getElementById('editDishCategory');
+  if (editCatSelect) {
+    const nonAllCats = appData.categories.filter(c => c.id !== 'all');
+    editCatSelect.innerHTML = nonAllCats
+      .map(c => `<option value="${c.id}" ${c.id === dish.category ? 'selected' : ''}>${escapeHtml(c.name)}</option>`)
+      .join('');
+    editCatSelect.value = dish.category;
+  }
+
+  document.getElementById('editDishType').value = dish.type || 'nonveg';
+  document.getElementById('editDishPortion').value = dish.portion || '';
+  document.getElementById('editDishSpecial').checked = !!dish.special;
+  
+  const imgInput = document.getElementById('editDishImage');
+  const imgPreview = document.getElementById('editDishImagePreview');
+  if (imgInput) imgInput.value = dish.image || '';
+  if (imgPreview) imgPreview.src = dish.image || 'image.png';
+
+  document.getElementById('editDishDesc').value = dish.desc || '';
+  document.getElementById('editDishHeritage').value = dish.heritage || '';
+  document.getElementById('editDishIngredients').value = dish.ingredients || '';
+  document.getElementById('editDishPairings').value = dish.pairings || '';
+
+  openModal('editDishModal');
+};
+
+window.saveEditedDish = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+
+  const id = document.getElementById('editDishId').value;
+  const dish = appData.menu.find(d => d.id === id);
+  if (!dish) {
+    alert("Dish could not be found to update.");
+    return;
+  }
+
+  const name = document.getElementById('editDishName').value.trim();
+  const category = document.getElementById('editDishCategory').value;
+  const type = document.getElementById('editDishType').value;
+  const portion = document.getElementById('editDishPortion').value.trim() || "Signature Serving";
+  const special = document.getElementById('editDishSpecial').checked;
+  const image = document.getElementById('editDishImage').value.trim() || "image.png";
+  const desc = document.getElementById('editDishDesc').value.trim();
+  const heritage = document.getElementById('editDishHeritage').value.trim();
+  const ingredients = document.getElementById('editDishIngredients').value.trim();
+  const pairings = document.getElementById('editDishPairings').value.trim();
+
+  if (!name || !desc) {
+    alert("Please provide both Dish Name and Overview Description.");
+    return;
+  }
+
+  dish.name = name;
+  dish.category = category;
+  dish.type = type;
+  dish.portion = portion;
+  dish.special = special;
+  dish.image = image;
+  dish.desc = desc;
+  dish.heritage = heritage || "Crafted following authentic Hyderabadi culinary recipes passed down through royal Nizami kitchens.";
+  dish.ingredients = ingredients || "Aromatic Shahi Spices, Pure Desi Ghee, Farm-fresh ingredients.";
+  dish.pairings = pairings || "Accompanied with authentic Nizami condiments and fresh breads.";
+
+  saveData();
+  renderPublicSite();
+  renderAdminMenuList();
+  closeModal('editDishModal');
+  showToast(`Dish "${name}" updated and saved live to website!`, "💾");
+};
+
+// ===================================================================
+// ADD NEW DISH LOGIC
+// ===================================================================
+window.addNewDish = function() {
+  if (!currentUser) return;
+
+  const name = document.getElementById('newDishName').value.trim();
+  const category = document.getElementById('newDishCategory').value;
+  const type = document.getElementById('newDishType').value;
+  const portion = document.getElementById('newDishPortion').value.trim() || "Signature Serving";
+  const special = document.getElementById('newDishSpecial') ? document.getElementById('newDishSpecial').checked : false;
+  const image = document.getElementById('newDishImage').value.trim() || "image.png";
+  const desc = document.getElementById('newDishDesc').value.trim();
+  const heritage = document.getElementById('newDishHeritage').value.trim();
+  const ingredients = document.getElementById('newDishIngredients').value.trim();
+  const pairings = document.getElementById('newDishPairings').value.trim();
+
+  if (!name || !desc) {
+    alert("Please fill in Dish Name and Overview Description.");
+    return;
+  }
+
+  const newDish = {
+    id: "dish-" + Date.now(),
+    name: name,
+    category: category,
+    type: type,
+    portion: portion,
+    special: special,
+    desc: desc,
+    image: image,
+    heritage: heritage || "Crafted using traditional slow-cooking Nizami culinary methods.",
+    ingredients: ingredients || "Aromatic Shahi Spices, Pure Ghee, and Fresh Herbs.",
+    pairings: pairings || "Enjoyed with traditional Hyderabadi accompaniments."
+  };
+
+  appData.menu.unshift(newDish);
+  saveData();
+  renderPublicSite();
+  populateCategorySelects();
+  renderAdminMenuList();
+
+  document.getElementById('newDishName').value = '';
+  document.getElementById('newDishDesc').value = '';
+  document.getElementById('newDishHeritage').value = '';
+  document.getElementById('newDishIngredients').value = '';
+  document.getElementById('newDishPairings').value = '';
+  document.getElementById('newDishImage').value = '';
+  document.getElementById('newDishImagePreview').src = 'image.png';
+  if (document.getElementById('newDishSpecial')) document.getElementById('newDishSpecial').checked = false;
+
+  switchAdminTab('tabCatalog');
+  showToast(`Dish "${name}" added and live on website!`, "🍽️");
+};
+
+// ===================================================================
+// DELETE DISH LOGIC
+// ===================================================================
+window.deleteDish = function(id) {
+  if (!currentUser) return;
+  const dish = appData.menu.find(d => d.id === id);
+  const dishName = dish ? dish.name : "this dish";
+
+  if (confirm(`Are you sure you want to permanently delete "${dishName}" from the live website?`)) {
+    appData.menu = appData.menu.filter(d => d.id !== id);
+    saveData();
+    renderPublicSite();
+    populateCategorySelects();
+    renderAdminMenuList();
+    showToast(`Dish "${dishName}" removed from website.`, "🗑️");
+  }
+};
+
+// ===================================================================
+// CATEGORY MANAGEMENT (ADD & DELETE CATEGORIES)
+// ===================================================================
+window.autoGenerateCatId = function() {
+  const name = document.getElementById('newCategoryName').value;
+  const idInput = document.getElementById('newCategoryId');
+  if (idInput) {
+    idInput.value = name.toLowerCase().trim().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-');
+  }
+};
+
+window.addNewCategory = function() {
+  if (!currentUser || currentUser.role !== 'owner') {
+    alert("Only the Owner has permission to create new categories.");
+    return;
+  }
+
+  const nameInput = document.getElementById('newCategoryName');
+  const idInput = document.getElementById('newCategoryId');
+  const catName = nameInput.value.trim();
+  let catId = idInput.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+
+  if (!catName) {
+    alert("Please enter a Category Name.");
+    return;
+  }
+  if (!catId) {
+    catId = catName.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+  }
+
+  // Check if ID already exists
+  if (appData.categories.some(c => c.id === catId)) {
+    alert(`A category with ID "${catId}" already exists. Please choose a unique name or slug.`);
+    return;
+  }
+
+  appData.categories.push({
+    id: catId,
+    name: catName
+  });
+
+  saveData();
+  renderCategoryPills();
+  populateCategorySelects();
+  renderAdminCategoriesList();
+  renderAdminMenuList();
+
+  nameInput.value = '';
+  idInput.value = '';
+
+  showToast(`New category "${catName}" created and live on website!`, "📂");
+};
+
+window.deleteCategory = function(catId) {
+  if (!currentUser || currentUser.role !== 'owner') {
+    alert("Only the Owner can delete categories.");
+    return;
+  }
+
+  // Core default categories cannot be removed
+  const coreIds = ['all', 'biryani', 'mandi', 'haleem', 'kebabs', 'starters', 'curries', 'vegetarian', 'breads', 'shawarma', 'irani-chai', 'desserts'];
+  if (coreIds.includes(catId)) {
+    alert("Default heritage menu categories cannot be deleted.");
+    return;
+  }
+
+  const assignedCount = appData.menu.filter(d => d.category === catId).length;
+  if (assignedCount > 0) {
+    alert(`Cannot delete category "${catId}" because ${assignedCount} dish(es) are currently assigned to it. Please edit or reassign those dishes first.`);
+    return;
+  }
+
+  const catObj = appData.categories.find(c => c.id === catId);
+  const catName = catObj ? catObj.name : catId;
+
+  if (confirm(`Remove custom category "${catName}" from the website?`)) {
+    appData.categories = appData.categories.filter(c => c.id !== catId);
+    saveData();
+    renderCategoryPills();
+    populateCategorySelects();
+    renderAdminCategoriesList();
+    renderAdminMenuList();
+    showToast(`Category "${catName}" removed.`, "🗑️");
+  }
+};
+
+window.renderAdminCategoriesList = function() {
+  const container = document.getElementById('adminCategoriesList');
+  if (!container) return;
+
+  const coreIds = ['all', 'biryani', 'mandi', 'haleem', 'kebabs', 'starters', 'curries', 'vegetarian', 'breads', 'shawarma', 'irani-chai', 'desserts'];
+
+  container.innerHTML = appData.categories.filter(c => c.id !== 'all').map(c => {
+    const count = appData.menu.filter(d => d.category === c.id).length;
+    const isCore = coreIds.includes(c.id);
+
+    return `
+      <div class="admin-category-card ${isCore ? '' : 'custom-cat'}">
+        <div>
+          <strong style="color: #fff; font-size: 0.95rem;">${escapeHtml(c.name)}</strong>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">
+            Slug: <code>${escapeHtml(c.id)}</code> • <span style="color: var(--gold-champagne); font-weight: 600;">${count} dish${count === 1 ? '' : 'es'}</span>
+          </div>
+        </div>
+        <div>
+          ${isCore 
+            ? '<span style="font-size: 0.72rem; color: var(--text-muted); background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px;">Core Category</span>' 
+            : `<button class="btn-danger" style="font-size: 0.75rem; padding: 4px 8px;" onclick="deleteCategory('${c.id}')" title="Delete category">Delete</button>`}
+        </div>
+      </div>
+    `;
+  }).join('');
+};
+
+// Image Preview Handlers
+window.updateNewImagePreview = function() {
+  const val = document.getElementById('newDishImage').value.trim();
+  const prev = document.getElementById('newDishImagePreview');
+  if (prev) prev.src = val || 'image.png';
+};
+
+window.updateEditImagePreview = function() {
+  const val = document.getElementById('editDishImage').value.trim();
+  const prev = document.getElementById('editDishImagePreview');
+  if (prev) prev.src = val || 'image.png';
+};
+
+// ===================================================================
+// OWNER SPECIALTIES / HIGHLIGHTS LOGIC
+// ===================================================================
 function renderAdminFeaturesList() {
   const container = document.getElementById('adminFeaturesList');
   if (!container) return;
@@ -1515,29 +2001,6 @@ function renderAdminFeaturesList() {
   `).join('');
 }
 
-// Render Dishes in Admin
-function renderAdminMenuList() {
-  const container = document.getElementById('adminMenuList');
-  if (!container) return;
-
-  container.innerHTML = appData.menu.map(d => `
-    <div class="admin-item-row">
-      <div class="item-row-left">
-        <img src="${d.image}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-subtle);">
-        <div>
-          <strong style="color: #fff;">${escapeHtml(d.name)}</strong>
-          <span style="font-size: 0.72rem; color: var(--gold-champagne); background: rgba(212, 175, 55, 0.12); padding: 2px 6px; border-radius: 4px; margin-left: 6px;">${escapeHtml(d.category)}</span>
-          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">Portion: ${escapeHtml(d.portion || 'Signature')}</p>
-        </div>
-      </div>
-      <div class="item-row-actions">
-        <button class="btn-danger" onclick="deleteDish('${d.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-// Owner Feature Addition Handler
 window.addNewFeature = function() {
   if (!currentUser || currentUser.role !== 'owner') {
     alert("Only the Owner has permission to add new highlights.");
@@ -1579,7 +2042,6 @@ window.addNewFeature = function() {
   showToast(`Special "${title}" added and live on the website!`, "🎉");
 };
 
-// Delete Feature
 window.deleteFeature = function(id) {
   if (!currentUser || currentUser.role !== 'owner') {
     alert("Only the Owner can delete highlights.");
@@ -1594,66 +2056,9 @@ window.deleteFeature = function(id) {
   }
 };
 
-// Add Dish (No Price Field)
-window.addNewDish = function() {
-  if (!currentUser) return;
-
-  const name = document.getElementById('newDishName').value.trim();
-  const category = document.getElementById('newDishCategory').value;
-  const type = document.getElementById('newDishType').value;
-  const portion = document.getElementById('newDishPortion').value.trim() || "Signature Serving";
-  const image = document.getElementById('newDishImage').value.trim() || "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=80";
-  const desc = document.getElementById('newDishDesc').value.trim();
-  const heritage = document.getElementById('newDishHeritage').value.trim();
-  const ingredients = document.getElementById('newDishIngredients').value.trim();
-  const pairings = document.getElementById('newDishPairings').value.trim();
-
-  if (!name || !desc) {
-    alert("Please fill in Dish Name and Description.");
-    return;
-  }
-
-  const newDish = {
-    id: "dish-" + Date.now(),
-    name: name,
-    category: category,
-    type: type,
-    portion: portion,
-    special: false,
-    desc: desc,
-    image: image,
-    heritage: heritage || "Crafted using traditional slow-cooking Nizami culinary methods.",
-    ingredients: ingredients || "Aromatic Shahi Spices, Pure Ghee, and Fresh Herbs.",
-    pairings: pairings || "Enjoyed with traditional Hyderabadi accompaniments."
-  };
-
-  appData.menu.unshift(newDish);
-  saveData();
-  renderPublicSite();
-  renderAdminMenuList();
-
-  document.getElementById('newDishName').value = '';
-  document.getElementById('newDishDesc').value = '';
-  document.getElementById('newDishHeritage').value = '';
-  document.getElementById('newDishIngredients').value = '';
-  document.getElementById('newDishPairings').value = '';
-
-  showToast(`Dish "${name}" added to menu showcase!`, "🍽️");
-};
-
-// Delete Dish
-window.deleteDish = function(id) {
-  if (!currentUser) return;
-  if (confirm("Delete this dish from the showcase?")) {
-    appData.menu = appData.menu.filter(d => d.id !== id);
-    saveData();
-    renderPublicSite();
-    renderAdminMenuList();
-    showToast("Dish removed from menu.", "🗑️");
-  }
-};
-
-// Save Site Settings & Hero
+// ===================================================================
+// SITE SETTINGS, BACKUP & FACTORY RESTORE
+// ===================================================================
 window.saveSiteSettings = function() {
   if (!currentUser) return;
 
@@ -1672,31 +2077,35 @@ window.saveSiteSettings = function() {
   showToast("Restaurant settings updated live!", "✨");
 };
 
-// Reset to Default
 window.resetToDefault = function() {
-  if (confirm("Reset menu data back to official Shah Ghouse defaults?")) {
-    appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
+  if (confirm("Reset banner text and timings back to defaults?")) {
+    appData.hero = JSON.parse(JSON.stringify(RESTAURANT_DATA.hero));
+    appData.settings = JSON.parse(JSON.stringify(RESTAURANT_DATA.settings));
     saveData();
     renderPublicSite();
     populateAdminForms();
-    showToast("Website reset to authentic defaults.", "🔄");
+    showToast("Site settings reset to defaults.", "🔄");
   }
 };
 
-// Filter Tabs
-function setupFilters() {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.getAttribute('data-filter');
-      renderMenuList(cat);
-    });
-  });
-}
+window.restoreDefaultCatalog = function() {
+  if (!currentUser || currentUser.role !== 'owner') {
+    alert("Only the Owner has permission to restore factory defaults.");
+    return;
+  }
 
-// Setup Header Navigation Links (Only mark line when clicked, never two at once, no permanent line on startup)
+  if (confirm("Are you sure you want to restore the official factory default catalog with all 66 authentic dishes? Any custom dishes or categories will be reset.")) {
+    appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
+    saveData();
+    renderPublicSite();
+    populateCategorySelects();
+    renderAdminMenuList();
+    renderAdminCategoriesList();
+    renderAdminFeaturesList();
+    showToast("Official factory default catalog restored!", "🔄");
+  }
+};
+
 function setupNavLinks() {
   const navLinks = document.querySelectorAll('.nav-link');
   
