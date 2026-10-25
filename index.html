@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.2">
+  <link rel="stylesheet" href="style.css?v=4.3">
 </head>
 <body>
 
@@ -804,6 +804,47 @@
   </div>
 
   <!-- =================================================================
+       CONFIRM DELETE POPUP MODAL (YES / NO POPUP)
+       ================================================================= -->
+  <div class="modal-overlay confirm-delete-overlay" id="confirmDeleteModal">
+    <div class="modal-card confirm-delete-card">
+      <button class="modal-close-btn" id="closeConfirmDeleteModal" title="Close" onclick="closeConfirmDelete()">&times;</button>
+      
+      <div class="confirm-icon-wrap">
+        <span class="confirm-warn-icon">🗑️</span>
+      </div>
+
+      <h3 class="confirm-title" id="confirmDeleteTitle">Delete Dish From Website?</h3>
+      <p class="confirm-subtitle" id="confirmDeleteMsg">Are you sure you want to permanently remove this dish from the live menu showcase?</p>
+
+      <!-- Item Preview Card -->
+      <div class="confirm-item-preview" id="confirmItemPreview">
+        <img id="confirmItemImg" src="image.png" alt="Dish Preview" class="confirm-preview-thumb" onerror="this.src='image.png';">
+        <div class="confirm-preview-info">
+          <h4 id="confirmItemName" class="confirm-item-name">Dish Name</h4>
+          <div class="confirm-item-meta">
+            <span id="confirmItemCategory" class="confirm-meta-badge">Category</span>
+            <span id="confirmItemPortion" class="confirm-meta-portion">Portion</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="confirm-warning-note">
+        <span>⚠️</span> This action cannot be undone and updates the website live.
+      </p>
+
+      <div class="confirm-actions">
+        <button type="button" class="btn-confirm-no" id="btnConfirmDeleteNo" onclick="closeConfirmDelete()">
+          <span>❌</span> No, Keep Dish
+        </button>
+        <button type="button" class="btn-confirm-yes" id="btnConfirmDeleteYes" onclick="executeConfirmedDelete()">
+          <span>🗑️</span> Yes, Delete Dish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================
        TOAST NOTIFICATION
        ================================================================= -->
   <div class="toast-notice" id="toastNotice">
@@ -879,6 +920,6 @@
   </footer>
 
   <!-- Application Engine -->
-  <script src="app.js?v=4.2"></script>
+  <script src="app.js?v=4.3"></script>
 </body>
 </html>

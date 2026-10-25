@@ -1831,21 +1831,80 @@ window.addNewDish = function() {
 };
 
 // ===================================================================
-// DELETE DISH LOGIC
+// DELETE DISH & CONFIRMATION POPUP LOGIC (YES / NO POPUP)
 // ===================================================================
+let pendingDeleteAction = null; // { type: 'dish' | 'category', id, name }
+
 window.deleteDish = function(id) {
   if (!currentUser) return;
   const dish = appData.menu.find(d => d.id === id);
-  const dishName = dish ? dish.name : "this dish";
+  if (!dish) return;
 
-  if (confirm(`Are you sure you want to permanently delete "${dishName}" from the live website?`)) {
+  pendingDeleteAction = {
+    type: 'dish',
+    id: id,
+    name: dish.name
+  };
+
+  const titleEl = document.getElementById('confirmDeleteTitle');
+  const msgEl = document.getElementById('confirmDeleteMsg');
+  const imgEl = document.getElementById('confirmItemImg');
+  const nameEl = document.getElementById('confirmItemName');
+  const catEl = document.getElementById('confirmItemCategory');
+  const portionEl = document.getElementById('confirmItemPortion');
+  const btnYes = document.getElementById('btnConfirmDeleteYes');
+  const btnNo = document.getElementById('btnConfirmDeleteNo');
+
+  if (titleEl) titleEl.textContent = "Delete Dish From Website?";
+  if (msgEl) msgEl.textContent = "Are you sure you want to permanently remove this dish from the live menu showcase?";
+  if (imgEl) {
+    imgEl.src = dish.image || 'image.png';
+    imgEl.onerror = function() { this.src = 'image.png'; };
+  }
+  if (nameEl) nameEl.textContent = dish.name;
+
+  const catObj = appData.categories.find(c => c.id === dish.category);
+  if (catEl) catEl.textContent = catObj ? catObj.name : dish.category;
+  if (portionEl) portionEl.textContent = dish.portion || "Signature Serving";
+  if (btnYes) btnYes.innerHTML = '<span>🗑️</span> Yes, Delete Dish';
+  if (btnNo) btnNo.innerHTML = '<span>❌</span> No, Keep Dish';
+
+  openModal('confirmDeleteModal');
+};
+
+window.closeConfirmDelete = function() {
+  pendingDeleteAction = null;
+  closeModal('confirmDeleteModal');
+};
+
+window.executeConfirmedDelete = function() {
+  if (!pendingDeleteAction) {
+    closeConfirmDelete();
+    return;
+  }
+
+  if (pendingDeleteAction.type === 'dish') {
+    const id = pendingDeleteAction.id;
+    const name = pendingDeleteAction.name;
     appData.menu = appData.menu.filter(d => d.id !== id);
     saveData();
     renderPublicSite();
     populateCategorySelects();
     renderAdminMenuList();
-    showToast(`Dish "${dishName}" removed from website.`, "🗑️");
+    showToast(`Dish "${name}" deleted from website.`, "🗑️");
+  } else if (pendingDeleteAction.type === 'category') {
+    const id = pendingDeleteAction.id;
+    const name = pendingDeleteAction.name;
+    appData.categories = appData.categories.filter(c => c.id !== id);
+    saveData();
+    renderCategoryPills();
+    populateCategorySelects();
+    renderAdminCategoriesList();
+    renderAdminMenuList();
+    showToast(`Category "${name}" removed from website.`, "🗑️");
   }
+
+  closeConfirmDelete();
 };
 
 // ===================================================================
@@ -1923,15 +1982,31 @@ window.deleteCategory = function(catId) {
   const catObj = appData.categories.find(c => c.id === catId);
   const catName = catObj ? catObj.name : catId;
 
-  if (confirm(`Remove custom category "${catName}" from the website?`)) {
-    appData.categories = appData.categories.filter(c => c.id !== catId);
-    saveData();
-    renderCategoryPills();
-    populateCategorySelects();
-    renderAdminCategoriesList();
-    renderAdminMenuList();
-    showToast(`Category "${catName}" removed.`, "🗑️");
-  }
+  pendingDeleteAction = {
+    type: 'category',
+    id: catId,
+    name: catName
+  };
+
+  const titleEl = document.getElementById('confirmDeleteTitle');
+  const msgEl = document.getElementById('confirmDeleteMsg');
+  const imgEl = document.getElementById('confirmItemImg');
+  const nameEl = document.getElementById('confirmItemName');
+  const catEl = document.getElementById('confirmItemCategory');
+  const portionEl = document.getElementById('confirmItemPortion');
+  const btnYes = document.getElementById('btnConfirmDeleteYes');
+  const btnNo = document.getElementById('btnConfirmDeleteNo');
+
+  if (titleEl) titleEl.textContent = "Delete Menu Category?";
+  if (msgEl) msgEl.textContent = `Are you sure you want to remove category "${catName}" from the website?`;
+  if (imgEl) imgEl.src = 'logo.svg';
+  if (nameEl) nameEl.textContent = catName;
+  if (catEl) catEl.textContent = "Custom Category";
+  if (portionEl) portionEl.textContent = `Slug: ${catId}`;
+  if (btnYes) btnYes.innerHTML = '<span>🗑️</span> Yes, Delete Category';
+  if (btnNo) btnNo.innerHTML = '<span>❌</span> No, Keep Category';
+
+  openModal('confirmDeleteModal');
 };
 
 window.renderAdminCategoriesList = function() {
