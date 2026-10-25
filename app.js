@@ -2501,7 +2501,7 @@ function renderAdminFeaturesList() {
         <span style="font-size: 1.4rem;">${f.icon || '🍲'}</span>
         <div>
           <strong class="admin-feat-name">${escapeHtml(f.title)}</strong>
-          <span style="font-size: 0.72rem; background: rgba(212, 175, 55, 0.15); color: var(--gold-champagne); padding: 2px 6px; border-radius: 4px; margin-left: 6px;">${escapeHtml(f.badge || 'SPECIAL')}</span>
+          <span class="admin-feat-badge">${escapeHtml(f.badge || 'SPECIAL')}</span>
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">${escapeHtml(f.desc)}</p>
         </div>
       </div>

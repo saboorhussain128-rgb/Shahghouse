@@ -55,10 +55,14 @@ body.light-mode {
   --bg-card: #ffffff;
   --bg-card-hover: #fdfbf7;
   --text-primary: #1a1617;
-  --text-secondary: #4a4543;
-  --text-muted: #78716c;
-  --border-gold: rgba(184, 134, 11, 0.35);
-  --border-subtle: rgba(0, 0, 0, 0.08);
+  --text-secondary: #3d3536;
+  --text-muted: #6b6360;
+  --royal-gold: #9e7506; /* High-contrast antique gold with bold readability */
+  --gold-champagne: #5a0c16; /* Deep royal crimson for text: 100% visible on ivory/white */
+  --gold-muted: #755500;
+  --gold-glow: rgba(158, 117, 6, 0.25);
+  --border-gold: rgba(158, 117, 6, 0.45);
+  --border-subtle: rgba(0, 0, 0, 0.1);
   --shadow-subtle: 0 4px 18px rgba(0, 0, 0, 0.06);
   --shadow-elevated: 0 12px 30px rgba(74, 10, 18, 0.1);
   background-image: 
@@ -4700,4 +4704,333 @@ body.light-mode .publish-live-notice {
   background: #eefbf3 !important;
   border-color: #86efac !important;
   color: #166534 !important;
+}
+
+
+/* ===================================================================
+   COMPREHENSIVE HIGH-CONTRAST VISIBILITY RULES FOR LIGHT MODE
+   Ensures ALL yellow, pale golden, or light text is 100% visible
+   =================================================================== */
+
+/* 1. HERO TAG & BADGES (CRITICAL USER REQUEST) */
+body.light-mode .hero-tag {
+  background: #fdf3e4 !important;
+  border: 1.5px solid #b8860b !important;
+  color: #5a0c16 !important; /* Bold deep royal crimson: ultra sharp & legible */
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  box-shadow: 0 3px 12px rgba(184, 134, 11, 0.22) !important;
+}
+
+/* 2. BRAND SUB-TITLE & HEADER */
+body.light-mode .brand-sub-title {
+  color: #7a0f1b !important;
+  font-weight: 800 !important;
+  letter-spacing: 3px !important;
+}
+
+body.light-mode .nav-link {
+  color: #2b060b !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .nav-link:hover,
+body.light-mode .nav-link.active {
+  color: #8a0a17 !important;
+}
+
+body.light-mode .staff-icon-btn {
+  background: linear-gradient(135deg, #fff9ee, #fbeecf) !important;
+  color: #5a0c16 !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 2px 10px rgba(184, 134, 11, 0.2) !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .staff-icon-btn:hover {
+  background: linear-gradient(135deg, #d4af37, #aa820a) !important;
+  color: #100406 !important;
+}
+
+body.light-mode .badge-heritage {
+  background: #faecd2 !important;
+  border-color: #d4af37 !important;
+  color: #5a0c16 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .ticker-link {
+  color: #fdf3cf !important; /* Ticker bar has dark red background */
+}
+
+/* 3. HERO SECTION STATS & TITLES */
+body.light-mode .stat-item h3 {
+  color: #7a0f1b !important;
+  font-weight: 900 !important;
+}
+
+body.light-mode .stat-item p {
+  color: #4a3e40 !important;
+  font-weight: 700 !important;
+}
+
+/* 4. SECTION PRE-TITLES & HEADINGS */
+body.light-mode .section-pretitle {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+  letter-spacing: 2.5px !important;
+}
+
+body.light-mode .section-desc {
+  color: #4a3e40 !important;
+  font-weight: 500 !important;
+}
+
+/* 5. FEATURES CARDS & BADGES */
+body.light-mode .feature-card {
+  background: #ffffff !important;
+  border: 1px solid #e2d7c5 !important;
+  box-shadow: 0 4px 18px rgba(90, 12, 22, 0.06) !important;
+}
+
+body.light-mode .feature-title {
+  color: #2b060b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .feature-desc {
+  color: #4a3e40 !important;
+}
+
+body.light-mode .feature-badge {
+  background: #fdf3e4 !important;
+  color: #6a0d18 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .feature-icon-box {
+  background: #fdf7eb !important;
+  border-color: #d4af37 !important;
+}
+
+/* 6. OUTLETS CARDS, HEADINGS & PHONE NUMBERS */
+.outlet-phone {
+  margin-top: 8px;
+  color: var(--gold-champagne);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+body.light-mode .outlet-card {
+  background: #ffffff !important;
+  border: 1px solid #e5ded2 !important;
+  border-left: 4px solid #b8860b !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .outlet-card h4 {
+  color: #2b060b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .outlet-card p {
+  color: #4a3e40 !important;
+}
+
+body.light-mode .outlet-phone,
+body.light-mode .outlet-card p[style*="gold-champagne"] {
+  color: #8a0a17 !important;
+  font-weight: 800 !important;
+}
+
+/* 7. DISH MORE INFORMATION MODAL */
+.dish-modal-cat-pill {
+  font-size: 0.8rem;
+  color: var(--gold-champagne);
+  background: rgba(212, 175, 55, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+body.light-mode .dish-modal-cat-pill,
+body.light-mode #dishModalCategory {
+  color: #5a0c16 !important;
+  background: #fdf3e4 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .dish-info-section {
+  background: #fdfaf3 !important;
+  border: 1px solid #ebdcc3 !important;
+}
+
+body.light-mode .dish-info-section h4 {
+  color: #6a0d18 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .dish-info-section p {
+  color: #382d2f !important;
+}
+
+/* 8. INSTAGRAM SHOWCASE BANNER */
+body.light-mode .insta-banner {
+  background: #ffffff !important;
+  border: 1px solid #e5ded2 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.light-mode .insta-handle-text h4 {
+  color: #2b060b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .insta-handle-text p {
+  color: #4a3e40 !important;
+}
+
+/* 9. MAIN FOOTER TEXT & LINKS */
+.footer-halal-badge {
+  margin-top: 12px;
+  color: var(--gold-champagne);
+  font-weight: 700;
+}
+
+.footer-insta-link {
+  color: var(--gold-champagne);
+  text-decoration: none;
+}
+
+.footer-repo-link {
+  color: var(--royal-gold);
+  text-decoration: none;
+}
+
+body.light-mode .footer-col h4 {
+  color: #2b060b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .footer-col h4::after {
+  background: #b8860b !important;
+}
+
+body.light-mode .footer-col p {
+  color: #4a3e40 !important;
+}
+
+body.light-mode .footer-halal-badge,
+body.light-mode .footer-col p[style*="gold-champagne"] {
+  color: #7a0f1b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .footer-insta-link,
+body.light-mode .footer-col a[style*="gold-champagne"] {
+  color: #7a0f1b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .footer-repo-link,
+body.light-mode .footer-bottom a[style*="royal-gold"] {
+  color: #7a0f1b !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .footer-links a {
+  color: #4a3e40 !important;
+}
+
+body.light-mode .footer-links a:hover {
+  color: #8a0a17 !important;
+}
+
+body.light-mode .footer-bottom {
+  border-top-color: #e5ded2 !important;
+  color: #4a3e40 !important;
+}
+
+/* 10. STAFF GATEWAY, DIALOGS & EXECUTIVE HUBS */
+body.light-mode .login-heritage-badge {
+  background: #fdf3e4 !important;
+  color: #5a0c16 !important;
+  border-color: #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .btn-login-back-site {
+  background: #fdf3e4 !important;
+  color: #5a0c16 !important;
+  border-color: #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .role-tag.owner-tag {
+  background: #fdf3e4 !important;
+  color: #5a0c16 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .theme-owner-portal .portal-security-badge {
+  color: #5a0c16 !important;
+  background: #fdf3e4 !important;
+  border-color: #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .portal-clock-chip {
+  color: #5a0c16 !important;
+  background: #fdf3e4 !important;
+  border-color: #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .confirm-meta-badge {
+  color: #5a0c16 !important;
+  background: #fdf3e4 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+.admin-feat-badge {
+  font-size: 0.72rem;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-champagne);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+body.light-mode .admin-feat-badge {
+  background: #fdf3e4 !important;
+  color: #5a0c16 !important;
+  border: 1px solid #d4af37 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .station-pill-btn {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .station-pill-btn:hover {
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+}
+
+body.light-mode .station-pill-btn.active {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+body.light-mode .product-desc {
+  color: #4a3e40 !important;
 }
