@@ -1286,7 +1286,7 @@ function renderMenuList(filter = null) {
         <div class="product-body">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             ${vegBadge}
-            <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">${escapeHtml(dish.portion || 'Signature Serving')}</span>
+            <span class="dish-portion-label">${escapeHtml(dish.portion || 'Signature Serving')}</span>
           </div>
           <h3 class="product-name" onclick="openDishInfoModal('${dish.id}')" style="cursor: pointer;">${escapeHtml(dish.name)}</h3>
           <p class="product-desc">${escapeHtml(dish.desc)}</p>

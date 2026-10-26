@@ -1226,15 +1226,18 @@ body.light-mode .product-img-wrap {
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(14, 12, 13, 0.88);
-  color: var(--gold-champagne);
-  border: 1px solid var(--border-gold);
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: rgba(14, 10, 12, 0.92) !important;
+  color: #ffd700 !important; /* Pure radiant 24K gold: high contrast 14:1 */
+  border: 1.5px solid #d4af37 !important;
+  padding: 5px 12px !important;
+  border-radius: 6px !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(6px) !important;
+  z-index: 2 !important;
 }
 
 /* Dietary Indicators */
@@ -5033,4 +5036,48 @@ body.light-mode .station-pill-btn.active {
 
 body.light-mode .product-desc {
   color: #4a3e40 !important;
+}
+
+
+/* High-Contrast Category Badge on All Dish Cards */
+body.light-mode .category-pill-tag {
+  background: rgba(14, 10, 12, 0.92) !important;
+  color: #ffd700 !important; /* Pure radiant 24K gold: 100% visible on dark badge */
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Hero Badge Overlay Text Legibility */
+.hero-badge-overlay .badge-text h4,
+body.light-mode .hero-badge-overlay .badge-text h4 {
+  color: #ffd700 !important;
+  font-weight: 800 !important;
+}
+
+.hero-badge-overlay .badge-text p,
+body.light-mode .hero-badge-overlay .badge-text p {
+  color: #f5eedf !important;
+}
+
+/* Dish Card Portion Label */
+.dish-portion-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+body.light-mode .dish-portion-label {
+  color: #554446 !important;
+  font-weight: 700 !important;
+}
+
+/* Dietary Indicators in Light Mode */
+body.light-mode .veg-tag {
+  color: #15803d !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .nonveg-tag {
+  color: #b91c1c !important;
+  font-weight: 800 !important;
 }
