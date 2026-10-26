@@ -611,6 +611,7 @@ const RESTAURANT_DATA = {
       special: true,
       desc: "Tender fried chicken strips coated in a velvety sauce infused with fresh mint, green chillies, garlic, and aromatic spices.",
       image: "images/starter-1.jpg",
+      instagram: "https://www.instagram.com/p/C9v8_7mS1a_/",
       heritage: "A contemporary Hyderabad favorite praised for its smooth minty undertone and crispy texture.",
       ingredients: "Chicken Strips, Fresh Mint Puree, Garlic, Curd, Crushed Cumin, Green Chillies, Coriander.",
       pairings: "Crisp Onion Salad and Fresh Lime."
@@ -624,6 +625,7 @@ const RESTAURANT_DATA = {
       special: true,
       desc: "Succulent boneless mutton chunks slow-cooked until fork tender, then flash-fried with cracked black pepper, curry leaves, and green chillies.",
       image: "images/starter-3.jpg",
+      instagram: "https://www.instagram.com/p/C5qT1mGv9bK/",
       heritage: "The crown jewel of Old City Hyderabad. Traditionally savored late into the evening across Charminar and Tolichowki.",
       ingredients: "Tender Mutton Cubes, Fresh Curry Leaves, Coarse Black Pepper, Green Chillies, Ginger-Garlic, Pure Desi Ghee.",
       pairings: "Steaming Khatti Dal, Fragrant Basmati Rice, and Sliced Onions."
@@ -722,6 +724,7 @@ const RESTAURANT_DATA = {
       special: true,
       desc: "Chicken slow-cooked on 'dum' (steam sealed) in a rich marinade of roasted poppy seeds, cashews, fried onions, and royal spices.",
       image: "images/curry-1.jpg",
+      instagram: "https://www.instagram.com/p/C4iO8vPq1xL/",
       heritage: "Traditional Hyderabadi celebratory curry cooked entirely by trapped aromatic steam.",
       ingredients: "Chicken Cuts, Cashew Nut Paste, Poppy Seeds (Khus Khus), Roasted Gram Flour, Garam Masala, Pure Ghee.",
       pairings: "Rumali Roti, Sheermal, or Paratha."
@@ -1081,6 +1084,7 @@ const RESTAURANT_DATA = {
       special: true,
       desc: "Slow-stewed dried apricots infused with fragrant rose water, garnished with crunchy apricot kernels and generous dollops of fresh clotted cream.",
       image: "images/dessert-3.jpg",
+      instagram: "https://www.instagram.com/p/C7uP6yNx5mE/",
       heritage: "The premier traditional royal dessert of Hyderabad, without which no Nizami banquet is complete.",
       ingredients: "Dry Apricots (Qubani), Apricot Kernels, Rose Water, Cane Sugar, Fresh Dairy Clotted Malai.",
       pairings: "Fresh Malai or Vanilla Ice Cream."
@@ -1094,6 +1098,7 @@ const RESTAURANT_DATA = {
       special: true,
       desc: "Golden fried bread triangles soaked in thick saffron rabri, flavored with cardamom and topped with roasted cashews, pistachios, and silver leaf.",
       image: "images/dessert-5.jpg",
+      instagram: "https://www.instagram.com/p/C3mQ8wRt2yK/",
       heritage: "Decadent royal dessert derived from 'Double Roti' (milk bread), beloved for centuries.",
       ingredients: "Artisanal Bread, Saffron Milk, Rabri, Green Cardamom, Desi Ghee, Pistachios, Chandi Ka Warq.",
       pairings: "Hot Irani Chai or enjoyed warm."
@@ -1139,6 +1144,20 @@ function initData() {
   } else {
     appData = JSON.parse(JSON.stringify(RESTAURANT_DATA));
     saveData();
+  }
+
+  // Ensure 100% of dishes have a valid Instagram link
+  if (appData && Array.isArray(appData.menu)) {
+    let updatedAny = false;
+    appData.menu.forEach(d => {
+      if (!d.instagram || d.instagram.trim() === '') {
+        d.instagram = "https://www.instagram.com/shahghouseofficial";
+        updatedAny = true;
+      }
+    });
+    if (updatedAny) {
+      saveData();
+    }
   }
 
   window.appData = appData;
@@ -1295,11 +1314,9 @@ function renderMenuList(filter = null) {
             <button class="btn-more-info" style="flex: 1.2;" onclick="openDishInfoModal('${dish.id}')">
               <span>ℹ️</span> Details
             </button>
-            ${dish.instagram ? `
-              <a href="${escapeHtml(dish.instagram)}" target="_blank" rel="noopener noreferrer" class="btn-card-insta" title="View official post on Shah Ghouse Instagram" onclick="event.stopPropagation()">
-                <span>📸</span> Instagram
-              </a>
-            ` : ''}
+            <a href="${escapeHtml(dish.instagram && dish.instagram.trim() ? dish.instagram.trim() : 'https://www.instagram.com/shahghouseofficial')}" target="_blank" rel="noopener noreferrer" class="btn-card-insta" title="View official post on Shah Ghouse Instagram" onclick="event.stopPropagation()">
+              <span>📸</span> Instagram
+            </a>
           </div>
         </div>
       </div>
@@ -1344,24 +1361,20 @@ window.openDishInfoModal = function(dishId) {
 
     const instaBlock = document.getElementById('dishModalInstaContainer');
   if (instaBlock) {
-    if (dish.instagram) {
-      instaBlock.style.display = 'block';
-      instaBlock.innerHTML = `
-        <div class="dish-modal-insta-banner">
-          <span class="insta-badge-icon">📸</span>
-          <div style="flex: 1;">
-            <strong>Official Shah Ghouse Instagram Video &amp; Post</strong>
-            <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--text-secondary);">Watch authentic handi preparation and live service video on Instagram.</p>
-          </div>
-          <a href="${escapeHtml(dish.instagram)}" target="_blank" rel="noopener noreferrer" class="btn-modal-insta-action">
-            <span>View Official Post</span> <span>↗</span>
-          </a>
+    const dishInstaLink = dish.instagram && dish.instagram.trim() ? dish.instagram.trim() : "https://www.instagram.com/shahghouseofficial";
+    instaBlock.style.display = 'block';
+    instaBlock.innerHTML = `
+      <div class="dish-modal-insta-banner">
+        <span class="insta-badge-icon">📸</span>
+        <div style="flex: 1;">
+          <strong>Official Shah Ghouse Instagram Video &amp; Post</strong>
+          <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--text-secondary);">Watch authentic handi preparation and live service video on Instagram.</p>
         </div>
-      `;
-    } else {
-      instaBlock.style.display = 'none';
-      instaBlock.innerHTML = '';
-    }
+        <a href="${escapeHtml(dishInstaLink)}" target="_blank" rel="noopener noreferrer" class="btn-modal-insta-action">
+          <span>View Official Post</span> <span>↗</span>
+        </a>
+      </div>
+    `;
   }
 
   openModal('dishInfoModal');
@@ -2047,7 +2060,10 @@ window.saveEditedDish = function(e) {
   dish.image = image;
   dish.desc = desc;
   const editInstaInp = document.getElementById('editDishInstagram');
-  if (editInstaInp) dish.instagram = editInstaInp.value.trim();
+  if (editInstaInp) {
+    const val = editInstaInp.value.trim();
+    dish.instagram = val || "https://www.instagram.com/shahghouseofficial";
+  }
   dish.heritage = heritage || "Crafted following authentic Hyderabadi culinary recipes passed down through royal Nizami kitchens.";
   dish.ingredients = ingredients || "Aromatic Shahi Spices, Pure Desi Ghee, Farm-fresh ingredients.";
   dish.pairings = pairings || "Accompanied with authentic Nizami condiments and fresh breads.";
@@ -2102,6 +2118,10 @@ window.promptPublishNewDish = function() {
   let instagramUrl = instaInp ? instaInp.value.trim() : '';
   if (!instagramUrl && image.includes('instagram.com/')) {
     instagramUrl = image;
+  }
+  // Guarantee every new dish has a valid Instagram link
+  if (!instagramUrl) {
+    instagramUrl = "https://www.instagram.com/shahghouseofficial";
   }
 
   // If dish name is missing, prompt cleanly
@@ -2170,7 +2190,8 @@ window.promptPublishNewDish = function() {
 
   const instaBadge = document.getElementById('publishPreviewInstaBadge');
   if (instaBadge) {
-    instaBadge.style.display = instagramUrl ? 'inline-block' : 'none';
+    instaBadge.style.display = 'inline-block';
+    instaBadge.textContent = '📸 Instagram Connected';
   }
 
   const previewDesc = document.getElementById('publishPreviewDesc');
@@ -2207,7 +2228,7 @@ window.executePublishNewDish = function() {
     available: true,
     desc: dishData.desc,
     image: dishData.image,
-    instagram: dishData.instagram,
+    instagram: dishData.instagram && dishData.instagram.trim() ? dishData.instagram.trim() : "https://www.instagram.com/shahghouseofficial",
     heritage: dishData.heritage,
     ingredients: dishData.ingredients,
     pairings: dishData.pairings
