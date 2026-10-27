@@ -1,0 +1,53 @@
+name: Deploy Shah Ghouse to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to AWS EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER || 'ubuntu' }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            echo "🚀 Starting automated deployment on AWS EC2..."
+            
+            WEB_DIR="/var/www/shahghouse"
+            
+            # Configure Git safe directory to avoid ownership issues
+            sudo git config --global --add safe.directory "$WEB_DIR" || true
+            
+            # Ensure directory exists or clone repository
+            if [ ! -d "$WEB_DIR/.git" ]; then
+              echo "Cloning repository..."
+              sudo rm -rf "$WEB_DIR"
+              sudo git clone https://github.com/saboorhussain128-rgb/Shahghouse.git "$WEB_DIR"
+            else
+              echo "Pulling latest changes from main branch..."
+              cd "$WEB_DIR"
+              sudo git fetch --all
+              sudo git reset --hard origin/main
+            fi
+            
+            # Ensure correct file permissions
+            sudo chown -R www-data:www-data "$WEB_DIR"
+            sudo chmod -R 755 "$WEB_DIR"
+            
+            # Reload Nginx server
+            sudo systemctl reload nginx
+            
+            echo "✅ Shah Ghouse website updated live on EC2!"
