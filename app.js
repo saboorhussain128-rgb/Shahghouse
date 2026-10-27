@@ -6,6 +6,23 @@
  * ===================================================================
  */
 
+// Node.js CLI Compatibility Bridge (enables `node app.js` to run local server on port 3000)
+if (typeof window === 'undefined' && typeof process !== 'undefined' && process.versions && process.versions.node) {
+  global.window = global;
+  global.document = {
+    getElementById: () => null,
+    querySelector: () => null,
+    querySelectorAll: () => [],
+    addEventListener: () => {}
+  };
+  global.localStorage = {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {}
+  };
+}
+
+
 // Initial Seed Data for Shah Ghouse Luxury Menu Showcase
 const RESTAURANT_DATA = {
   hero: {
@@ -3723,3 +3740,14 @@ window.triggerInstagramAutoDetect = function(mode = 'new') {
   }
   handleInstagramLinkInput(val, mode);
 };
+
+
+// If run via Node.js CLI (`node app.js`), boot the local web server on port 3000
+if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+  try {
+    const { startServer } = require('./server.js');
+    startServer(3000);
+  } catch (err) {
+    console.error('Failed to start server:', err);
+  }
+}

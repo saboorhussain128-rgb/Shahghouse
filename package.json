@@ -1,0 +1,19 @@
+{
+  "name": "shahghouse",
+  "version": "1.0.0",
+  "description": "Shah Ghouse Authentic Hyderabadi Cuisine - Luxury Digital Menu and Management Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node app.js"
+  },
+  "keywords": [
+    "shahghouse",
+    "restaurant",
+    "hyderabad",
+    "biryani"
+  ],
+  "author": "MOHD Saboor Hussain",
+  "license": "ISC"
+}
