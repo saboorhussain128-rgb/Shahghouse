@@ -44,10 +44,11 @@ jobs:
             fi
             
             # Ensure correct file permissions
-            sudo chown -R www-data:www-data "$WEB_DIR"
+            sudo chown -R ubuntu:www-data "$WEB_DIR"
             sudo chmod -R 755 "$WEB_DIR"
             
-            # Reload Nginx server
+            # Restart PM2 Node server & reload Nginx
+            pm2 restart shahghouse || true
             sudo systemctl reload nginx
             
             echo "✅ Shah Ghouse website updated live on EC2!"
